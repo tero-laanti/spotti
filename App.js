@@ -1,12 +1,18 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Search from './components/search/Search';
-import SearchResults from './components/search/SearchResults';
+import { View, Text } from 'react-native';
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import SearchScreen from './components/search/SearchScreen';
 
-const AppNavigator = createStackNavigator(
+const PlaceholderScreen = () => (
+  <View>
+    <Text>PLACEHOLDER</Text>
+  </View>
+);
+
+const AppNavigator = createBottomTabNavigator(
   {
-    Search,
-    SearchResults,
+    Search: SearchScreen,
+    Placeholder: PlaceholderScreen,
   },
   {
     initialRouteName: 'Search',
