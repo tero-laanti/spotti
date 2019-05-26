@@ -1,10 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import { View, Button } from 'react-native';
 
-const SearchResults = () => (
+const SearchResults = ({ navigation }) => (
   <View>
-    <Text>Search Results</Text>
+    <Button title="Check out Spot" onPress={() => navigation.navigate('SpotInfo')} />
   </View>
 );
+
+SearchResults.propTypes = {
+  navigation: PropTypes.shape({}).isRequired,
+};
 
 export default SearchResults;
