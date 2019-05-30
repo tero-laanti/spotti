@@ -11,7 +11,12 @@ const SearchNavigator = createStackNavigator(
     SpotInfo,
     Purchase,
   },
-  { initialRouteName: 'Search' }
+  {
+    initialRouteName: 'Search',
+    defaultNavigationOptions: {
+      header: null,
+    },
+  }
 );
 
 export default createAppContainer(SearchNavigator);
