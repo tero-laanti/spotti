@@ -4,6 +4,6 @@ import thunk from 'redux-thunk';
 
 const middleware = [thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const initStore = () => { return createStore((state) => state, composeEnhancers(applyMiddleware(...middleware))); };
+const initStore = () => { return createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware))); };
 
 export default initStore;
