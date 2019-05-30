@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-native';
 
@@ -32,36 +32,29 @@ const coordinates = {
   longitude: 22.29,
 };
 
-class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { searchInput: '' };
-  }
+const Search = ({ navigation }) => {
+  const [searchInput, setSearchInput] = useState('');
 
-  handleSearchInputChange = text => this.setState({ searchInput: text });
+  const handleSearchInputChange = text => setSearchInput(text);
 
-  render() {
-    const { searchInput } = this.state;
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.textInput}
-          value={searchInput}
-          onChangeText={this.handleSearchInputChange}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('SearchResults', { coordinates })}
-          >
-            <Text>SEARCH</Text>
-          </TouchableOpacity>
-        </View>
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.textInput}
+        value={searchInput}
+        onChangeText={handleSearchInputChange}
+      />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('SearchResults', { coordinates })}
+        >
+          <Text>SEARCH</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 Search.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
