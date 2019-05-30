@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const testMarkers = [
+const testSpots = [
   { id: 1, latitude: 60.448, longitude: 22.289, title: 1 },
   { id: 2, latitude: 60.452, longitude: 22.286, title: 2 },
 ];
@@ -31,25 +31,23 @@ class SpotsMapPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [],
+      markers: testSpots,
     };
   }
 
-  componentDidMount() {
-    this.setState({ markers: testMarkers });
-  }
-
   render() {
+    console.log(this.props.navigation)
     const { navigation } = this.props;
     const { markers } = this.state;
-    const coordinates = navigation.getParam('coordinates');
+    const initialCenterCoordinates = navigation.getParam('searchCoordinates');
+
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude,
+            latitude: initialCenterCoordinates.latitude,
+            longitude: initialCenterCoordinates.longitude,
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
           }}
@@ -71,7 +69,7 @@ SpotsMapPage.propTypes = {
   navigation: PropTypes.shape({
     state: PropTypes.shape({
       params: PropTypes.shape({
-        coordinates: PropTypes.shape({
+        searchCoordinates: PropTypes.shape({
           latitude: PropTypes.number.isRequired,
           longitude: PropTypes.number.isRequired,
         }).isRequired,
