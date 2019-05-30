@@ -1,7 +1,7 @@
 import MapView, { Marker } from 'react-native-maps';
-
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,10 +22,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const testMarkers: Marker[] = [
-  <Marker coordinate={{ latitude: 60.455, longitude: 22.295 }} />,
-  <Marker coordinate={{ latitude: 60.453, longitude: 22.292 }} />,
+const testMarkers = [
+  { id: 1, latitude: 60.448, longitude: 22.289, title: 1 },
+  { id: 2, latitude: 60.452, longitude: 22.286, title: 2 },
 ];
+
 class SpotsMapPage extends Component {
   constructor(props) {
     super(props);
@@ -39,22 +40,44 @@ class SpotsMapPage extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+    const { markers } = this.state;
+    const coordinates = navigation.getParam('coordinates');
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
         >
-          {this.state.markers.map(marker => marker)}
+          {markers.map(marker => (
+            <Marker
+              key={marker.id}
+              onPress={() => navigation.navigate('SpotInfo', { title: marker.title })}
+              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+            />
+          ))}
         </MapView>
       </View>
     );
   }
 }
+
+SpotsMapPage.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        coordinates: PropTypes.shape({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+        }).isRequired,
+      }),
+    }),
+  }).isRequired,
+};
 
 export default SpotsMapPage;

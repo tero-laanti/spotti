@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-native';
+import SpotsMapPage from "./SpotsMapPage";
 
 const styles = StyleSheet.create({
   button: {
@@ -47,7 +48,7 @@ const Search = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('SearchResults', { coordinates })}
+          onPress={() => navigation.navigate('SpotsMapPage', { coordinates })}
         >
           <Text>SEARCH</Text>
         </TouchableOpacity>
