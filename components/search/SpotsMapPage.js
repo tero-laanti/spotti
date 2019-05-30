@@ -39,15 +39,14 @@ class SpotsMapPage extends Component {
     console.log(this.props.navigation)
     const { navigation } = this.props;
     const { markers } = this.state;
-    const initialCenterCoordinates = navigation.getParam('searchCoordinates');
 
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: initialCenterCoordinates.latitude,
-            longitude: initialCenterCoordinates.longitude,
+            latitude: navigation.getParam('searchCoordinates').latitude,
+            longitude: navigation.getParam('searchCoordinates').longitude,
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
           }}
