@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-native';
-import SpotsMapPage from './SpotsMapPage';
 
 const styles = StyleSheet.create({
   button: {
