@@ -1,13 +1,13 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Search from './Search';
-import SearchResults from './SearchResults';
+import SpotsMapPage from './SpotsMapPage';
 import SpotInfo from './SpotInfo';
 import Purchase from './Purchase';
 
 const SearchNavigator = createStackNavigator(
   {
     Search,
-    SearchResults,
+    SpotsMapPage,
     SpotInfo,
     Purchase,
   },

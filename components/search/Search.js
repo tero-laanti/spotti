@@ -47,7 +47,7 @@ const Search = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('SearchResults', { coordinates })}
+          onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
         >
           <Text>SEARCH</Text>
         </TouchableOpacity>
