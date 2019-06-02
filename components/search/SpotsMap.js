@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SpotsMap = ({ markers, initialCoordinates }) => {
+const SpotsMap = ({ markers, initialCoordinates, setRef, onActiveSpotChange }) => {
   const [mapReady, setMapReady] = useState(false);
 
   return (
@@ -23,11 +23,15 @@ const SpotsMap = ({ markers, initialCoordinates }) => {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       }}
+      ref={c => {
+        setRef(c);
+      }}
     >
       {mapReady &&
-        markers.map(marker => (
+        markers.map((marker, index) => (
           <Marker
             key={marker.id}
+            onPress={() => onActiveSpotChange(index)}
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
           />
         ))}
@@ -47,6 +51,8 @@ SpotsMap.propTypes = {
       id: PropTypes.number.isRequired,
     })
   ).isRequired,
+  setRef: PropTypes.func.isRequired,
+  onActiveSpotChange: PropTypes.func.isRequired,
 };
 
 export default SpotsMap;
