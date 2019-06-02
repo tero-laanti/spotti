@@ -54,7 +54,6 @@ class SpotsMapPage extends Component {
           {markers.map(marker => (
             <Marker
               key={marker.id}
-              onPress={() => navigation.navigate('SpotInfo', { title: marker.title })}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
             />
           ))}
