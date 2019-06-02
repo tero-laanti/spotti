@@ -1,8 +1,8 @@
-import MapView, { Marker } from 'react-native-maps';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './SpotsMap';
+import SpotsMapCarousel from "./SpotsMapCarousel";
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +42,7 @@ class SpotsMapPage extends Component {
     return (
       <View style={styles.container}>
         <SpotsMap markers={markers} initialCoordinates={initialCoordinates} />
+        <SpotsMapCarousel/>
       </View>
     );
   }

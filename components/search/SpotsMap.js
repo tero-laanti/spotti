@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    height: '90%',
+    width: '100%',
   },
 });
 
 const SpotsMap = ({ markers, initialCoordinates }) => {
+  const [mapReady, setMapReady] = useState(false);
+
   return (
     <MapView
       style={styles.map}
+      onLayout={() => setMapReady(true)}
       initialRegion={{
         latitude: initialCoordinates.latitude,
         longitude: initialCoordinates.longitude,
@@ -24,12 +24,13 @@ const SpotsMap = ({ markers, initialCoordinates }) => {
         longitudeDelta: 0.01,
       }}
     >
-      {markers.map(marker => (
-        <Marker
-          key={marker.id}
-          coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-        />
-      ))}
+      {mapReady &&
+        markers.map(marker => (
+          <Marker
+            key={marker.id}
+            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+          />
+        ))}
     </MapView>
   );
 };
