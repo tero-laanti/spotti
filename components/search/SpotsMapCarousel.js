@@ -11,11 +11,17 @@ const styles = StyleSheet.create({
 });
 
 const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
-  const renderItem = item => (
+  const renderItem = ({ item }) => (
     <View style={styles.carouselItem}>
-      <Text>{`Title: ${item.item.title}`}</Text>
+      <Text>{`Title: ${item.title}`}</Text>
     </View>
   );
+
+  renderItem.propTypes = {
+    item: PropTypes.shape({
+      title: PropTypes.string,
+    }).isRequired,
+  };
 
   return (
     <Carousel
