@@ -2,6 +2,7 @@ import MapView, { Marker } from 'react-native-maps';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
+import SpotsMap from './SpotsMap';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,13 +13,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
 });
 
@@ -36,28 +30,18 @@ class SpotsMapPage extends Component {
   }
 
   render() {
-    console.log(this.props.navigation)
-    const { navigation } = this.props;
+    const {
+      navigation: {
+        state: {
+          params: { searchCoordinates: initialCoordinates },
+        },
+      },
+    } = this.props;
     const { markers } = this.state;
 
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: navigation.getParam('searchCoordinates').latitude,
-            longitude: navigation.getParam('searchCoordinates').longitude,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
-        >
-          {markers.map(marker => (
-            <Marker
-              key={marker.id}
-              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-            />
-          ))}
-        </MapView>
+        <SpotsMap markers={markers} initialCoordinates={initialCoordinates} />
       </View>
     );
   }
