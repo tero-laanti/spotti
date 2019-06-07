@@ -8,7 +8,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/arrow-body-no-unnecessary-braces");
+const rule = require("../../../lib/rules/no-extra-braces-in-arrow-body");
 const RuleTester = require("eslint").RuleTester;
 
 RuleTester.setDefaultConfig({

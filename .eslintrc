@@ -24,7 +24,7 @@
         "printWidth": 100
       }
     ],
-    "spotti/arrow-body-no-unnecessary-braces": "error"
+    "spotti/no-extra-braces-in-arrow-body": "error"
   },
   "plugins": [
     "prettier",
