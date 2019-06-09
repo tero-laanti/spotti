@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const coordinates = {
-  latitude: 60.45,
-  longitude: 22.29,
-};
+// const coordinates = {
+//   latitude: 60.45,
+//   longitude: 22.29,
+// };
 
 const Search = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState('');
@@ -45,10 +45,7 @@ const Search = ({ navigation }) => {
         onChangeText={handleSearchInputChange}
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchInput')}>
           <Text>SEARCH</Text>
         </TouchableOpacity>
       </View>
