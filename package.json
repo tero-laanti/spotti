@@ -1,5 +1,5 @@
 {
-  "name": "Spotti",
+  "name": "spotti",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "16.8.3",
-    "react-native": "0.59.8",
+    "react-native": "^0.59.9",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-maps": "^0.24.2",
     "react-navigation": "^3.11.0",
@@ -32,6 +32,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-spotti": "file:eslint-plugin-spotti",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
     "prettier": "^1.17.1",

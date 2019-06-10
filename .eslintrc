@@ -23,9 +23,11 @@
         "singleQuote": true,
         "printWidth": 100
       }
-    ]
+    ],
+    "spotti/no-extra-braces-in-arrow-body": "error"
   },
   "plugins": [
-    "prettier"
+    "prettier",
+    "spotti"
   ]
 }
