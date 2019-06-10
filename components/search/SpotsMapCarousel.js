@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   carouselItem: {
-    width: 500,
+    width: 250,
     backgroundColor: 'blue',
   },
 });
@@ -27,8 +27,8 @@ const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
     <Carousel
       data={spots}
       renderItem={renderItem}
-      sliderWidth={600}
-      itemWidth={500}
+      sliderWidth={400}
+      itemWidth={250}
       ref={c => {
         setRef(c);
       }}
