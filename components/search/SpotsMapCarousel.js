@@ -29,9 +29,7 @@ const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
       renderItem={renderItem}
       sliderWidth={400}
       itemWidth={250}
-      ref={c => {
-        setRef(c);
-      }}
+      ref={c => setRef(c)}
       onSnapToItem={index => onActiveSpotChange(index)}
     />
   );
