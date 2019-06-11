@@ -6,15 +6,19 @@ import { BaseButton } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
   textInput: {
     width: '100%',
-    height: '10%',
-
-    borderWidth: 1,
+    borderBottomWidth: 1,
+  },
+  closeButton: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  textInputBox: {
+    alignItems: 'center',
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -39,20 +43,24 @@ const SearchInput = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <BaseButton onPress={() => navigation.navigate('Search')}>
-        <Text>Close</Text>
-      </BaseButton>
-      <TextInput
-        style={styles.textInput}
-        value={searchInput}
-        onChangeText={handleSearchInputChange}
-      />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
-      >
-        <Text>SEARCH</Text>
-      </TouchableOpacity>
+      <View style={styles.closeButton}>
+        <BaseButton onPress={() => navigation.navigate('Search')}>
+          <Text>Close</Text>
+        </BaseButton>
+      </View>
+      <View style={styles.textInputBox}>
+        <TextInput
+          style={styles.textInput}
+          value={searchInput}
+          onChangeText={handleSearchInputChange}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
+        >
+          <Text>SEARCH</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
