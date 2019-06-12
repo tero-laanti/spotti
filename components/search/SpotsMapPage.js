@@ -1,63 +1,63 @@
-import MapView, { Marker } from 'react-native-maps';
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
+import SpotsMap from './SpotsMap';
+import SpotsMapCarousel from './SpotsMapCarousel';
 
 const testSpots = [
-  { id: 1, latitude: 60.448, longitude: 22.289, title: 1 },
-  { id: 2, latitude: 60.452, longitude: 22.286, title: 2 },
+  { id: 1, latitude: 60.448, longitude: 22.289, title: 'Spot 1' },
+  { id: 2, latitude: 60.452, longitude: 22.286, title: 'Spot 2' },
+  { id: 3, latitude: 60.451, longitude: 22.288, title: 'Spot 3' },
 ];
 
-class SpotsMapPage extends Component {
+class SpotsMapPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      markers: testSpots,
-    };
+    this.carouselRef = React.createRef();
+    this.mapRef = React.createRef();
+    this.state = {};
   }
 
-  render() {
-    console.log(this.props.navigation)
-    const { navigation } = this.props;
-    const { markers } = this.state;
+  setMapRef = c => {
+    this.mapRef = c;
+  };
 
+  setCarouselRef = c => {
+    this.carouselRef = c;
+  };
+
+  centerMapOnSpotIndex = i => {
+    const spotToCenter = testSpots[i];
+    this.mapRef.animateCamera({
+      center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
+    });
+  };
+
+  snapCarouselToSpotIndex = i => {
+    this.carouselRef.snapToItem(i);
+  };
+
+  render() {
+    const {
+      navigation: {
+        state: {
+          params: { searchCoordinates: initialCoordinates },
+        },
+      },
+    } = this.props;
     return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: navigation.getParam('searchCoordinates').latitude,
-            longitude: navigation.getParam('searchCoordinates').longitude,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
-        >
-          {markers.map(marker => (
-            <Marker
-              key={marker.id}
-              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-            />
-          ))}
-        </MapView>
+      <View>
+        <SpotsMap
+          onActiveSpotChange={this.snapCarouselToSpotIndex}
+          markers={testSpots}
+          initialCoordinates={initialCoordinates}
+          setRef={this.setMapRef}
+        />
+        <SpotsMapCarousel
+          onActiveSpotChange={this.centerMapOnSpotIndex}
+          spots={testSpots}
+          setRef={this.setCarouselRef}
+        />
       </View>
     );
   }
