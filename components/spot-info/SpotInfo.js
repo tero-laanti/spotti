@@ -36,7 +36,7 @@ SpotInfo.propTypes = {
         spot: PropTypes.shape({
           distance: PropTypes.string.isRequired,
           description: PropTypes.string.isRequired,
-        }),
+        }).isRequired,
       }),
     }),
   }).isRequired,
