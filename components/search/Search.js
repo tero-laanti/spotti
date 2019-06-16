@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#cfffe5',
-    paddingTop: 5,
-    paddingBottom: 5,
-    alignItems: 'center',
-    elevation: 5,
-  },
   textInput: {
     width: '60%',
     borderColor: 'black',
     borderWidth: 1,
-  },
-  buttonContainer: {
-    width: '20%',
-    marginTop: 10,
   },
   container: {
     flex: 1,
@@ -27,28 +16,14 @@ const styles = StyleSheet.create({
   },
 });
 
-// const coordinates = {
-//   latitude: 60.45,
-//   longitude: 22.29,
-// };
-
 const Search = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState('');
-
-  const handleSearchInputChange = text => setSearchInput(text);
-
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
-        value={searchInput}
-        onChangeText={handleSearchInputChange}
+        underlineColorAndroid="transparent"
+        onTouchStart={() => navigation.navigate('SearchInput')}
       />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchInput')}>
-          <Text>SEARCH</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

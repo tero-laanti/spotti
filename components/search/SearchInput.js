@@ -19,15 +19,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-
-    elevation: 9,
   },
 });
 
@@ -51,6 +42,7 @@ const SearchInput = ({ navigation }) => {
       <View style={styles.textInputBox}>
         <TextInput
           style={styles.textInput}
+          autoFocus
           value={searchInput}
           onChangeText={handleSearchInputChange}
         />
