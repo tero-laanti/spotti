@@ -5,9 +5,35 @@ import SpotsMap from './SpotsMap';
 import SpotsMapCarousel from './SpotsMapCarousel';
 
 const testSpots = [
-  { id: 1, latitude: 60.448, longitude: 22.289, title: 'Spot 1' },
-  { id: 2, latitude: 60.452, longitude: 22.286, title: 'Spot 2' },
-  { id: 3, latitude: 60.451, longitude: 22.288, title: 'Spot 3' },
+  {
+    id: 1,
+    latitude: 60.448,
+    longitude: 22.289,
+    address: 'Spot street 37',
+    distance: '12 min',
+    imageUrls: ['www.test.url'],
+    description: 'This is a long Spot description that should be scrollable in the spotinfopage. '.repeat(
+      15
+    ),
+  },
+  {
+    id: 2,
+    latitude: 60.452,
+    longitude: 22.286,
+    address: 'Spot address 138',
+    distance: '6 min',
+    imageUrls: ['www.test.url', 'www.another.url'],
+    description: 'This is a description',
+  },
+  {
+    id: 3,
+    latitude: 60.451,
+    longitude: 22.288,
+    address: 'Hämeenkatu 1000',
+    distance: '',
+    imageUrls: [],
+    description: '',
+  },
 ];
 
 class SpotsMapPage extends React.Component {

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View, Button, Text, ScrollView } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-const fakeImageFetchByUrl = url => (
+const fakeImageFetchByUrl = imageUrl => (
   <View style={{ backgroundColor: 'blue', height: 150, width: 300, margin: 30 }}>
-    <Text>{url}</Text>
+    <Text>{imageUrl}</Text>
   </View>
 );
 

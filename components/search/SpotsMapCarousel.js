@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
   const renderItem = ({ item }) => (
     <View style={styles.carouselItem}>
-      <Text>{`Title: ${item.title}`}</Text>
+      <Text>{`Title: ${item.address}`}</Text>
     </View>
   );
 
@@ -39,7 +39,7 @@ SpotsMapCarousel.propTypes = {
   spots: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
     })
   ).isRequired,
   setRef: PropTypes.func.isRequired,
