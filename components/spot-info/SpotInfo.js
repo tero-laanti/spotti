@@ -46,11 +46,13 @@ const SpotInfo = ({
             <Text>No images available!</Text>
           </View>
         )}
-        <Text style={{ paddingBottom: 10, fontWeight: 'bold' }}>
-          Distance to the spot: {spot.distance}
-        </Text>
+        {spot.distance.length > 0 && (
+          <Text style={{ paddingBottom: 10, fontWeight: 'bold' }}>
+            Distance to the spot: {spot.distance}
+          </Text>
+        )}
         <ScrollView>
-          <Text>{spot.description}</Text>
+          <Text>{spot.description || 'No description available.'}</Text>
         </ScrollView>
       </View>
       <View style={{ flex: 0 }}>
