@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Text, ScrollView } from 'react-native';
+import { View, Button, Text, ScrollView, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 const fakeImageFetchByUrl = imageUrl => (
@@ -8,6 +8,18 @@ const fakeImageFetchByUrl = imageUrl => (
     <Text>{imageUrl}</Text>
   </View>
 );
+
+const styles = StyleSheet.create({
+  strongText: {
+    paddingBottom: 10,
+    fontWeight: 'bold',
+  },
+  topInfoBarContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 50,
+  },
+});
 
 const SpotInfo = ({
   navigation: {
@@ -20,42 +32,41 @@ const SpotInfo = ({
   const renderImageFromUrl = carouselItem => fakeImageFetchByUrl(carouselItem.item);
 
   return (
-    <View
-      style={{
-        display: 'flex',
-        height: '100%',
-        flexDirection: 'column',
-        paddingHorizontal: 10,
-        paddingTop: 20,
-      }}
-    >
-      <View style={{ paddingBottom: 10, flex: 1 }}>
-        {spot.urls.length > 0 ? (
-          <View style={{ height: 175 }}>
-            <Carousel
-              activeSlideAlignment="start"
-              data={spot.urls}
-              renderItem={renderImageFromUrl}
-              sliderWidth={450}
-              itemWidth={300}
-              sliderHeight={50}
-            />
-          </View>
-        ) : (
-          <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-            <Text>No images available!</Text>
-          </View>
-        )}
-        {spot.distance.length > 0 && (
-          <Text style={{ paddingBottom: 10, fontWeight: 'bold' }}>
-            Distance to the spot: {spot.distance}
-          </Text>
-        )}
-        <ScrollView>
-          <Text>{spot.description || 'No description available.'}</Text>
-        </ScrollView>
+    <View style={{ flex: 1 }}>
+      <View style={styles.topInfoBarContainer}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.strongText}>{spot.address}</Text>
+          {spot.distance.length > 0 && (
+            <Text style={styles.strongText}>Walking distance: {spot.distance}</Text>
+          )}
+        </View>
+        <View style={{ flex: 0 }}>
+          <Text>2€/h</Text>
+          <Text style={styles.strongText}>10€</Text>
+        </View>
       </View>
-      <View style={{ flex: 0 }}>
+      <ScrollView style={{ paddingHorizontal: 10, paddingTop: 5 }}>
+        <View style={{ paddingBottom: 10, flex: 1 }}>
+          <Text>{spot.description || 'No description available.'}</Text>
+          {spot.imageUrls.length > 0 ? (
+            <View style={{ height: 175 }}>
+              <Carousel
+                activeSlideAlignment="start"
+                data={spot.imageUrls}
+                renderItem={renderImageFromUrl}
+                sliderWidth={450}
+                itemWidth={300}
+                sliderHeight={50}
+              />
+            </View>
+          ) : (
+            <View style={{ alignItems: 'center', paddingVertical: 30 }}>
+              <Text>No images available!</Text>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      <View>
         <Button title="Spot this" onPress={() => navigation.navigate('Purchase')} />
       </View>
     </View>
