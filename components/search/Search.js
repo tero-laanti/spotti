@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   button: {
@@ -8,6 +9,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     height: '10%',
+    justifyContent: 'center',
+    padding: 10,
   },
   container: {
     flex: 1,
@@ -20,7 +23,9 @@ const styles = StyleSheet.create({
 const Search = ({ navigation }) => (
   <View style={styles.container}>
     <TouchableWithoutFeedback onPress={() => navigation.navigate('SearchInput')}>
-      <View style={styles.button} />
+      <View style={styles.button}>
+        <Icon name="search" size={30} color="#B4B4B4" />
+      </View>
     </TouchableWithoutFeedback>
   </View>
 );
