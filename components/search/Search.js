@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 const styles = StyleSheet.create({
-  textInput: {
+  button: {
     width: '60%',
     borderColor: 'black',
     borderWidth: 1,
+    height: '10%',
   },
   container: {
     flex: 1,
@@ -16,17 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Search = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        underlineColorAndroid="transparent"
-        onTouchStart={() => navigation.navigate('SearchInput')}
-      />
-    </View>
-  );
-};
+const Search = ({ navigation }) => (
+  <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('SearchInput')}>
+      <View style={styles.button} />
+    </TouchableWithoutFeedback>
+  </View>
+);
 
 Search.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
