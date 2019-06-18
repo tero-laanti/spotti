@@ -17,8 +17,8 @@ module.exports = {
         if (nodeType !== 'BlockStatement') {
           return;
         }
-        const blockStatementStatements = node.body.body
-        if (blockStatementStatements.length <= 1) {
+        const statementsInBlockStatement = node.body.body
+        if (statementsInBlockStatement.length === 1 && statementsInBlockStatement[0].expression.type !== "AssignmentExpression") {
           context.report({
             node: node,
             message: 'Omit curly braces if arrow function body has only one statement.'
