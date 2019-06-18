@@ -31,9 +31,7 @@ ruleTester.run("arrow-body-no-unnecessary-braces", rule, {
     },
     {
       code: '() => console.log("test")',
-    }
-  ],
-  invalid: [
+    },
     {
       code: '() => { test = 1 }',
       errors: [{
@@ -41,6 +39,8 @@ ruleTester.run("arrow-body-no-unnecessary-braces", rule, {
           type: 'ArrowFunctionExpression'
       }]
     },
+  ],
+  invalid: [
     {
       code: '() => { console.log("test")}',
       errors: [{
