@@ -1,10 +1,18 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button, Text, Platform, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 
 const ContinueOrNavigateToSpot = ({ navigation, spotCoordinates }) => {
-  const openMapsAndNavigateTo = coordinates => {
-    //TODO
+  const openMapsAtCoordinate = ({ latitude, longitude }) => {
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${latitude},${longitude}`;
+    const label = 'Your Spot';
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`,
+    });
+
+    Linking.openURL(url);
   };
 
   return (
@@ -25,7 +33,7 @@ const ContinueOrNavigateToSpot = ({ navigation, spotCoordinates }) => {
         <Button
           type="outline"
           title="Navigate to Spot"
-          onPress={() => openMapsAndNavigateTo(spotCoordinates)}
+          onPress={() => openMapsAtCoordinate(spotCoordinates)}
         />
       </View>
     </View>
