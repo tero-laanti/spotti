@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { BaseButton } from 'react-native-gesture-handler';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   textInput: {
-    width: '100%',
-    borderBottomWidth: 1,
-  },
-  closeButton: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+    flexGrow: 1,
   },
   textInputBox: {
-    alignItems: 'center',
+    borderBottomWidth: 1,
+    display: 'flex',
+    flexDirection: 'row',
   },
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+  iconButton: {
+    justifyContent: 'center',
+  },
+  icon: {
+    margin: 10,
   },
 });
 
@@ -33,26 +38,26 @@ const SearchInput = ({ navigation }) => {
   const handleSearchInputChange = text => setSearchInput(text);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.closeButton}>
-        <BaseButton onPress={() => navigation.navigate('Search')}>
-          <Text>Close</Text>
-        </BaseButton>
-      </View>
+    <View>
       <View style={styles.textInputBox}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Search')}>
+          <View style={styles.iconButton}>
+            <Icon name="arrow-left" size={30} color="#B4B4B4" style={styles.icon} />
+          </View>
+        </TouchableWithoutFeedback>
         <TextInput
           style={styles.textInput}
           autoFocus
           value={searchInput}
           onChangeText={handleSearchInputChange}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
-        >
-          <Text>SEARCH</Text>
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
+      >
+        <Text>SEARCH</Text>
+      </TouchableOpacity>
     </View>
   );
 };
