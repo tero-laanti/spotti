@@ -33,9 +33,7 @@ class SpotsMapPage extends React.Component {
     });
   };
 
-  snapCarouselToSpotIndex = i => {
-    this.carouselRef.snapToItem(i);
-  };
+  snapCarouselToSpotIndex = i => this.carouselRef.snapToItem(i);
 
   render() {
     const {
