@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
 
@@ -10,11 +10,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
+const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
   const renderItem = ({ item }) => (
-    <View style={styles.carouselItem}>
-      <Text>{`Title: ${item.address}`}</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('SpotInfo', { spot: item })}>
+      <View style={styles.carouselItem}>
+        <Text>{`Title: ${item.address}`}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   renderItem.propTypes = {
@@ -36,6 +38,7 @@ const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange }) => {
 };
 
 SpotsMapCarousel.propTypes = {
+  navigation: PropTypes.shape({}).isRequired,
   spots: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

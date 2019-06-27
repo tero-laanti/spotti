@@ -68,6 +68,7 @@ class SpotsMapPage extends React.Component {
           params: { searchCoordinates: initialCoordinates },
         },
       },
+      navigation,
     } = this.props;
     return (
       <View>
@@ -78,6 +79,7 @@ class SpotsMapPage extends React.Component {
           setRef={this.setMapRef}
         />
         <SpotsMapCarousel
+          navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
           spots={testSpots}
           setRef={this.setCarouselRef}
