@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import AutocompleteList from './AutocompleteList';
 import SearchInput from './SearchInput';
-import { SEARCH_COORDINATES } from '../../mock-data';
+import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../mock-data';
 
 const SearchInputScreen = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState('');
 
-  const suggestions = ['First, Somewhere', 'Second, Somewhere else', 'Third, Who knows where'];
   const handleSearchInputChange = text => setSearchInput(text);
   const handleSuggestionSelect = () =>
     navigation.navigate('SpotsMapPage', { searchCoordinates: SEARCH_COORDINATES });
   const handleGoBackClick = () => navigation.navigate('Search');
+
+  const getAutocompleteSuggestions = () => {
+    const searchInputInLowerCase = searchInput.toLowerCase();
+    return AUTOCOMPLETE_SUGGESTIONS[searchInputInLowerCase] || [];
+  };
 
   return (
     <View>
@@ -23,7 +27,7 @@ const SearchInputScreen = ({ navigation }) => {
       />
       {searchInput.length >= 3 ? (
         <AutocompleteList
-          autocompleteSuggestions={suggestions}
+          autocompleteSuggestions={getAutocompleteSuggestions()}
           handleSuggestionSelect={handleSuggestionSelect}
         />
       ) : (
