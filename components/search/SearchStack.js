@@ -21,4 +21,13 @@ const SearchNavigator = createStackNavigator(
   }
 );
 
+SearchNavigator.navigationOptions = ({ navigation }) => {
+  const { routeName } = navigation.state.routes[navigation.state.index];
+  const navigationOptions = {};
+  if (routeName !== 'Search') {
+    navigationOptions.tabBarVisible = false;
+  }
+  return navigationOptions;
+};
+
 export default SearchNavigator;
