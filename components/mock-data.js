@@ -20,6 +20,27 @@ export const AUTOCOMPLETE_SUGGESTIONS = {
     'Kupittaan asema, Turku',
     'Kupittaan urheiluhalli, Turku',
   ],
+  kupitt: [
+    'Kupittaa, Turku',
+    'Kupittaankatu, Turku',
+    'Kupittaanpuisto, Turku',
+    'Kupittaan asema, Turku',
+    'Kupittaan urheiluhalli, Turku',
+  ],
+  kupitta: [
+    'Kupittaa, Turku',
+    'Kupittaankatu, Turku',
+    'Kupittaanpuisto, Turku',
+    'Kupittaan asema, Turku',
+    'Kupittaan urheiluhalli, Turku',
+  ],
+  kupittaa: [
+    'Kupittaa, Turku',
+    'Kupittaankatu, Turku',
+    'Kupittaanpuisto, Turku',
+    'Kupittaan asema, Turku',
+    'Kupittaan urheiluhalli, Turku',
+  ],
 };
 
 export const SEARCH_COORDINATES = {
