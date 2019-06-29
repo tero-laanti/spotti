@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, TextInput, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#cfffe5',
-    paddingTop: 5,
-    paddingBottom: 5,
-    alignItems: 'center',
-    elevation: 5,
-  },
-  textInput: {
     width: '60%',
     borderColor: 'black',
     borderWidth: 1,
-  },
-  buttonContainer: {
-    width: '20%',
-    marginTop: 10,
+    height: '10%',
+    justifyContent: 'center',
+    padding: 10,
   },
   container: {
     flex: 1,
@@ -27,34 +20,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const coordinates = {
-  latitude: 60.45,
-  longitude: 22.29,
-};
-
-const Search = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState('');
-
-  const handleSearchInputChange = text => setSearchInput(text);
-
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        value={searchInput}
-        onChangeText={handleSearchInputChange}
-      />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SpotsMapPage', { searchCoordinates: coordinates })}
-        >
-          <Text>SEARCH</Text>
-        </TouchableOpacity>
+const Search = ({ navigation }) => (
+  <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('SearchInput')}>
+      <View style={styles.button}>
+        <Icon name="search" size={30} color="#B4B4B4" />
       </View>
-    </View>
-  );
-};
+    </TouchableWithoutFeedback>
+  </View>
+);
 
 Search.propTypes = {
   navigation: PropTypes.shape({}).isRequired,

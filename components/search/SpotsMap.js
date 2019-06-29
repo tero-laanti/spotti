@@ -23,9 +23,7 @@ const SpotsMap = ({ markers, initialCoordinates, setRef, onActiveSpotChange }) =
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       }}
-      ref={c => {
-        setRef(c);
-      }}
+      ref={c => setRef(c)}
     >
       {mapReady &&
         markers.map((marker, index) => (
