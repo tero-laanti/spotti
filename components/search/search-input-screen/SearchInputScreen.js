@@ -8,14 +8,19 @@ import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../mock-data';
 const SearchInputScreen = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState('');
 
+  const getAutocompleteSuggestions = () => {
+    const searchInputInLowerCase = searchInput.toLowerCase();
+    return AUTOCOMPLETE_SUGGESTIONS[searchInputInLowerCase] || [];
+  };
+
   const handleSearchInputChange = text => setSearchInput(text);
   const handleSuggestionSelect = () =>
     navigation.navigate('SpotsMapPage', { searchCoordinates: SEARCH_COORDINATES });
   const handleGoBackClick = () => navigation.navigate('Search');
-
-  const getAutocompleteSuggestions = () => {
-    const searchInputInLowerCase = searchInput.toLowerCase();
-    return AUTOCOMPLETE_SUGGESTIONS[searchInputInLowerCase] || [];
+  const handleSearchClick = () => {
+    if (getAutocompleteSuggestions().length > 0) {
+      navigation.navigate('SpotsMapPage', { searchCoordinates: SEARCH_COORDINATES });
+    }
   };
 
   return (
@@ -23,6 +28,7 @@ const SearchInputScreen = ({ navigation }) => {
       <SearchInput
         handleGoBackClick={handleGoBackClick}
         handleSearchInputChange={handleSearchInputChange}
+        handleSearchClick={handleSearchClick}
         searchInput={searchInput}
       />
       {searchInput.length >= 3 ? (

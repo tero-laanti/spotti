@@ -20,7 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const SearchInput = ({ handleGoBackClick, handleSearchInputChange, searchInput }) => (
+const SearchInput = ({
+  handleGoBackClick,
+  handleSearchInputChange,
+  handleSearchClick,
+  searchInput,
+}) => (
   <View style={styles.textInputBox}>
     <TouchableWithoutFeedback onPress={handleGoBackClick}>
       <View style={styles.iconButton}>
@@ -32,6 +37,8 @@ const SearchInput = ({ handleGoBackClick, handleSearchInputChange, searchInput }
       autoFocus
       value={searchInput}
       onChangeText={handleSearchInputChange}
+      onSubmitEditing={handleSearchClick}
+      returnKeyType="search"
     />
   </View>
 );
@@ -39,6 +46,7 @@ const SearchInput = ({ handleGoBackClick, handleSearchInputChange, searchInput }
 SearchInput.propTypes = {
   handleGoBackClick: PropTypes.func.isRequired,
   handleSearchInputChange: PropTypes.func.isRequired,
+  handleSearchClick: PropTypes.func.isRequired,
   searchInput: PropTypes.string.isRequired,
 };
 
