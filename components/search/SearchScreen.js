@@ -1,7 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Search from './Search';
 import SpotsMapPage from './SpotsMapPage';
-import SpotInfo from './SpotInfo';
+import SpotInfo from '../spot-info/SpotInfo';
 import Purchase from './Purchase';
 import SearchInput from './SearchInput';
 
