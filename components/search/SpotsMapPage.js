@@ -3,38 +3,7 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './SpotsMap';
 import SpotsMapCarousel from './SpotsMapCarousel';
-
-const testSpots = [
-  {
-    id: 1,
-    latitude: 60.448,
-    longitude: 22.289,
-    address: 'Spot street 37',
-    distance: '12 min',
-    imageUrls: ['www.test.url'],
-    description: 'This is a long Spot description that should be scrollable in the spotinfopage. '.repeat(
-      15
-    ),
-  },
-  {
-    id: 2,
-    latitude: 60.452,
-    longitude: 22.286,
-    address: 'Spot address 138',
-    distance: '6 min',
-    imageUrls: ['www.test.url', 'www.another.url'],
-    description: 'This is a description',
-  },
-  {
-    id: 3,
-    latitude: 60.451,
-    longitude: 22.288,
-    address: 'Hämeenkatu 1000',
-    distance: '',
-    imageUrls: [],
-    description: '',
-  },
-];
+import { SPOTS } from '../mock-data';
 
 class SpotsMapPage extends React.Component {
   constructor(props) {
@@ -53,7 +22,7 @@ class SpotsMapPage extends React.Component {
   };
 
   centerMapOnSpotIndex = i => {
-    const spotToCenter = testSpots[i];
+    const spotToCenter = SPOTS[i];
     this.mapRef.animateCamera({
       center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
     });
@@ -74,14 +43,14 @@ class SpotsMapPage extends React.Component {
       <View>
         <SpotsMap
           onActiveSpotChange={this.snapCarouselToSpotIndex}
-          markers={testSpots}
+          markers={SPOTS}
           initialCoordinates={initialCoordinates}
           setRef={this.setMapRef}
         />
         <SpotsMapCarousel
           navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
-          spots={testSpots}
+          spots={SPOTS}
           setRef={this.setCarouselRef}
         />
       </View>
