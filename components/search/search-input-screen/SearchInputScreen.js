@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import AutocompleteList from './AutocompleteList';
 import SearchInput from './SearchInput';
 import { SEARCH_COORDINATES } from '../../mock-data';
@@ -21,10 +21,14 @@ const SearchInputScreen = ({ navigation }) => {
         handleSearchInputChange={handleSearchInputChange}
         searchInput={searchInput}
       />
-      <AutocompleteList
-        autocompleteSuggestions={suggestions}
-        handleSuggestionSelect={handleSuggestionSelect}
-      />
+      {searchInput.length >= 3 ? (
+        <AutocompleteList
+          autocompleteSuggestions={suggestions}
+          handleSuggestionSelect={handleSuggestionSelect}
+        />
+      ) : (
+        <Text>Try &quot;Kupittaa&quot;</Text>
+      )}
     </View>
   );
 };
