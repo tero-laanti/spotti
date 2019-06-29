@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Search from './Search';
 import SpotsMapPage from './SpotsMapPage';
 import SpotInfo from '../spot-info/SpotInfo';
@@ -21,4 +21,4 @@ const SearchNavigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(SearchNavigator);
+export default SearchNavigator;

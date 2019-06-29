@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import SearchScreen from './components/search/SearchScreen';
+import SearchStack from './components/search/SearchStack';
 
 const PlaceholderScreen = () => (
   <View>
@@ -11,7 +11,7 @@ const PlaceholderScreen = () => (
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Search: SearchScreen,
+    Search: SearchStack,
     Placeholder: PlaceholderScreen,
   },
   {
