@@ -19,7 +19,15 @@ const SpotsMapCarouselItem = ({ navigation, spot }) => (
 
 SpotsMapCarouselItem.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
-  spot: PropTypes.shape({}).isRequired,
+  spot: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    imageUrls: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    description: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    distance: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default SpotsMapCarouselItem;
