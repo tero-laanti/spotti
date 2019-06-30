@@ -1,23 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
-
-const styles = StyleSheet.create({
-  carouselItem: {
-    width: 250,
-    backgroundColor: 'blue',
-  },
-});
+import SpotsMapCarouselItem from './SpotsMapCarouselItem';
 
 const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('SpotInfo', { spot: item })}>
-      <View style={styles.carouselItem}>
-        <Text>{`Title: ${item.address}`}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderItem = ({ item }) => <SpotsMapCarouselItem navigation={navigation} spot={item} />;
 
   renderItem.propTypes = {
     item: PropTypes.shape({
