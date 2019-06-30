@@ -3,7 +3,7 @@ import Search from './Search';
 import SpotsMapPage from './SpotsMapPage';
 import SpotInfo from '../spot-info/SpotInfo';
 import Purchase from './Purchase';
-import SearchInput from './SearchInput';
+import SearchInputScreen from './search-input-screen/SearchInputScreen';
 
 const SearchNavigator = createStackNavigator(
   {
@@ -11,7 +11,7 @@ const SearchNavigator = createStackNavigator(
     SpotsMapPage,
     SpotInfo,
     Purchase,
-    SearchInput,
+    SearchInput: SearchInputScreen,
   },
   {
     initialRouteName: 'Search',
