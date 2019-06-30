@@ -7,12 +7,23 @@ const styles = StyleSheet.create({
   carouselItem: {
     width: 250,
     marginVertical: 5,
-    backgroundColor: 'lightsteelblue',
+    backgroundColor: 'gainsboro',
     borderRadius: 3,
     elevation: 4,
     shadowOpacity: 0.75,
     shadowRadius: 5,
     shadowOffset: { height: 5, width: 5 },
+  },
+  lowerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  AddressFont: {
+    fontSize: 18,
+  },
+  mediumFont: {
+    fontSize: 16,
   },
 });
 
@@ -20,16 +31,16 @@ const SpotsMapCarouselItem = ({ navigation, spot }) => (
   <TouchableHighlight onPress={() => navigation.navigate('SpotInfo', { spot })}>
     <View style={styles.carouselItem}>
       <View>
-        <Text style={{ textAlign: 'center', fontSize: 18 }}>{spot.address}</Text>
+        <Text style={{ ...styles.AddressFont, textAlign: 'center' }}>{spot.address}</Text>
       </View>
-      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={styles.lowerContainer}>
         <View>
-          <Text style={{ fontSize: 16 }}>
-            <Icon name="directions-walk" />
+          <Text style={styles.mediumFont}>
+            <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
             {spot.distance || 'N/A'}
           </Text>
         </View>
-        <Text style={{ fontSize: 16 }}>3€ / h</Text>
+        <Text style={styles.mediumFont}>3€ / h </Text>
       </View>
     </View>
   </TouchableHighlight>

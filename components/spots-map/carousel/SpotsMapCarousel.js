@@ -20,6 +20,7 @@ const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => 
       itemWidth={250}
       ref={c => setRef(c)}
       onSnapToItem={index => onActiveSpotChange(index)}
+      containerCustomStyle={{ backgroundColor: 'lightsteelblue' }}
     />
   );
 };
