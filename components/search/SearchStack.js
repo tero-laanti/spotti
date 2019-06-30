@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 import Search from './Search';
-import SpotsMapPage from './SpotsMapPage';
+import SpotsMapPage from '../spots-map/SpotsMapPage';
 import SpotInfo from '../spot-info/SpotInfo';
 import Purchase from './Purchase';
 import SearchInputScreen from './search-input-screen/SearchInputScreen';
