@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   informationContainer: {
@@ -35,12 +36,17 @@ const Purchase = ({
       params: { spot, timeFilters },
     },
   },
-  // navigation,
+  navigation,
 }) => {
   return (
     <View>
       <View style={styles.arrowContainer}>
-        <Text>Close</Text>
+        <TouchableOpacity onPress={() =>
+          navigation.navigate('SpotInfo', {
+            spot: spot,
+            timeFilters: { time: '18:10-20:15', date: '25/10/2019' },
+          })
+        }><Icon name="arrow-left" size={30} color="#B4B4B4" /></TouchableOpacity>
       </View>
 
       <View style={styles.informationContainer}>
