@@ -7,7 +7,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
   carouselItem: {
     width: 250,
-    marginVertical: 5,
+    marginVertical: 3,
     backgroundColor: 'gainsboro',
     borderRadius: 3,
     elevation: 4,
@@ -15,12 +15,19 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { height: 5, width: 5 },
   },
+  dragIndicator: {
+    width: '40%',
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: 'dimgray',
+  },
   lowerContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  AddressFont: {
+  addressFont: {
+    textAlign: 'center',
     fontSize: 18,
   },
   mediumFont: {
@@ -34,8 +41,9 @@ const SpotsMapCarouselItem = ({ navigation, spot }) => {
   return (
     <PanGestureHandler minDeltaY={30} maxDeltaX={50} onGestureEvent={navigateToSpotInfo}>
       <View style={styles.carouselItem}>
-        <View>
-          <Text style={{ ...styles.AddressFont, textAlign: 'center' }}>{spot.address}</Text>
+        <View style={{ alignItems: 'center' }}>
+          <View style={styles.dragIndicator} />
+          <Text style={styles.addressFont}>{spot.address}</Text>
         </View>
         <View style={styles.lowerContainer}>
           <View>
