@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   carouselItem: {
@@ -27,24 +28,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const SpotsMapCarouselItem = ({ navigation, spot }) => (
-  <TouchableHighlight onPress={() => navigation.navigate('SpotInfo', { spot })}>
-    <View style={styles.carouselItem}>
-      <View>
-        <Text style={{ ...styles.AddressFont, textAlign: 'center' }}>{spot.address}</Text>
-      </View>
-      <View style={styles.lowerContainer}>
+const SpotsMapCarouselItem = ({ navigation, spot }) => {
+  const navigateToSpotInfo = () => navigation.navigate('SpotInfo', { spot });
+
+  return (
+    <PanGestureHandler minDeltaY={30} maxDeltaX={50} onGestureEvent={navigateToSpotInfo}>
+      <View style={styles.carouselItem}>
         <View>
-          <Text style={styles.mediumFont}>
-            <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
-            {spot.distance || 'N/A'}
-          </Text>
+          <Text style={{ ...styles.AddressFont, textAlign: 'center' }}>{spot.address}</Text>
         </View>
-        <Text style={styles.mediumFont}>3€ / h </Text>
+        <View style={styles.lowerContainer}>
+          <View>
+            <Text style={styles.mediumFont}>
+              <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
+              {spot.distance || 'N/A'}
+            </Text>
+          </View>
+          <Text style={styles.mediumFont}>3€ / h </Text>
+        </View>
       </View>
-    </View>
-  </TouchableHighlight>
-);
+    </PanGestureHandler>
+  );
+};
 
 SpotsMapCarouselItem.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
