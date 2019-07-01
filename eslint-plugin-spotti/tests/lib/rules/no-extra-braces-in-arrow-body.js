@@ -34,11 +34,14 @@ ruleTester.run("arrow-body-no-unnecessary-braces", rule, {
     },
     {
       code: '() => { test = 1 }',
-      errors: [{
-          message: ERROR_MSG,
-          type: 'ArrowFunctionExpression'
-      }]
     },
+    {
+      code: `const arrowFunctionWithIfStatement = () => {
+        if (0 > 0) {
+          doSomething();
+        }
+      };`
+    }
   ],
   invalid: [
     {
