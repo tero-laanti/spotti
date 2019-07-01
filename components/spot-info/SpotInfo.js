@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 const SpotInfo = ({
   navigation: {
     state: {
-      params: { spot },
+      params: { spot, timeFilters },
     },
   },
   navigation,
@@ -60,14 +60,22 @@ const SpotInfo = ({
               />
             </View>
           ) : (
-            <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-              <Text>No images available!</Text>
-            </View>
-          )}
+              <View style={{ alignItems: 'center', paddingVertical: 30 }}>
+                <Text>No images available!</Text>
+              </View>
+            )}
         </View>
       </ScrollView>
       <View>
-        <Button title="Spot this" onPress={() => navigation.navigate('Purchase')} />
+        <Button
+          title="Spot this"
+          onPress={() =>
+            navigation.navigate('Purchase', {
+              spot,
+              timeFilters: { time: timeFilters.time, date: timeFilters.date },
+            })
+          }
+        />
       </View>
     </View>
   );
