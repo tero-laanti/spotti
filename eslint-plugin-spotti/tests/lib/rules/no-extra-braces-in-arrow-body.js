@@ -50,6 +50,13 @@ ruleTester.run("arrow-body-no-unnecessary-braces", rule, {
           message: ERROR_MSG,
           type: 'ArrowFunctionExpression'
       }]
+    },
+    {
+      code: '() => { return 3 }',
+      errors: [{
+          message: ERROR_MSG,
+          type: 'ArrowFunctionExpression'
+      }]
     }
   ]
 });
