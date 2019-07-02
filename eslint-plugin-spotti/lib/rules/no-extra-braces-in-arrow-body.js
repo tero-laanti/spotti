@@ -18,11 +18,21 @@ module.exports = {
           return;
         }
         const statementsInBlockStatement = node.body.body
-        if (statementsInBlockStatement.length === 1 && statementsInBlockStatement[0].expression.type !== "AssignmentExpression") {
-          context.report({
-            node: node,
-            message: 'Omit curly braces if arrow function body has only one statement.'
-          })
+        if (statementsInBlockStatement.length === 1) {
+          if (statementsInBlockStatement[0].type === "ReturnStatement") {
+            context.report({
+              node: node,
+              message: 'Omit curly braces if arrow function body has only one statement.'
+            })
+          }
+          if (statementsInBlockStatement[0].expression && statementsInBlockStatement[0].expression.type) {
+            if (statementsInBlockStatement[0].expression.type !== "AssignmentExpression") {
+              context.report({
+                node: node,
+                message: 'Omit curly braces if arrow function body has only one statement.'
+              })
+            }
+          }
         }
       }
     }
