@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './SpotsMap';
-import SpotsMapCarousel from './SpotsMapCarousel';
+import SpotsMapCarousel from './carousel/SpotsMapCarousel';
 import { SPOTS } from '../mock-data';
 
 class SpotsMapPage extends React.Component {

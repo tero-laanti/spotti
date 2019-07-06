@@ -1,23 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
-
-const styles = StyleSheet.create({
-  carouselItem: {
-    width: 250,
-    backgroundColor: 'blue',
-  },
-});
+import SpotsMapCarouselItem from './SpotsMapCarouselItem';
 
 const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('SpotInfo', { spot: item })}>
-      <View style={styles.carouselItem}>
-        <Text>{`Title: ${item.address}`}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderItem = ({ item }) => <SpotsMapCarouselItem navigation={navigation} spot={item} />;
 
   renderItem.propTypes = {
     item: PropTypes.shape({
@@ -33,6 +20,7 @@ const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => 
       itemWidth={250}
       ref={c => setRef(c)}
       onSnapToItem={index => onActiveSpotChange(index)}
+      containerCustomStyle={{ backgroundColor: 'lightsteelblue' }}
     />
   );
 };
@@ -42,7 +30,12 @@ SpotsMapCarousel.propTypes = {
   spots: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      imageUrls: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      description: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
+      distance: PropTypes.string.isRequired,
     })
   ).isRequired,
   setRef: PropTypes.func.isRequired,
