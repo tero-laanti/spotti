@@ -1,6 +1,14 @@
 import React from 'react';
-import { View, Button, Text, Platform, Linking } from 'react-native';
+import { View, Button, Text, Platform, Linking, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+
+const styles = StyleSheet.create({
+  mainText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 32,
+  },
+});
 
 const AfterSpotPurchase = ({
   navigation,
@@ -25,15 +33,7 @@ const AfterSpotPurchase = ({
   return (
     <View style={{ flex: 1, flexDirection: 'column' }}>
       <View style={{ flex: 5, justifyContent: 'center' }}>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 32,
-          }}
-        >
-          Thank you for your purchase!
-        </Text>
+        <Text style={styles.mainText}>Thank you for your purchase!</Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
         <Button color="red" title="Continue" onPress={() => navigation.replace('Search')} />
