@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import SpotsMapCarouselItem from './SpotsMapCarouselItem';
 
 const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
-  const renderItem = ({ item }) => <SpotsMapCarouselItem navigation={navigation} spot={item} />;
+  const renderItem = ({ item }) => (
+    <SpotsMapCarouselItem
+      navigation={navigation}
+      spot={item}
+      timeFilters={{ time: '18:10-20:15', date: '25/10/2019' }}
+    />
+  );
 
   renderItem.propTypes = {
     item: PropTypes.shape({

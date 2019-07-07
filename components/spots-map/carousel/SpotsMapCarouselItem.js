@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const SpotsMapCarouselItem = ({ navigation, spot }) => {
-  const navigateToSpotInfo = () => navigation.navigate('SpotInfo', { spot });
+const SpotsMapCarouselItem = ({ navigation, spot, timeFilters }) => {
+  const navigateToSpotInfo = () => navigation.navigate('SpotInfo', { spot, timeFilters });
 
   return (
     <PanGestureHandler minDeltaY={30} maxDeltaX={50} onGestureEvent={navigateToSpotInfo}>
@@ -69,6 +69,10 @@ SpotsMapCarouselItem.propTypes = {
     description: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     distance: PropTypes.string.isRequired,
+  }).isRequired,
+  timeFilters: PropTypes.shape({
+    time: PropTypes.string,
+    date: PropTypes.string,
   }).isRequired,
 };
 

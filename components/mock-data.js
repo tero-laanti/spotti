@@ -55,6 +55,7 @@ export const SPOTS = [
     longitude: 22.289,
     address: 'Spot street 37',
     distance: '12 min',
+    price: 3,
     imageUrls: ['www.test.url'],
     description: 'This is a long Spot description that should be scrollable in the spotinfopage. '.repeat(
       15
@@ -65,6 +66,7 @@ export const SPOTS = [
     latitude: 60.452,
     longitude: 22.286,
     address: 'Spot address 138',
+    price: 2,
     distance: '6 min',
     imageUrls: ['www.test.url', 'www.another.url'],
     description: 'This is a description',
@@ -74,6 +76,7 @@ export const SPOTS = [
     latitude: 60.451,
     longitude: 22.288,
     address: 'Hämeenkatu 1000',
+    price: 5,
     distance: '',
     imageUrls: [],
     description: '',
