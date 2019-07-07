@@ -2,7 +2,14 @@ import React from 'react';
 import { View, Button, Text, Platform, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 
-const AfterSpotPurchase = ({ navigation, spotCoordinates }) => {
+const AfterSpotPurchase = ({
+  navigation,
+  navigation: {
+    state: {
+      params: { spotCoordinates },
+    },
+  },
+}) => {
   const openMapsAtCoordinate = ({ latitude, longitude }) => {
     const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
     const latLng = `${latitude},${longitude}`;
@@ -41,10 +48,15 @@ const AfterSpotPurchase = ({ navigation, spotCoordinates }) => {
 };
 
 AfterSpotPurchase.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
-  spotCoordinates: PropTypes.shape({
-    longitude: PropTypes.number.isRequired,
-    latitude: PropTypes.number.isRequired,
+  navigation: PropTypes.shape({
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        spotCoordinates: PropTypes.shape({
+          longitude: PropTypes.number.isRequired,
+          latitude: PropTypes.number.isRequired,
+        }).isRequired,
+      }),
+    }),
   }).isRequired,
 };
 
