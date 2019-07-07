@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Text, Platform, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 
-const ContinueOrNavigateToSpot = ({ navigation, spotCoordinates }) => {
+const AfterSpotPurchase = ({ navigation, spotCoordinates }) => {
   const openMapsAtCoordinate = ({ latitude, longitude }) => {
     const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
     const latLng = `${latitude},${longitude}`;
@@ -40,7 +40,7 @@ const ContinueOrNavigateToSpot = ({ navigation, spotCoordinates }) => {
   );
 };
 
-ContinueOrNavigateToSpot.propTypes = {
+AfterSpotPurchase.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
   spotCoordinates: PropTypes.shape({
     longitude: PropTypes.number.isRequired,
@@ -48,4 +48,4 @@ ContinueOrNavigateToSpot.propTypes = {
   }).isRequired,
 };
 
-export default ContinueOrNavigateToSpot;
+export default AfterSpotPurchase;
