@@ -37,43 +37,45 @@ const Purchase = ({
     },
   },
   navigation,
-}) => {
-  return (
-    <View>
-      <View style={styles.arrowContainer}>
-        <TouchableOpacity onPress={() =>
+}) => (
+  <View>
+    <View style={styles.arrowContainer}>
+      <TouchableOpacity
+        onPress={() =>
           navigation.navigate('SpotInfo', {
-            spot: spot,
+            spot,
             timeFilters: { time: '18:10-20:15', date: '25/10/2019' },
           })
-        }><Icon name="arrow-left" size={30} color="#B4B4B4" /></TouchableOpacity>
+        }
+      >
+        <Icon name="arrow-left" size={30} color="#B4B4B4" />
+      </TouchableOpacity>
+    </View>
+
+    <View style={styles.informationContainer}>
+      <View style={styles.containerPadding}>
+        <Text>Address: {spot.address}</Text>
+      </View>
+      <View style={styles.containerPadding}>
+        <Text>
+          Time: {timeFilters.time} {timeFilters.date}
+        </Text>
+      </View>
+      <View style={styles.containerPadding}>
+        <Text>Price: {spot.price} € </Text>
       </View>
 
-      <View style={styles.informationContainer}>
-        <View style={styles.containerPadding}>
-          <Text>Address: {spot.address}</Text>
-        </View>
-        <View style={styles.containerPadding}>
-          <Text>
-            Time: {timeFilters.time} {timeFilters.date}
-          </Text>
-        </View>
-        <View style={styles.containerPadding}>
-          <Text>Price: {spot.price} € </Text>
-        </View>
-
-        <View style={styles.totalPaymentContainer}>
-          <Text style={styles.payment}>Payment method:</Text>
-          <Text>Mobile payment</Text>
-          <Button title="Change"></Button>
-        </View>
-      </View>
-      <View style={styles.centerContainer}>
-        <Button title="Confirm"></Button>
+      <View style={styles.totalPaymentContainer}>
+        <Text style={styles.payment}>Payment method:</Text>
+        <Text>Mobile payment</Text>
+        <Button title="Change"></Button>
       </View>
     </View>
-  );
-}
+    <View style={styles.centerContainer}>
+      <Button title="Confirm"></Button>
+    </View>
+  </View>
+);
 
 export default Purchase;
 
@@ -89,10 +91,9 @@ Purchase.propTypes = {
         }).isRequired,
         timeFilters: PropTypes.shape({
           time: PropTypes.string,
-          date: PropTypes.string
+          date: PropTypes.string,
         }).isRequired,
       }),
     }),
   }).isRequired,
 };
-

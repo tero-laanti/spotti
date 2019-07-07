@@ -60,10 +60,10 @@ const SpotInfo = ({
               />
             </View>
           ) : (
-              <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-                <Text>No images available!</Text>
-              </View>
-            )}
+            <View style={{ alignItems: 'center', paddingVertical: 30 }}>
+              <Text>No images available!</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
       <View>
