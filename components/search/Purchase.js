@@ -72,7 +72,15 @@ const Purchase = ({
       </View>
     </View>
     <View style={styles.centerContainer}>
-      <Button title="Confirm"></Button>
+      <Button
+        title="Confirm"
+        onPress={() =>
+          navigation.navigate('AfterSpotPurchase', {
+            navigation,
+            spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
+          })
+        }
+      ></Button>
     </View>
   </View>
 );
