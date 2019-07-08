@@ -77,9 +77,7 @@ const Purchase = ({
         onPress={() =>
           navigation.navigate('AfterSpotPurchase', {
             navigation,
-            spot,
             spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
-            testi: 'moro'
           })
         }
       ></Button>
