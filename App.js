@@ -1,18 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import SearchStack from './components/search/SearchStack';
-
-const PlaceholderScreen = () => (
-  <View>
-    <Text>PLACEHOLDER</Text>
-  </View>
-);
+import OwnListingsStack from './components/own-listings/OwnListingsStack';
 
 const AppNavigator = createBottomTabNavigator(
   {
     Search: SearchStack,
-    Placeholder: PlaceholderScreen,
+    'My Listings': OwnListingsStack,
   },
   {
     initialRouteName: 'Search',
