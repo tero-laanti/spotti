@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import StepIndicator from 'react-native-step-indicator';
 
 const CurrentPageIndicator = ({ currentIndex, pageLabels }) => (
-  <StepIndicator currentPosition={currentIndex} onPress={() => {}} labels={pageLabels} />
+  <StepIndicator
+    currentPosition={currentIndex}
+    onPress={() => {}}
+    labels={pageLabels}
+    stepCount={pageLabels.length}
+  />
 );
 
 CurrentPageIndicator.propTypes = {

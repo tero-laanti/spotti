@@ -18,7 +18,10 @@ const OwnListingsScreen = ({ navigation }) => (
         <OwnListing key={spot.id} spot={spot} handleSuggestionSelect={() => {}} />
       ))}
     </View>
-    <Button title="Add Listing" onPress={() => navigation.navigate('AddSpotPage1')} />
+    <Button
+      title="Add Listing"
+      onPress={() => navigation.navigate('AddSpotWizard', { navigation })}
+    />
   </View>
 );
 

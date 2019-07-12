@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddSpotPage1 = ({ goToNextPage }) => (
+const AddSpotPage0 = ({ goToNextPage }) => (
   <View style={styles.container}>
-    <Button title="Ready!" onPress={goToNextPage} />
+    <Button title="Next page" onPress={goToNextPage} />
   </View>
 );
 
-AddSpotPage1.propTypes = {
+AddSpotPage0.propTypes = {
   goToNextPage: PropTypes.func.isRequired,
 };
 
-export default AddSpotPage1;
+export default AddSpotPage0;
