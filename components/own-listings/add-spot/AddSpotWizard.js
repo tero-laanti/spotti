@@ -16,8 +16,11 @@ const styles = StyleSheet.create({
 
 const AddSpotWizard = ({ navigation }) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [address, setAddress] = useState('');
+  const [details, setDetails] = useState('');
 
-  const returnAddingSpot = () => navigation.replace('OwnListingsScreen');
+  const returnAddingSpot = () =>
+    navigation.replace('OwnListingsScreen', { spot: { address, details } });
 
   const returnWithoutAddingSpot = () => navigation.replace('OwnListingsScreen');
 
@@ -32,17 +35,28 @@ const AddSpotWizard = ({ navigation }) => {
   };
 
   const addSpotPages = [
-    <AddSpotPage0 goToNextPage={nextPage} goToPrevPage={prevPage} />,
-    <AddSpotPage1
-      goToNextPage={() => navigation.replace('OwnListingsScreen')}
+    <AddSpotPage0
+      goToNextPage={nextPage}
       goToPrevPage={prevPage}
+      value={address}
+      setValue={setAddress}
+    />,
+    <AddSpotPage1
+      goToNextPage={nextPage}
+      goToPrevPage={prevPage}
+      value={details}
+      setValue={setDetails}
     />,
   ];
 
   return (
     <View style={styles.container}>
       <BackButton onPress={prevPage} />
-      <CurrentPageIndicator pageLabels={pageLabels} currentIndex={currentPage} />
+      <CurrentPageIndicator
+        pageLabels={pageLabels}
+        currentIndex={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       {addSpotPages[currentPage]}
     </View>
   );
