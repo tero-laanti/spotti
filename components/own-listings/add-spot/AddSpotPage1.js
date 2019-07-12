@@ -10,15 +10,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddSpotPage1 = ({ navigation }) => (
+const AddSpotPage1 = ({ goToNextPage, goToPrevPage }) => (
   <View style={styles.container}>
-    <BackButton navigation={navigation} />
-    <Button title="Next page" onPress={() => navigation.navigate('AddSpotPage2')} />
+    <BackButton onPress={goToPrevPage} />
+    <Button title="Next page" onPress={goToNextPage} />
   </View>
 );
 
 AddSpotPage1.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
+  goToNextPage: PropTypes.func.isRequired,
+  goToPrevPage: PropTypes.func.isRequired,
 };
 
 export default AddSpotPage1;

@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const BackButton = ({ navigation }) => (
-  <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+const BackButton = ({ onPress }) => (
+  <TouchableWithoutFeedback onPress={onPress}>
     <View>
       <Icon name="arrow-left" size={30} color="#B4B4B4" style={styles.icon} />
     </View>
@@ -19,7 +19,7 @@ const BackButton = ({ navigation }) => (
 );
 
 BackButton.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default BackButton;
