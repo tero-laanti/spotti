@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CurrentPageIndicator from './CurrentPageIndicator';
 import AddSpotPage0 from './AddSpotPage0';
 import AddSpotPage1 from './AddSpotPage1';
@@ -14,13 +15,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddSpotWizard = ({ navigation }) => {
+const AddSpotWizard = ({ navigation, addSpot }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [address, setAddress] = useState('');
   const [details, setDetails] = useState('');
 
-  const returnAddingSpot = () =>
-    navigation.replace('OwnListingsScreen', { spot: { address, details } });
+  const returnAddingSpot = () => {
+    addSpot({ address, details });
+    navigation.replace('OwnListingsScreen');
+  };
 
   const returnWithoutAddingSpot = () => navigation.replace('OwnListingsScreen');
 
@@ -64,6 +67,14 @@ const AddSpotWizard = ({ navigation }) => {
 
 AddSpotWizard.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
+  addSpot: PropTypes.func.isRequired,
 };
 
-export default AddSpotWizard;
+const mapDispatchToProps = dispatch => ({
+  addSpot: newSpot => dispatch({ type: 'ADD_SPOT', newSpot }),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddSpotWizard);

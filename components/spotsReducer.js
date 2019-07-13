@@ -9,6 +9,8 @@ const spots = (state = initialState, action) => {
         if (index === action.updatedSpotIndex) return action.updatedSpot;
         return spot;
       });
+    case 'ADD_SPOT':
+      return [...state, action.newSpot];
     default:
       return state;
   }
@@ -18,6 +20,11 @@ export const updateSpot = (updatedSpot, updatedSpotIndex) => ({
   type: 'UPDATE_SPOT',
   updatedSpot,
   updatedSpotIndex,
+});
+
+export const addSpot = newSpot => ({
+  type: 'ADD_SPOT',
+  newSpot,
 });
 
 export default spots;
