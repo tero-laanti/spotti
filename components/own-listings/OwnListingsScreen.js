@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import OwnListing from './OwnListing';
 import { SPOTS } from '../mock-data';
 
@@ -10,15 +11,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const OwnListingsScreen = () => (
+const OwnListingsScreen = ({ navigation }) => (
   <View style={styles.container}>
     <View>
       {SPOTS.map(spot => (
         <OwnListing key={spot.id} spot={spot} handleSuggestionSelect={() => {}} />
       ))}
     </View>
-    <Button title="Add Listing" />
+    <Button
+      title="Add Listing"
+      onPress={() => navigation.navigate('AddSpotWizard', { navigation })}
+    />
   </View>
 );
+
+OwnListingsScreen.propTypes = {
+  navigation: PropTypes.shape({}).isRequired,
+};
 
 export default OwnListingsScreen;
