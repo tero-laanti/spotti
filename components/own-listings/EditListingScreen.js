@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, StyleSheet, TouchableOpacity, Text, Button, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { updateSpot } from '../spotsReducer';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,9 +39,11 @@ const EditListingScreen = ({
   navigation,
   navigation: {
     state: {
-      params: { spot },
+      params: { spot, index },
     },
   },
+  // eslint-disable-next-line no-shadow
+  updateSpot,
 }) => {
   const [address, setAddress] = useState('');
   const [description, setDescription] = useState('');
@@ -86,7 +90,12 @@ const EditListingScreen = ({
           />
         </View>
       </View>
-      {!isDescriptionFocused && <Button title="Save"></Button>}
+      {!isDescriptionFocused && (
+        <Button
+          title="Save"
+          onPress={() => updateSpot({ ...spot, address, description }, index)}
+        ></Button>
+      )}
     </View>
   );
 };
@@ -96,9 +105,18 @@ EditListingScreen.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         spot: PropTypes.shape({}).isRequired,
+        index: PropTypes.number.isRequired,
       }),
     }),
   }).isRequired,
+  updateSpot: PropTypes.func.isRequired,
 };
 
-export default EditListingScreen;
+const mapDispatchToProps = {
+  updateSpot,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(EditListingScreen);

@@ -12,13 +12,18 @@ const styles = StyleSheet.create({
 });
 
 const OwnListingsScreen = ({ navigation, spots }) => {
-  const handleListingSelect = spot => () => navigation.navigate('EditListingScreen', { spot });
+  const handleListingSelect = (spot, index) => () =>
+    navigation.navigate('EditListingScreen', { spot, index });
 
   return (
     <View style={styles.container}>
       <View>
-        {spots.map(spot => (
-          <OwnListing key={spot.id} spot={spot} handleListingSelect={handleListingSelect(spot)} />
+        {spots.map((spot, index) => (
+          <OwnListing
+            key={spot.id}
+            spot={spot}
+            handleListingSelect={handleListingSelect(spot, index)}
+          />
         ))}
       </View>
       <Button
