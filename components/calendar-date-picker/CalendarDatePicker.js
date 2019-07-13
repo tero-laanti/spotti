@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,9 +24,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   calendarDate: {
+    flex: 1,
     borderWidth: 1,
     justifyContent: 'center',
     width: Dimensions.get('window').width / 7,
+  },
+  activeCalendarDate: {
+    backgroundColor: '#3A6EA5',
   },
 });
 
@@ -33,11 +38,16 @@ const CalendarDatePicker = () => {
   const getLastDateOfMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
   const shiftDaysToStartFromMonday = dayNumber => (((dayNumber - 1) % 7) + 7) % 7;
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
+  const currentDateObject = new Date();
+  const currentDate = currentDateObject.getDate();
+  const currentMonth = currentDateObject.getMonth();
+  const currentYear = currentDateObject.getFullYear();
   const lastDateOfCurrentMonth = getLastDateOfMonth(currentYear, currentMonth);
   const firstDayOfMonth = shiftDaysToStartFromMonday(getFirstDayOfMonth(currentYear, currentMonth));
+
+  const [activeDate, setActiveDate] = useState(currentDate);
+
+  const handleCalendarDateClick = date => setActiveDate(date);
 
   const range = (start, stop) => {
     const a = [start];
@@ -81,17 +91,28 @@ const CalendarDatePicker = () => {
       </View>
       <View>
         {calendarWeeks.map(week => (
-          <CalendarRow key={week[0]} isFirstWeek={week[0] === 1} week={week} />
+          <CalendarRow
+            key={week[0]}
+            isFirstWeek={week[0] === 1}
+            week={week}
+            activeDate={activeDate}
+            handleCalendarDateClick={handleCalendarDateClick}
+          />
         ))}
       </View>
     </View>
   );
 };
 
-const CalendarRow = ({ isFirstWeek, week }) => (
+const CalendarRow = ({ isFirstWeek, week, activeDate, handleCalendarDateClick }) => (
   <View style={[isFirstWeek ? styles.firstCalendarRow : styles.calendarRow]}>
     {week.map(date => (
-      <CalendarDate key={date} date={date} />
+      <CalendarDate
+        key={date}
+        date={date}
+        isActive={date === activeDate}
+        handleCalendarDateClick={handleCalendarDateClick}
+      />
     ))}
   </View>
 );
@@ -99,16 +120,22 @@ const CalendarRow = ({ isFirstWeek, week }) => (
 CalendarRow.propTypes = {
   isFirstWeek: PropTypes.bool.isRequired,
   week: PropTypes.arrayOf(PropTypes.number).isRequired,
+  activeDate: PropTypes.number.isRequired,
+  handleCalendarDateClick: PropTypes.func.isRequired,
 };
 
-const CalendarDate = ({ date }) => (
-  <View style={[styles.calendarDate]}>
-    <Text style={{ textAlign: 'center' }}>{date}</Text>
-  </View>
+const CalendarDate = ({ date, isActive, handleCalendarDateClick }) => (
+  <TouchableOpacity style={{ flex: 1 }} onPress={() => handleCalendarDateClick(date)}>
+    <View style={[styles.calendarDate, isActive && styles.activeCalendarDate]}>
+      <Text style={{ textAlign: 'center' }}>{date}</Text>
+    </View>
+  </TouchableOpacity>
 );
 
 CalendarDate.propTypes = {
   date: PropTypes.number.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  handleCalendarDateClick: PropTypes.func.isRequired,
 };
 
 export default CalendarDatePicker;
