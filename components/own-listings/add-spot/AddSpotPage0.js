@@ -17,11 +17,7 @@ const AddSpotPage0 = ({ goToNextPage, value, setValue }) => (
   <View style={styles.container}>
     <View>
       <Text> Enter spot address: </Text>
-      <TextInput
-        style={styles.textInput}
-        value={value}
-        onChange={e => setValue(e.nativeEvent.text)}
-      />
+      <TextInput style={styles.textInput} value={value} onChangeText={text => setValue(text)} />
     </View>
     <Button title="Next page" onPress={goToNextPage} />
   </View>

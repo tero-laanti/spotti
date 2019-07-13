@@ -21,7 +21,7 @@ const AddSpotPage1 = ({ goToNextPage, value, setValue }) => (
         multiline
         style={styles.textInput}
         value={value}
-        onChange={e => setValue(e.nativeEvent.text)}
+        onChangeText={text => setValue(text)}
       />
     </View>
     <Button title="Ready!" onPress={goToNextPage} />
