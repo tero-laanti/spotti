@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, Button, StyleSheet } from 'react-native';
 import OwnListing from './OwnListing';
-import { SPOTS } from '../mock-data';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,13 +11,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const OwnListingsScreen = ({ navigation }) => {
+const OwnListingsScreen = ({ navigation, spots }) => {
   const handleListingSelect = spot => () => navigation.navigate('EditListingScreen', { spot });
 
   return (
     <View style={styles.container}>
       <View>
-        {SPOTS.map(spot => (
+        {spots.map(spot => (
           <OwnListing key={spot.id} spot={spot} handleListingSelect={handleListingSelect(spot)} />
         ))}
       </View>
@@ -35,6 +35,14 @@ OwnListingsScreen.propTypes = {
 
 OwnListingsScreen.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
+  spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
-export default OwnListingsScreen;
+const mapStateToProps = state => ({
+  spots: state.spots,
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(OwnListingsScreen);

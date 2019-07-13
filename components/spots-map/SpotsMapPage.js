@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './SpotsMap';
 import SpotsMapCarousel from './carousel/SpotsMapCarousel';
-import { SPOTS } from '../mock-data';
 
 class SpotsMapPage extends React.Component {
   constructor(props) {
@@ -22,7 +22,8 @@ class SpotsMapPage extends React.Component {
   };
 
   centerMapOnSpotIndex = i => {
-    const spotToCenter = SPOTS[i];
+    const { spots } = this.props;
+    const spotToCenter = spots[i];
     this.mapRef.animateCamera({
       center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
     });
@@ -38,19 +39,20 @@ class SpotsMapPage extends React.Component {
         },
       },
       navigation,
+      spots,
     } = this.props;
     return (
       <View>
         <SpotsMap
           onActiveSpotChange={this.snapCarouselToSpotIndex}
-          markers={SPOTS}
+          markers={spots}
           initialCoordinates={initialCoordinates}
           setRef={this.setMapRef}
         />
         <SpotsMapCarousel
           navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
-          spots={SPOTS}
+          spots={spots}
           setRef={this.setCarouselRef}
         />
       </View>
@@ -69,6 +71,14 @@ SpotsMapPage.propTypes = {
       }),
     }),
   }).isRequired,
+  spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
-export default SpotsMapPage;
+const mapStateToProps = state => ({
+  spots: state.spots,
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(SpotsMapPage);
