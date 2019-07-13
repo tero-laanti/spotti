@@ -6,6 +6,7 @@ import CurrentPageIndicator from './CurrentPageIndicator';
 import AddSpotPage0 from './AddSpotPage0';
 import AddSpotPage1 from './AddSpotPage1';
 import BackButton from '../../BackButton';
+import { addSpot } from '../../spotsReducer';
 
 const pageLabels = ['Address', 'Details'];
 
@@ -15,13 +16,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddSpotWizard = ({ navigation, addSpot }) => {
+const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [address, setAddress] = useState('');
   const [details, setDetails] = useState('');
 
   const returnAddingSpot = () => {
-    addSpot({ address, details });
+    const newSpot = {
+      address,
+      details,
+      id: 0,
+      latitude: '65.05',
+      longitude: '65.05',
+      distance: '6',
+      imageUrls: [],
+    };
+    AddSpotToStore(newSpot);
     navigation.replace('OwnListingsScreen');
   };
 
@@ -70,9 +80,7 @@ AddSpotWizard.propTypes = {
   addSpot: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  addSpot: newSpot => dispatch({ type: 'ADD_SPOT', newSpot }),
-});
+const mapDispatchToProps = { addSpot };
 
 export default connect(
   null,
