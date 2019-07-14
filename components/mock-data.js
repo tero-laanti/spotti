@@ -60,6 +60,7 @@ export const SPOTS = [
     description: 'This is a long Spot description that should be scrollable in the spotinfopage. '.repeat(
       15
     ),
+    availableTimes: {},
   },
   {
     id: 2,
@@ -70,6 +71,10 @@ export const SPOTS = [
     distance: '6 min',
     imageUrls: ['www.test.url', 'www.another.url'],
     description: 'This is a description',
+    availableTimes: {
+      '2019-07-20': { start: { hour: 12, minute: 15 }, end: { hour: 13, minute: 45 } },
+      '2019-07-22': { start: { hour: 16, minute: 0 }, end: { hour: 17, minute: 0 } },
+    },
   },
   {
     id: 3,
@@ -80,5 +85,6 @@ export const SPOTS = [
     distance: '',
     imageUrls: [],
     description: '',
+    availableTimes: {},
   },
 ];
