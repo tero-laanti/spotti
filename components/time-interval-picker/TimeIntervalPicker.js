@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TimePickerAndroid, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TimePickerAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
@@ -14,18 +14,39 @@ const styles = StyleSheet.create({
   },
 });
 
-const TimeIntervalPicker = ({ timeInterval: { start, end }, updateTimeInterval }) => {
-  const updateStartTime = updatedTime => updateTimeInterval({ start: updatedTime, end });
-  const updateEndTime = updatedTime => updateTimeInterval({ start, end: updatedTime });
+const TimeIntervalPicker = ({ timeInterval: { start, end }, setInterval }) => {
+  const [timeInterval, setTimeInterval] = useState({ start, end });
+  useEffect(() => setTimeInterval({ start, end }), [start, end]);
+
+  const updateStartTime = updatedTime => setTimeInterval({ ...timeInterval, start: updatedTime });
+  const updateEndTime = updatedTime => setTimeInterval({ ...timeInterval, end: updatedTime });
+
+  const areIntervalEndpointsValid = () =>
+    timeInterval.start.hour &&
+    timeInterval.start.minute &&
+    timeInterval.end.hour &&
+    timeInterval.end.minute;
 
   return (
     <View>
       <TimePicker
-        initialHour={start.hour}
-        initialMinute={start.minute}
+        initialHour={timeInterval.start.hour}
+        initialMinute={timeInterval.start.minute}
         updateTime={updateStartTime}
       />
-      <TimePicker initialHour={end.hour} initialMinute={end.minute} updateTime={updateEndTime} />
+      <TimePicker
+        initialHour={timeInterval.end.hour}
+        initialMinute={timeInterval.end.minute}
+        updateTime={updateEndTime}
+      />
+      <TouchableOpacity
+        onPress={() => setInterval(timeInterval)}
+        disabled={!areIntervalEndpointsValid()}
+      >
+        <View style={styles.timePicker}>
+          <Text style={{ textAlign: 'center' }}>Set available</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -41,7 +62,7 @@ TimeIntervalPicker.propTypes = {
       minute: PropTypes.number,
     }).isRequired,
   }).isRequired,
-  updateTimeInterval: PropTypes.func.isRequired,
+  setInterval: PropTypes.func.isRequired,
 };
 
 const TimePicker = ({ initialHour, initialMinute, updateTime }) => {

@@ -65,7 +65,7 @@ const EditAvailableTimesScreen = () => {
       />
       <TimeIntervalPicker
         timeInterval={availableTimes[activeDate] || { start: {}, end: {} }}
-        updateTimeInterval={updateAvailableTimes}
+        setInterval={updateAvailableTimes}
       />
       <TouchableOpacity onPress={clearTimeIntervalOfActiveDate}>
         <View style={styles.button}>
