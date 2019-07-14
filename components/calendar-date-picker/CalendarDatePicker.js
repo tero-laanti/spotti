@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
   dateNamesHeader: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -32,22 +28,20 @@ const styles = StyleSheet.create({
   activeCalendarDate: {
     backgroundColor: '#3A6EA5',
   },
+  calendarDateWithAvailableTimes: {
+    backgroundColor: '#A5BDD6',
+  },
 });
 
-const CalendarDatePicker = () => {
+const CalendarDatePicker = ({ activeDate, handleCalendarDateClick, datesWithAvailableTimes }) => {
   const getLastDateOfMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
   const shiftDaysToStartFromMonday = dayNumber => (((dayNumber - 1) % 7) + 7) % 7;
   const currentDateObject = new Date();
-  const currentDate = currentDateObject.getDate();
   const currentMonth = currentDateObject.getMonth();
   const currentYear = currentDateObject.getFullYear();
   const lastDateOfCurrentMonth = getLastDateOfMonth(currentYear, currentMonth);
   const firstDayOfMonth = shiftDaysToStartFromMonday(getFirstDayOfMonth(currentYear, currentMonth));
-
-  const [activeDate, setActiveDate] = useState(currentDate);
-
-  const handleCalendarDateClick = date => setActiveDate(date);
 
   const range = (start, stop) => {
     const a = [start];
@@ -79,7 +73,7 @@ const CalendarDatePicker = () => {
   const calendarWeeks = getCalendarWeeks();
 
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.dateNamesHeader}>
         <Text>Mon</Text>
         <Text>Tue</Text>
@@ -97,6 +91,7 @@ const CalendarDatePicker = () => {
             week={week}
             activeDate={activeDate}
             handleCalendarDateClick={handleCalendarDateClick}
+            datesWithAvailableTimes={datesWithAvailableTimes}
           />
         ))}
       </View>
@@ -104,13 +99,26 @@ const CalendarDatePicker = () => {
   );
 };
 
-const CalendarRow = ({ isFirstWeek, week, activeDate, handleCalendarDateClick }) => (
+CalendarDatePicker.propTypes = {
+  activeDate: PropTypes.number.isRequired,
+  handleCalendarDateClick: PropTypes.func.isRequired,
+  datesWithAvailableTimes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+};
+
+const CalendarRow = ({
+  isFirstWeek,
+  week,
+  activeDate,
+  handleCalendarDateClick,
+  datesWithAvailableTimes,
+}) => (
   <View style={[isFirstWeek ? styles.firstCalendarRow : styles.calendarRow]}>
     {week.map(date => (
       <CalendarDate
         key={date}
         date={date}
         isActive={date === activeDate}
+        hasAvailableTimes={datesWithAvailableTimes.includes(date)}
         handleCalendarDateClick={handleCalendarDateClick}
       />
     ))}
@@ -122,11 +130,18 @@ CalendarRow.propTypes = {
   week: PropTypes.arrayOf(PropTypes.number).isRequired,
   activeDate: PropTypes.number.isRequired,
   handleCalendarDateClick: PropTypes.func.isRequired,
+  datesWithAvailableTimes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };
 
-const CalendarDate = ({ date, isActive, handleCalendarDateClick }) => (
+const CalendarDate = ({ date, isActive, hasAvailableTimes, handleCalendarDateClick }) => (
   <TouchableOpacity style={{ flex: 1 }} onPress={() => handleCalendarDateClick(date)}>
-    <View style={[styles.calendarDate, isActive && styles.activeCalendarDate]}>
+    <View
+      style={[
+        styles.calendarDate,
+        isActive && styles.activeCalendarDate,
+        !isActive && hasAvailableTimes && styles.calendarDateWithAvailableTimes,
+      ]}
+    >
       <Text style={{ textAlign: 'center' }}>{date}</Text>
     </View>
   </TouchableOpacity>
@@ -135,6 +150,7 @@ const CalendarDate = ({ date, isActive, handleCalendarDateClick }) => (
 CalendarDate.propTypes = {
   date: PropTypes.number.isRequired,
   isActive: PropTypes.bool.isRequired,
+  hasAvailableTimes: PropTypes.bool.isRequired,
   handleCalendarDateClick: PropTypes.func.isRequired,
 };
 
