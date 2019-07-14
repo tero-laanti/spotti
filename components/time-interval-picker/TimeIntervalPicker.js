@@ -5,6 +5,19 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   timePicker: {
+    width: 95,
+    borderColor: 'black',
+    borderWidth: 1,
+    justifyContent: 'center',
+    padding: 10,
+  },
+  timePickerRow: {
+    width: 200,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    margin: 10,
+  },
+  button: {
     width: 200,
     borderColor: 'black',
     borderWidth: 1,
@@ -29,21 +42,23 @@ const TimeIntervalPicker = ({ timeInterval: { start, end }, setInterval }) => {
 
   return (
     <View>
-      <TimePicker
-        initialHour={timeInterval.start.hour}
-        initialMinute={timeInterval.start.minute}
-        updateTime={updateStartTime}
-      />
-      <TimePicker
-        initialHour={timeInterval.end.hour}
-        initialMinute={timeInterval.end.minute}
-        updateTime={updateEndTime}
-      />
+      <View style={styles.timePickerRow}>
+        <TimePicker
+          initialHour={timeInterval.start.hour}
+          initialMinute={timeInterval.start.minute}
+          updateTime={updateStartTime}
+        />
+        <TimePicker
+          initialHour={timeInterval.end.hour}
+          initialMinute={timeInterval.end.minute}
+          updateTime={updateEndTime}
+        />
+      </View>
       <TouchableOpacity
         onPress={() => setInterval(timeInterval)}
         disabled={!areIntervalEndpointsValid()}
       >
-        <View style={styles.timePicker}>
+        <View style={styles.button}>
           <Text style={{ textAlign: 'center' }}>Set available</Text>
         </View>
       </TouchableOpacity>
