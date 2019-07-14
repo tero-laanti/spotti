@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TimePickerAndroid, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -14,23 +14,34 @@ const styles = StyleSheet.create({
   },
 });
 
-const TimeIntervalPicker = () => {
-  const [startTime, setStartTime] = useState({});
-  const [endTime, setEndTime] = useState({});
+const TimeIntervalPicker = ({ timeInterval: { start, end }, updateTimeInterval }) => {
+  const updateStartTime = updatedTime => updateTimeInterval({ start: updatedTime, end });
+  const updateEndTime = updatedTime => updateTimeInterval({ start, end: updatedTime });
+
   return (
     <View>
       <TimePicker
-        initialHour={startTime.hour}
-        initialMinute={startTime.minute}
-        updateTime={setStartTime}
+        initialHour={start.hour}
+        initialMinute={start.minute}
+        updateTime={updateStartTime}
       />
-      <TimePicker
-        initialHour={endTime.hour}
-        initialMinute={endTime.minute}
-        updateTime={setEndTime}
-      />
+      <TimePicker initialHour={end.hour} initialMinute={end.minute} updateTime={updateEndTime} />
     </View>
   );
+};
+
+TimeIntervalPicker.propTypes = {
+  timeInterval: PropTypes.shape({
+    start: PropTypes.shape({
+      hour: PropTypes.number,
+      minute: PropTypes.number,
+    }).isRequired,
+    end: PropTypes.shape({
+      hour: PropTypes.number,
+      minute: PropTypes.number,
+    }).isRequired,
+  }).isRequired,
+  updateTimeInterval: PropTypes.func.isRequired,
 };
 
 const TimePicker = ({ initialHour, initialMinute, updateTime }) => {
