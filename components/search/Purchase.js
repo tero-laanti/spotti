@@ -68,7 +68,7 @@ const Purchase = ({
       <View style={styles.totalPaymentContainer}>
         <Text style={styles.payment}>Payment method:</Text>
         <Text>Mobile payment</Text>
-        <Button title="Change"></Button>
+        <Button onPress={() => {}} title="Change" />
       </View>
     </View>
     <View style={styles.centerContainer}>
@@ -80,7 +80,7 @@ const Purchase = ({
             spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
           })
         }
-      ></Button>
+      />
     </View>
   </View>
 );
