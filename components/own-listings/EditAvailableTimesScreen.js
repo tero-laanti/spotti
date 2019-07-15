@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import CalendarDatePicker from '../calendar-date-picker/CalendarDatePicker';
 import TimeIntervalPicker from '../time-interval-picker/TimeIntervalPicker';
+import { updateSpot } from '../spotsReducer';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,23 +20,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const initialAvailableTimes = {
-  '2019-07-20': { start: { hour: 12, minute: 15 }, end: { hour: 13, minute: 45 } },
-  '2019-07-22': { start: { hour: 16, minute: 0 }, end: { hour: 17, minute: 0 } },
-};
-
-const deepCloneAvailableTimes = () => {
-  const entries = Object.entries(initialAvailableTimes);
-  return entries.reduce((acc, current) => {
-    acc[current[0]] = { start: { ...current[1].start }, end: { ...current[1].end } };
-    return acc;
-  }, {});
-};
-
-const EditAvailableTimesScreen = () => {
+const EditAvailableTimesScreen = ({
+  navigation,
+  navigation: {
+    state: {
+      params: { spot, index },
+    },
+  },
+  // eslint-disable-next-line no-shadow
+  updateSpot,
+}) => {
   const currentDateAsISOString = new Date().toISOString();
   const [activeDate, setActiveDate] = useState(currentDateAsISOString.split('T')[0]);
-  const [availableTimes, setAvailableTimes] = useState(deepCloneAvailableTimes());
+  const [availableTimes, setAvailableTimes] = useState({});
+
+  const deepCloneAvailableTimes = () => {
+    const entries = Object.entries(spot.availableTimes);
+    return entries.reduce((acc, current) => {
+      acc[current[0]] = { start: { ...current[1].start }, end: { ...current[1].end } };
+      return acc;
+    }, {});
+  };
+
+  useEffect(() => setAvailableTimes(deepCloneAvailableTimes), [spot]);
 
   const updateAvailableTimes = updatedTimes =>
     setAvailableTimes({ ...availableTimes, [activeDate]: updatedTimes });
@@ -54,6 +63,11 @@ const EditAvailableTimesScreen = () => {
     setAvailableTimes(filteredTimes);
   };
 
+  const finishAvailableTimesEditing = () => {
+    updateSpot({ ...spot, availableTimes }, index);
+    navigation.goBack();
+  };
+
   const handleCalendarDateClick = date => setActiveDate(`2019-07-${date}`);
 
   return (
@@ -72,8 +86,32 @@ const EditAvailableTimesScreen = () => {
           <Text style={{ textAlign: 'center' }}>Clear date</Text>
         </View>
       </TouchableOpacity>
+      <TouchableOpacity onPress={finishAvailableTimesEditing}>
+        <View style={styles.button}>
+          <Text style={{ textAlign: 'center' }}>Done</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default EditAvailableTimesScreen;
+EditAvailableTimesScreen.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        spot: PropTypes.shape({}).isRequired,
+        index: PropTypes.number.isRequired,
+      }),
+    }),
+  }).isRequired,
+  updateSpot: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  updateSpot,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(EditAvailableTimesScreen);

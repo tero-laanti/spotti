@@ -75,7 +75,15 @@ const EditListingScreen = ({
         </View>
         <View style={styles.spotInfoSection}>
           <Text>Available times:</Text>
-          <Button title="Edit times"></Button>
+          <Button
+            title="Edit times"
+            onPress={() =>
+              navigation.navigate('EditAvailableTimesScreen', {
+                spot,
+                index,
+              })
+            }
+          ></Button>
         </View>
         <View style={styles.spotInfoSection}>
           <Text>Description:</Text>
