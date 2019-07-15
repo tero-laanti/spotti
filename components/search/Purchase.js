@@ -4,26 +4,24 @@ import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
+  topContainer: {
+    height: '100%',
+  },
+  arrowContainer: {
+    paddingLeft: '5%',
+    paddingTop: '5%',
+  },
   informationContainer: {
+    flex: 1,
     justifyContent: 'space-between',
     height: '85%',
   },
   containerPadding: {
     paddingLeft: '10%',
   },
-  arrowContainer: {
-    paddingLeft: '5%',
-    paddingTop: '5%',
-  },
   totalPaymentContainer: {
     alignItems: 'center',
     paddingBottom: '20%',
-  },
-
-  centerContainer: {
-    alignSelf: 'center',
-    width: '80%',
-    marginTop: 10,
   },
   payment: {
     paddingBottom: '5%',
@@ -38,7 +36,7 @@ const Purchase = ({
   },
   navigation,
 }) => (
-  <View>
+  <View style={styles.topContainer}>
     <View style={styles.arrowContainer}>
       <TouchableOpacity
         onPress={() =>
@@ -71,17 +69,15 @@ const Purchase = ({
         <Button onPress={() => {}} title="Change" />
       </View>
     </View>
-    <View style={styles.centerContainer}>
-      <Button
-        title="Confirm"
-        onPress={() =>
-          navigation.navigate('AfterSpotPurchase', {
-            navigation,
-            spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
-          })
-        }
-      />
-    </View>
+    <Button
+      title="Confirm"
+      onPress={() =>
+        navigation.navigate('AfterSpotPurchase', {
+          navigation,
+          spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
+        })
+      }
+    />
   </View>
 );
 
