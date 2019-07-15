@@ -32,7 +32,7 @@ const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
       imageUrls: [],
     };
     AddSpotToStore(newSpot);
-    navigation.replace('OwnListingsScreen');
+    navigation.replace('SpotAddedPage');
   };
 
   const returnWithoutAddingSpot = () => navigation.replace('OwnListingsScreen');
