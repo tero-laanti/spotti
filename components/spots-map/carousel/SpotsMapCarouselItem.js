@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   carouselItem: {
@@ -39,7 +38,7 @@ const SpotsMapCarouselItem = ({ navigation, spot, timeFilters }) => {
   const navigateToSpotInfo = () => navigation.navigate('SpotInfo', { spot, timeFilters });
 
   return (
-    <PanGestureHandler minDeltaY={30} maxDeltaX={50} onGestureEvent={navigateToSpotInfo}>
+    <TouchableOpacity onPress={navigateToSpotInfo}>
       <View style={styles.carouselItem}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.dragIndicator} />
@@ -55,7 +54,7 @@ const SpotsMapCarouselItem = ({ navigation, spot, timeFilters }) => {
           <Text style={styles.mediumFont}>3€ / h </Text>
         </View>
       </View>
-    </PanGestureHandler>
+    </TouchableOpacity>
   );
 };
 
