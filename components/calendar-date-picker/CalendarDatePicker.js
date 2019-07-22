@@ -1,4 +1,5 @@
 import React from 'react';
+import * as R from 'ramda';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -33,55 +34,38 @@ const styles = StyleSheet.create({
   },
 });
 
+export const getCalendarWeeks = (firstWeekdayOfMonth, lastDayOfCurrentMonth) => {
+  const firstWeekDateCount = 7 - firstWeekdayOfMonth;
+  const daysOfMonth = R.range(1, lastDayOfCurrentMonth + 1);
+  return R.compose(
+    R.unnest(),
+    R.map(R.splitEvery(7)),
+    R.splitWhen(day => day > firstWeekDateCount)
+  )(daysOfMonth);
+};
+
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
 const CalendarDatePicker = ({ activeDate, handleCalendarDateClick, datesWithAvailableTimes }) => {
   const getLastDateOfMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
-  const shiftDaysToStartFromMonday = dayNumber => (((dayNumber - 1) % 7) + 7) % 7;
+  const shiftDaysToStartFromMonday = dayNumber => R.mathMod(dayNumber - 1, 7);
   const currentDateObject = new Date();
   const currentMonth = currentDateObject.getMonth();
   const currentYear = currentDateObject.getFullYear();
   const lastDateOfCurrentMonth = getLastDateOfMonth(currentYear, currentMonth);
-  const firstDayOfMonth = shiftDaysToStartFromMonday(getFirstDayOfMonth(currentYear, currentMonth));
+  const firstWeekdayOfMonth = shiftDaysToStartFromMonday(
+    getFirstDayOfMonth(currentYear, currentMonth)
+  );
 
-  const range = (start, stop) => {
-    const a = [start];
-    let b = start;
-    while (b < stop) {
-      a.push((b += 1));
-    }
-    return a;
-  };
-
-  const getCalendarWeeks = () => {
-    const firstWeekDateCount = 7 - firstDayOfMonth;
-    const weeks = [];
-    weeks.push(range(1, firstWeekDateCount));
-    weeks.push(range(firstWeekDateCount + 1, firstWeekDateCount + 7));
-    weeks.push(range(firstWeekDateCount + 1 + 7, firstWeekDateCount + 7 + 7));
-    weeks.push(range(firstWeekDateCount + 1 + 14, firstWeekDateCount + 7 + 14));
-    if (weeks[3][6] !== lastDateOfCurrentMonth) {
-      if (lastDateOfCurrentMonth - weeks[3][6] > 7) {
-        weeks.push(range(firstWeekDateCount + 1 + 21, firstWeekDateCount + 7 + 21));
-        weeks.push(range(firstWeekDateCount + 1 + 28, lastDateOfCurrentMonth));
-      } else {
-        weeks.push(range(firstWeekDateCount + 1 + 21, lastDateOfCurrentMonth));
-      }
-    }
-    return weeks;
-  };
-
-  const calendarWeeks = getCalendarWeeks();
+  const calendarWeeks = getCalendarWeeks(firstWeekdayOfMonth, lastDateOfCurrentMonth);
 
   return (
     <View>
       <View style={styles.dateNamesHeader}>
-        <Text>Mon</Text>
-        <Text>Tue</Text>
-        <Text>Wed</Text>
-        <Text>Thu</Text>
-        <Text>Fri</Text>
-        <Text>Sat</Text>
-        <Text>Sun</Text>
+        {weekdays.map(dayOfWeek => (
+          <Text key={dayOfWeek}>{dayOfWeek}</Text>
+        ))}
       </View>
       <View>
         {calendarWeeks.map(week => (

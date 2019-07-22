@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import * as R from 'ramda';
 import CalendarDatePicker from '../calendar-date-picker/CalendarDatePicker';
 import TimeIntervalPicker from '../time-interval-picker/TimeIntervalPicker';
 import { updateSpot } from '../spotsReducer';
@@ -34,15 +35,7 @@ const EditAvailableTimesScreen = ({
   const [activeDate, setActiveDate] = useState(currentDateAsISOString.split('T')[0]);
   const [availableTimes, setAvailableTimes] = useState({});
 
-  const deepCloneAvailableTimes = () => {
-    const entries = Object.entries(spot.availableTimes);
-    return entries.reduce((acc, current) => {
-      acc[current[0]] = { start: { ...current[1].start }, end: { ...current[1].end } };
-      return acc;
-    }, {});
-  };
-
-  useEffect(() => setAvailableTimes(deepCloneAvailableTimes), [spot]);
+  useEffect(() => setAvailableTimes(R.clone(spot.availableTimes)), [spot]);
 
   const updateAvailableTimes = updatedTimes =>
     setAvailableTimes({ ...availableTimes, [activeDate]: updatedTimes });
