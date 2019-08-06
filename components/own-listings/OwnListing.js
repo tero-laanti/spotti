@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const OwnListing = ({ spot, handleSuggestionSelect }) => (
+const OwnListing = ({ spot, handleListingSelect }) => (
   <View style={styles.separator}>
-    <TouchableOpacity onPress={handleSuggestionSelect}>
+    <TouchableOpacity onPress={handleListingSelect}>
       <View style={styles.suggestionBox}>
         <Text>{spot.address}</Text>
       </View>
@@ -26,7 +26,7 @@ const OwnListing = ({ spot, handleSuggestionSelect }) => (
 
 OwnListing.propTypes = {
   spot: PropTypes.shape({}).isRequired,
-  handleSuggestionSelect: PropTypes.func.isRequired,
+  handleListingSelect: PropTypes.func.isRequired,
 };
 
 export default OwnListing;

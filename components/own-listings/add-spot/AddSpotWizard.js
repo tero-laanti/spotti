@@ -30,6 +30,7 @@ const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
       longitude: '65.05',
       distance: '6',
       imageUrls: [],
+      availableTimes: {},
     };
     AddSpotToStore(newSpot);
     navigation.replace('SpotAddedPage');
