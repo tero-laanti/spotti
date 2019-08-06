@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { BackHandler, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CurrentPageIndicator from './CurrentPageIndicator';
@@ -47,6 +47,20 @@ const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
     if (currentPage === 0) returnWithoutAddingSpot();
     setCurrentPage(currentPage - 1);
   };
+
+  useEffect(() => {
+    const handleBackPress = () => {
+      if (currentPage === 0) return false;
+      prevPage();
+      return true;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return function cleanup() {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  });
 
   const addSpotPages = [
     <AddSpotPage0
