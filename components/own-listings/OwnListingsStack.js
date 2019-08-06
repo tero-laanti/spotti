@@ -1,11 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
 import OwnListingsScreen from './OwnListingsScreen';
 import AddSpotWizard from './add-spot/AddSpotWizard';
+import SpotAddedPage from './add-spot/SpotAddedPage';
 
 const OwnListingsNavigator = createStackNavigator(
   {
     OwnListingsScreen,
     AddSpotWizard,
+    SpotAddedPage,
   },
   {
     initialRouteName: 'OwnListingsScreen',
