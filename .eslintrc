@@ -26,6 +26,16 @@
     ],
     "spotti/no-extra-braces-in-arrow-body": "error"
   },
+  "overrides": [
+    {
+      "files": [
+        "*.test.js"
+      ],
+      "rules": {
+        "spotti/no-extra-braces-in-arrow-body": "off"
+      }
+    }
+  ],
   "plugins": [
     "prettier",
     "spotti"
