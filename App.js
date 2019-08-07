@@ -18,3 +18,6 @@ const AppContainer = createAppContainer(AppNavigator);
 const App = () => <AppContainer />;
 
 export default App;
+
+// To use storybook, replace the above line with:
+// export default from './storybook';
