@@ -1,4 +1,4 @@
-import { SPOTS } from './mock-data';
+import { SPOTS } from '../mock-data';
 
 const initialState = SPOTS;
 

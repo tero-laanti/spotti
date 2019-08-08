@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as R from 'ramda';
-import CalendarDatePicker from '../calendar-date-picker/CalendarDatePicker';
-import TimeIntervalPicker from '../time-interval-picker/TimeIntervalPicker';
-import { updateSpot } from '../spotsReducer';
+import CalendarDatePicker from './calendar-date-picker/CalendarDatePicker';
+import TimeIntervalPicker from './time-interval-picker/TimeIntervalPicker';
+import { updateSpot } from '../../../../reducers/spotsReducer';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const EditAvailableTimesScreen = ({
+const EditAvailableTimesPage = ({
   navigation,
   navigation: {
     state: {
@@ -88,7 +88,7 @@ const EditAvailableTimesScreen = ({
   );
 };
 
-EditAvailableTimesScreen.propTypes = {
+EditAvailableTimesPage.propTypes = {
   navigation: PropTypes.shape({
     state: PropTypes.shape({
       params: PropTypes.shape({
@@ -107,4 +107,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(EditAvailableTimesScreen);
+)(EditAvailableTimesPage);

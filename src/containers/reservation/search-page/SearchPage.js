@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import AutocompleteList from './AutocompleteList';
 import SearchInput from './SearchInput';
-import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../mock-data';
+import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../../mock-data';
 
-const SearchInputScreen = ({ navigation }) => {
+const SearchInputPage = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState('');
 
   const getAutocompleteSuggestions = () => {
@@ -43,8 +43,8 @@ const SearchInputScreen = ({ navigation }) => {
   );
 };
 
-SearchInputScreen.propTypes = {
+SearchInputPage.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
 };
 
-export default SearchInputScreen;
+export default SearchInputPage;

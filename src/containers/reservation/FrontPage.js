@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Search = ({ navigation }) => (
+const FrontPage = ({ navigation }) => (
   <View style={styles.container}>
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('SearchInput')}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('SearchPage')}>
       <View style={styles.button}>
         <Icon name="search" size={30} color="#B4B4B4" />
       </View>
@@ -30,8 +30,8 @@ const Search = ({ navigation }) => (
   </View>
 );
 
-Search.propTypes = {
+FrontPage.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
 };
 
-export default Search;
+export default FrontPage;

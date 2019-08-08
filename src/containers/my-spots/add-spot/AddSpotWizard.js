@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import CurrentPageIndicator from './CurrentPageIndicator';
 import AddSpotPage0 from './AddSpotPage0';
 import AddSpotPage1 from './AddSpotPage1';
-import BackButton from '../../BackButton';
-import { addSpot } from '../../spotsReducer';
+import BackButton from '../../lib/BackButton';
+import { addSpot } from '../../../reducers/spotsReducer';
 
 const pageLabels = ['Address', 'Details'];
 
@@ -36,7 +36,7 @@ const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
     navigation.replace('SpotAddedPage');
   };
 
-  const returnWithoutAddingSpot = () => navigation.replace('OwnListingsScreen');
+  const returnWithoutAddingSpot = () => navigation.replace('OwnSpotsPage');
 
   const nextPage = () => {
     if (currentPage === pageLabels.length - 1) returnAddingSpot();

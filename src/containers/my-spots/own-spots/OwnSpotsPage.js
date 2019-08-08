@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Button, StyleSheet } from 'react-native';
-import OwnListing from './OwnListing';
+import OwnSpot from './OwnSpot';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,34 +11,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const OwnListingsScreen = ({ navigation, spots }) => {
-  const handleListingSelect = (spot, index) => () =>
-    navigation.navigate('EditListingScreen', { spot, index });
+const OwnSpotsPage = ({ navigation, spots }) => {
+  const handleSpotSelect = (spot, index) => () =>
+    navigation.navigate('EditSpotPage', { spot, index });
 
   return (
     <View style={styles.container}>
       <View>
         {spots.map((spot, index) => (
-          <OwnListing
-            key={spot.id}
-            spot={spot}
-            handleListingSelect={handleListingSelect(spot, index)}
-          />
+          <OwnSpot key={spot.id} spot={spot} handleSpotSelect={handleSpotSelect(spot, index)} />
         ))}
       </View>
       <Button
-        title="Add Listing"
+        title="Add Spot"
         onPress={() => navigation.navigate('AddSpotWizard', { navigation })}
       />
     </View>
   );
 };
 
-OwnListingsScreen.propTypes = {
+OwnSpotsPage.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
 };
 
-OwnListingsScreen.propTypes = {
+OwnSpotsPage.propTypes = {
   navigation: PropTypes.shape({}).isRequired,
   spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
@@ -50,4 +46,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(OwnListingsScreen);
+)(OwnSpotsPage);

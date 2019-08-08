@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, TouchableOpacity, Text, Button, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { updateSpot } from '../spotsReducer';
+import { updateSpot } from '../../../reducers/spotsReducer';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const EditListingScreen = ({
+const EditSpotPage = ({
   navigation,
   navigation: {
     state: {
@@ -78,7 +78,7 @@ const EditListingScreen = ({
           <Button
             title="Edit times"
             onPress={() =>
-              navigation.navigate('EditAvailableTimesScreen', {
+              navigation.navigate('EditAvailableTimesPage', {
                 spot,
                 index,
               })
@@ -108,7 +108,7 @@ const EditListingScreen = ({
   );
 };
 
-EditListingScreen.propTypes = {
+EditSpotPage.propTypes = {
   navigation: PropTypes.shape({
     state: PropTypes.shape({
       params: PropTypes.shape({
@@ -127,4 +127,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(EditListingScreen);
+)(EditSpotPage);

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import SpotsMap from './SpotsMap';
-import SpotsMapCarousel from './carousel/SpotsMapCarousel';
+import SpotsMap from './spots-map/SpotsMap';
+import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 
 class SpotsMapPage extends React.Component {
   constructor(props) {

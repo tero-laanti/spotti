@@ -1,15 +1,15 @@
 import React from 'react';
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import SearchStack from './components/search/SearchStack';
-import OwnListingsStack from './components/own-listings/OwnListingsStack';
+import ReservationStack from './containers/reservation/ReservationStack';
+import MySpotsStack from './containers/my-spots/MySpotsStack';
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Search: SearchStack,
-    'My Listings': OwnListingsStack,
+    Reservation: ReservationStack,
+    'My Spots': MySpotsStack,
   },
   {
-    initialRouteName: 'Search',
+    initialRouteName: 'Reservation',
   }
 );
 

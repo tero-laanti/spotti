@@ -24,11 +24,7 @@ const SpotAddedPage = ({ navigation }) => (
       <Text style={styles.bodyText}>Would you like to add available times to your Spot?</Text>
     </View>
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
-      <Button
-        color="red"
-        title="Continue"
-        onPress={() => navigation.replace('OwnListingsScreen')}
-      />
+      <Button color="red" title="Continue" onPress={() => navigation.replace('OwnSpotsPage')} />
       <Button type="outline" title="Add available times" onPress={() => {}} />
     </View>
   </View>
