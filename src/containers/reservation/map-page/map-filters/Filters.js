@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import BackButton from '../../../lib/BackButton';
 
-const dateWithoutSeconds = date =>
-  date.toLocaleTimeString([], {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+const formatDateTime = dateTime => {
+  const dateString = `${dateTime.getDate()}.${dateTime.getMonth() + 1}.`;
+  const timeString = `${dateTime.getHours()}:${dateTime.getMinutes()}`;
+  return `${dateString} ${timeString}`;
+};
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -52,7 +49,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
             onPress={() => setFromDateTimePickerOpen(true)}
             title="From"
           />
-          <Text>{dateWithoutSeconds(from)}</Text>
+          <Text>{formatDateTime(from)}</Text>
           <DateTimePicker
             minimumDate={new Date()}
             isVisible={fromDateTimePickerIsOpen}
@@ -69,7 +66,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
             onPress={() => setToDateTimePickerOpen(true)}
             title="To"
           />
-          <Text>{dateWithoutSeconds(to)}</Text>
+          <Text>{formatDateTime(to)}</Text>
           <DateTimePicker
             minimumDate={from}
             isVisible={toDateTimePickerIsOpen}
