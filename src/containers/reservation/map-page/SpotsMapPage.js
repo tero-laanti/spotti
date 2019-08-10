@@ -6,12 +6,20 @@ import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 import MapFiltersContainer from './map-filters/MapFiltersContainer';
 
+const minuteInMilliseconds = 60000;
+const currentDate = new Date();
+const defaultValueForFromFilter = currentDate;
+const defaultValueForToFilter = new Date(currentDate.getTime() + minuteInMilliseconds * 60);
+
 class SpotsMapPage extends React.Component {
   constructor(props) {
     super(props);
     this.carouselRef = React.createRef();
     this.mapRef = React.createRef();
-    this.state = {};
+    this.state = {
+      ToFilterValue: defaultValueForToFilter,
+      FromFilterValue: defaultValueForFromFilter,
+    };
   }
 
   setMapRef = c => {
@@ -32,6 +40,21 @@ class SpotsMapPage extends React.Component {
 
   snapCarouselToSpotIndex = i => this.carouselRef.snapToItem(i);
 
+  onFilterValueChange = (key, value) => {
+    const { ToFilterValue, FromFilterValue } = this.state;
+
+    if (key === 'FromFilterValue')
+      if (value > ToFilterValue.getTime() - minuteInMilliseconds * 5)
+        this.setState({
+          FromFilterValue: value,
+          ToFilterValue: new Date(value.getTime() + minuteInMilliseconds * 5),
+        });
+      else this.setState({ FromFilterValue: value });
+    else if (key === 'ToFilterValue')
+      if (value > FromFilterValue.getTime() + minuteInMilliseconds * 5)
+        this.setState({ ToFilterValue: value });
+  };
+
   render() {
     const {
       navigation: {
@@ -42,9 +65,15 @@ class SpotsMapPage extends React.Component {
       navigation,
       spots,
     } = this.props;
+    const { ToFilterValue, FromFilterValue } = this.state;
     return (
       <View>
-        <MapFiltersContainer />
+        <MapFiltersContainer
+          to={ToFilterValue}
+          from={FromFilterValue}
+          onChange={this.onFilterValueChange}
+          goBack={navigation.goBack}
+        />
         <SpotsMap
           onActiveSpotChange={this.snapCarouselToSpotIndex}
           markers={spots}

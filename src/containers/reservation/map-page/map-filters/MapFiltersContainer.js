@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     height: filtersHeight + toggleFiltersContainerHeight,
   },
   filters: {
-    flex: 1,
+    flexShrink: 1,
+    flexGrow: 0,
+    width: '100%',
   },
   toggleFiltersContainer: {
     backgroundColor: 'gainsboro',
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MapFiltersContainer = () => {
+const MapFiltersContainer = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [translateYValue] = useState(new Animated.Value(0));
   const toggle = () =>
@@ -52,7 +54,7 @@ const MapFiltersContainer = () => {
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: translateYValue }] }]}>
       <View style={styles.filters}>
-        <Filters />
+        <Filters {...props} />
       </View>
       <TouchableHighlight style={styles.toggleFiltersContainer} onPress={() => toggle()}>
         <View>
