@@ -4,6 +4,7 @@ import AddSpotWizard from './add-spot/AddSpotWizard';
 import SpotAddedPage from './add-spot/SpotAddedPage';
 import EditSpotPage from './edit-spot/EditSpotPage';
 import EditAvailableTimesPage from './edit-spot/edit-available-times-page/EditAvailableTimesPage';
+import routes from './routes';
 
 const OwnSpotsNavigator = createStackNavigator(
   {
@@ -14,7 +15,7 @@ const OwnSpotsNavigator = createStackNavigator(
     EditAvailableTimesPage,
   },
   {
-    initialRouteName: 'OwnSpotsPage',
+    initialRouteName: routes.ownSpots,
     defaultNavigationOptions: {
       header: null,
     },

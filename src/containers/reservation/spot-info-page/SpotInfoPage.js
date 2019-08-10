@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text, ScrollView, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import routes from '../routes';
 
 const fakeImageFetchByUrl = imageUrl => (
   <View style={{ backgroundColor: 'blue', height: 150, width: 300, margin: 30 }}>
@@ -70,7 +71,7 @@ const SpotInfo = ({
         <Button
           title="Spot this"
           onPress={() =>
-            navigation.navigate('Purchase', {
+            navigation.navigate(routes.reservation, {
               spot,
               timeFilters: { time: timeFilters.time, date: timeFilters.date },
             })

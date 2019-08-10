@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import routes from '../routes';
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -40,7 +41,7 @@ const Purchase = ({
     <View style={styles.arrowContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('SpotInfo', {
+          navigation.navigate(routes.spotInfo, {
             spot,
             timeFilters: { time: '18:10-20:15', date: '25/10/2019' },
           })
@@ -72,7 +73,7 @@ const Purchase = ({
     <Button
       title="Confirm"
       onPress={() =>
-        navigation.navigate('AfterSpotPurchase', {
+        navigation.navigate(routes.postReservation, {
           navigation,
           spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
         })

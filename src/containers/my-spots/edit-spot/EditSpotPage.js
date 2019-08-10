@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { View, StyleSheet, TouchableOpacity, Text, Button, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { updateSpot } from '../../../reducers/spotsReducer';
+import routes from '../routes';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,12 +79,12 @@ const EditSpotPage = ({
           <Button
             title="Edit times"
             onPress={() =>
-              navigation.navigate('EditAvailableTimesPage', {
+              navigation.navigate(routes.editAvailableTimes, {
                 spot,
                 index,
               })
             }
-          ></Button>
+          />
         </View>
         <View style={styles.spotInfoSection}>
           <Text>Description:</Text>
@@ -101,8 +102,11 @@ const EditSpotPage = ({
       {!isDescriptionFocused && (
         <Button
           title="Save"
-          onPress={() => updateSpot({ ...spot, address, description }, index)}
-        ></Button>
+          onPress={() => {
+            updateSpot({ ...spot, address, description }, index);
+            navigation.replace(routes.ownSpots);
+          }}
+        />
       )}
     </View>
   );

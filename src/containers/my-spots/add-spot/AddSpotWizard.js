@@ -7,6 +7,7 @@ import AddSpotPage0 from './AddSpotPage0';
 import AddSpotPage1 from './AddSpotPage1';
 import BackButton from '../../lib/BackButton';
 import { addSpot } from '../../../reducers/spotsReducer';
+import routes from '../routes';
 
 const pageLabels = ['Address', 'Details'];
 
@@ -33,10 +34,10 @@ const AddSpotWizard = ({ navigation, addSpot: AddSpotToStore }) => {
       availableTimes: {},
     };
     AddSpotToStore(newSpot);
-    navigation.replace('SpotAddedPage');
+    navigation.replace(routes.spotAdded);
   };
 
-  const returnWithoutAddingSpot = () => navigation.replace('OwnSpotsPage');
+  const returnWithoutAddingSpot = () => navigation.replace(routes.ownSpots);
 
   const nextPage = () => {
     if (currentPage === pageLabels.length - 1) returnAddingSpot();

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Button, StyleSheet } from 'react-native';
 import OwnSpot from './OwnSpot';
+import routes from '../routes';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
 
 const OwnSpotsPage = ({ navigation, spots }) => {
   const handleSpotSelect = (spot, index) => () =>
-    navigation.navigate('EditSpotPage', { spot, index });
+    navigation.navigate(routes.editSpot, { spot, index });
 
   return (
     <View style={styles.container}>
@@ -24,7 +25,7 @@ const OwnSpotsPage = ({ navigation, spots }) => {
       </View>
       <Button
         title="Add Spot"
-        onPress={() => navigation.navigate('AddSpotWizard', { navigation })}
+        onPress={() => navigation.navigate(routes.addSpotWizard, { navigation })}
       />
     </View>
   );

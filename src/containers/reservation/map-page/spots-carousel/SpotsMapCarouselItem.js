@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import routes from '../../routes';
 
 const styles = StyleSheet.create({
   carouselItem: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 });
 
 const SpotsMapCarouselItem = ({ navigation, spot, timeFilters }) => {
-  const navigateToSpotInfo = () => navigation.navigate('SpotInfo', { spot, timeFilters });
+  const navigateToSpotInfo = () => navigation.navigate(routes.spotInfo, { spot, timeFilters });
 
   return (
     <TouchableOpacity onPress={navigateToSpotInfo}>

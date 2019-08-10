@@ -5,6 +5,7 @@ import SpotInfoPage from './spot-info-page/SpotInfoPage';
 import ReservationPage from './reservation-page/ReservationPage';
 import SearchPage from './search-page/SearchPage';
 import PostReservationPage from './post-reservation-page/PostReservationPage';
+import routes from './routes';
 
 const ReservationNavigator = createStackNavigator(
   {
@@ -16,7 +17,7 @@ const ReservationNavigator = createStackNavigator(
     PostReservationPage,
   },
   {
-    initialRouteName: 'FrontPage',
+    initialRouteName: routes.frontPage,
     defaultNavigationOptions: {
       header: null,
     },
