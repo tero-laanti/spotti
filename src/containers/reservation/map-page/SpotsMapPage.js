@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
+import MapFiltersContainer from './map-filters/MapFiltersContainer';
 
 class SpotsMapPage extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class SpotsMapPage extends React.Component {
     } = this.props;
     return (
       <View>
+        <MapFiltersContainer />
         <SpotsMap
           onActiveSpotChange={this.snapCarouselToSpotIndex}
           markers={spots}
