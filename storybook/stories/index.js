@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import CalendarDatePicker from '../../components/calendar-date-picker/CalendarDatePicker';
+import CalendarDatePicker from '../../src/containers/my-spots/edit-spot/edit-available-times-page/calendar-date-picker/CalendarDatePicker';
 
 const props = {
   activeDate: 1,

@@ -47,7 +47,7 @@
   "jest": {
     "preset": "react-native",
     "setupFilesAfterEnv": [
-      "<rootDir>/jestSetup.js"
+      "<rootDir>/testSetup.js"
     ]
   }
 }
