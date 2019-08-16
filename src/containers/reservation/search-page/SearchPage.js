@@ -17,7 +17,7 @@ const SearchInputPage = ({ navigation }) => {
   const handleSearchInputChange = text => setSearchInput(text);
   const handleSuggestionSelect = () =>
     navigation.navigate(routes.spotsMap, { searchCoordinates: SEARCH_COORDINATES });
-  const handleGoBackClick = () => navigation.navigate(routes.search);
+  const handleGoBackClick = () => navigation.goBack();
   const handleSearchClick = () => {
     if (getAutocompleteSuggestions().length > 0) {
       navigation.navigate(routes.spotsMap, { searchCoordinates: SEARCH_COORDINATES });

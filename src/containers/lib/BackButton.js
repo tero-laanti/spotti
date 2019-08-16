@@ -1,13 +1,11 @@
 import React from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const BackButton = ({ onPress }) => (
-  <TouchableWithoutFeedback onPress={onPress}>
-    <View>
-      <Icon name="arrow-left" size={30} color="#B4B4B4" />
-    </View>
+  <TouchableWithoutFeedback onPress={() => onPress()}>
+    <Icon name="arrow-left" size={30} color="#B4B4B4" />
   </TouchableWithoutFeedback>
 );
 
