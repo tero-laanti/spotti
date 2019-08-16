@@ -1,4 +1,6 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Entypo';
 import OwnSpotsPage from './own-spots/OwnSpotsPage';
 import AddSpotWizard from './add-spot/AddSpotWizard';
 import SpotAddedPage from './add-spot/SpotAddedPage';
@@ -24,7 +26,11 @@ const OwnSpotsNavigator = createStackNavigator(
 
 OwnSpotsNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
-  const navigationOptions = {};
+  const navigationOptions = {
+    tabBarIcon: ({ focused }) => (
+      <Icon name="location" size={30} color={focused ? '#478DD2' : '#B4B4B4'} />
+    ),
+  };
   if (routeName !== 'OwnSpotsPage') {
     navigationOptions.tabBarVisible = false;
   }

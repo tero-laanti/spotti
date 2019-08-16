@@ -10,6 +10,11 @@ const AppNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Reservation',
+    tabBarOptions: {
+      activeTintColor: '#478DD2',
+      labelStyle: { fontSize: 16 },
+      style: { height: 60 },
+    },
   }
 );
 
