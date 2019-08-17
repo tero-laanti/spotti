@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import routes from '../../routes';
+import colors from "../../../../Theme";
 
 const styles = StyleSheet.create({
   carouselItem: {
-    width: 250,
+    width: '100%',
     marginVertical: 3,
-    backgroundColor: 'gainsboro',
+    backgroundColor: 'snow',
     borderRadius: 3,
     elevation: 4,
     shadowOpacity: 0.75,
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     width: '40%',
     height: 4,
     borderRadius: 2,
-    backgroundColor: 'dimgray',
+    backgroundColor: colors.dark,
   },
   lowerContainer: {
     display: 'flex',

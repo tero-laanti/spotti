@@ -1,7 +1,20 @@
 import React from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
+import colors from '../../../../Theme';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
 import SpotsMapCarouselItem from './SpotsMapCarouselItem';
+
+const styles = StyleSheet.create({
+  carousel: {
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: `${colors.primary}AA`,
+  },
+});
+
+const { width: viewportWidth } = Dimensions.get('window');
+const itemWidth = viewportWidth * 0.75;
 
 const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
   const renderItem = ({ item }) => (
@@ -22,11 +35,12 @@ const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => 
     <Carousel
       data={spots}
       renderItem={renderItem}
-      sliderWidth={400}
-      itemWidth={250}
+      sliderWidth={viewportWidth}
+      inactiveSlideOpacity={0.75}
+      itemWidth={itemWidth}
       ref={c => setRef(c)}
       onSnapToItem={index => onActiveSpotChange(index)}
-      containerCustomStyle={{ backgroundColor: 'lightsteelblue' }}
+      containerCustomStyle={styles.carousel}
     />
   );
 };

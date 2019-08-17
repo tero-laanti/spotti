@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableHighlight, View, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Filters from './Filters';
+import colors from '../../../../Theme';
 
-const toggleFiltersContainerHeight = 30;
+const toggleFiltersContainerHeight = 45;
 const toggleFilterIconSize = 30;
 const filtersHeight = 100;
 
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     position: 'absolute',
     alignItems: 'center',
-    backgroundColor: 'lightsteelblue',
+    backgroundColor: 'white',
     left: 0,
     right: 0,
     top: -filtersHeight,
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   toggleFiltersContainer: {
-    backgroundColor: 'gainsboro',
+    backgroundColor: 'snow',
     width: '100%',
     height: toggleFiltersContainerHeight,
     justifyContent: 'center',
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginHorizontal: 60,
     borderRadius: 3,
-    backgroundColor: 'dimgray',
+    backgroundColor: colors.dark,
   },
   toggleFiltersIcon: {
     position: 'absolute',
@@ -63,7 +64,7 @@ const MapFiltersContainer = props => {
             style={styles.toggleFiltersIcon}
             name={isOpen ? 'chevron-up' : 'chevron-down'}
             size={toggleFilterIconSize}
-            color="#B4B4B4"
+            color={colors.dark}
           />
         </View>
       </TouchableHighlight>

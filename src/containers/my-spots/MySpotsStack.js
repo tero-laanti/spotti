@@ -7,6 +7,7 @@ import SpotAddedPage from './add-spot/SpotAddedPage';
 import EditSpotPage from './edit-spot/EditSpotPage';
 import EditAvailableTimesPage from './edit-spot/edit-available-times-page/EditAvailableTimesPage';
 import routes from './routes';
+import colors from "../../Theme";
 
 const OwnSpotsNavigator = createStackNavigator(
   {
@@ -28,7 +29,7 @@ OwnSpotsNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const navigationOptions = {
     tabBarIcon: ({ focused }) => (
-      <Icon name="location" size={30} color={focused ? '#478DD2' : '#B4B4B4'} />
+      <Icon name="location" size={30} color={focused ? colors.primary : '#B4B4B4'} />
     ),
   };
   if (routeName !== 'OwnSpotsPage') {

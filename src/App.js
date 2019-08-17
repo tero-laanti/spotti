@@ -2,6 +2,7 @@ import React from 'react';
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import ReservationStack from './containers/reservation/ReservationStack';
 import MySpotsStack from './containers/my-spots/MySpotsStack';
+import colors from './Theme';
 
 const AppNavigator = createBottomTabNavigator(
   {
@@ -11,7 +12,7 @@ const AppNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'Reservation',
     tabBarOptions: {
-      activeTintColor: '#478DD2',
+      activeTintColor: colors.primary,
       labelStyle: { fontSize: 16 },
       style: { height: 60 },
     },

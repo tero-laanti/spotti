@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   map: {
-    height: '90%',
+    height: '100%',
     width: '100%',
     zIndex: -1,
   },
@@ -22,6 +22,7 @@ const SpotsMap = ({
 
   return (
     <MapView
+      showsUserLocation
       style={styles.map}
       onLayout={() => setMapReady(true)}
       initialRegion={{

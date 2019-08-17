@@ -3,6 +3,7 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
 import BackButton from '../../../lib/BackButton';
+import colors from '../../../../Theme';
 
 const formatDateTime = dateTime => {
   const dateString = `${dateTime.getDate()}.${dateTime.getMonth() + 1}.`;
@@ -39,7 +40,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
   return (
     <View style={{ height: '100%', width: '100%' }}>
       <View style={styles.headerContainer}>
-        <BackButton onPress={goBack} />
+        <BackButton onPress={goBack} color={colors.dark} />
         <Text style={styles.header}>Set the time range of your parking.</Text>
       </View>
       <View style={styles.filterButtonsTopContainer}>
