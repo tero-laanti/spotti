@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import routes from '../../routes';
-import colors from "../../../../Theme";
+import colors from '../../../../Theme';
 
 const styles = StyleSheet.create({
   carouselItem: {
     width: '100%',
+    height: '100%',
     marginVertical: 3,
     backgroundColor: 'snow',
     borderRadius: 3,
@@ -36,32 +36,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const SpotsMapCarouselItem = ({ navigation, spot, timeFilters }) => {
-  const navigateToSpotInfo = () => navigation.navigate(routes.spotInfo, { spot, timeFilters });
-
-  return (
-    <TouchableOpacity onPress={navigateToSpotInfo}>
-      <View style={styles.carouselItem}>
-        <View style={{ alignItems: 'center' }}>
-          <View style={styles.dragIndicator} />
-          <Text style={styles.addressFont}>{spot.address}</Text>
-        </View>
-        <View style={styles.lowerContainer}>
-          <View>
-            <Text style={styles.mediumFont}>
-              <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
-              {spot.distance || 'N/A'}
-            </Text>
-          </View>
-          <Text style={styles.mediumFont}>3€ / h </Text>
-        </View>
+const SpotsMapCarouselItem = ({ spot, showSpotInfoOfActiveSpot }) => (
+  <TouchableOpacity onPress={showSpotInfoOfActiveSpot}>
+    <View style={styles.carouselItem}>
+      <View style={{ alignItems: 'center' }}>
+        <View style={styles.dragIndicator} />
+        <Text style={styles.addressFont}>{spot.address}</Text>
       </View>
-    </TouchableOpacity>
-  );
-};
+      <View style={styles.lowerContainer}>
+        <View>
+          <Text style={styles.mediumFont}>
+            <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
+            {spot.distance || 'N/A'}
+          </Text>
+        </View>
+        <Text style={styles.mediumFont}>3€ / h </Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+);
 
 SpotsMapCarouselItem.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
   spot: PropTypes.shape({
     id: PropTypes.number.isRequired,
     latitude: PropTypes.number.isRequired,
@@ -71,10 +66,7 @@ SpotsMapCarouselItem.propTypes = {
     address: PropTypes.string.isRequired,
     distance: PropTypes.string.isRequired,
   }).isRequired,
-  timeFilters: PropTypes.shape({
-    time: PropTypes.string,
-    date: PropTypes.string,
-  }).isRequired,
+  showSpotInfoOfActiveSpot: PropTypes.func.isRequired,
 };
 
 export default SpotsMapCarouselItem;

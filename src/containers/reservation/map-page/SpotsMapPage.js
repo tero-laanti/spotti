@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 import MapFiltersContainer from './map-filters/MapFiltersContainer';
+import routes from '../routes';
 
 const minuteInMilliseconds = 60000;
 const currentDate = new Date();
@@ -31,13 +32,25 @@ class SpotsMapPage extends React.Component {
     this.carouselRef = c;
   };
 
+  showSpotInfoOfActiveSpot = () => {
+    const { spots, navigation } = this.props;
+    const { currentActiveIndex, ToFilterValue, FromFilterValue } = this.state;
+    navigation.navigate(routes.spotInfo, {
+      spot: spots[currentActiveIndex],
+      timeFilters: { to: ToFilterValue, from: FromFilterValue },
+    });
+  };
+
+  animateMapTo = coordinates =>
+    this.mapRef.animateCamera({
+      center: { latitude: coordinates.latitude, longitude: coordinates.longitude },
+    });
+
   centerMapOnSpotIndex = i => {
     const { spots } = this.props;
     this.setState({ currentActiveIndex: i });
     const spotToCenter = spots[i];
-    this.mapRef.animateCamera({
-      center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
-    });
+    this.animateMapTo(spotToCenter);
   };
 
   snapCarouselToSpotIndex = i => {
@@ -64,7 +77,7 @@ class SpotsMapPage extends React.Component {
     const {
       navigation: {
         state: {
-          params: { searchCoordinates: initialCoordinates },
+          params: { searchCoordinates: initialCoordinates, disableSearchLocationMarker },
         },
       },
       navigation,
@@ -85,9 +98,12 @@ class SpotsMapPage extends React.Component {
           onActiveSpotChange={this.snapCarouselToSpotIndex}
           spots={spots}
           initialCoordinates={initialCoordinates}
+          disableSearchLocationMarker={disableSearchLocationMarker}
+          animateMapTo={this.animateMapTo}
           setRef={this.setMapRef}
         />
         <SpotsMapCarousel
+          showSpotInfoOfActiveSpot={this.showSpotInfoOfActiveSpot}
           navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
           spots={spots}
@@ -105,6 +121,7 @@ SpotsMapPage.propTypes = {
         searchCoordinates: PropTypes.shape({
           latitude: PropTypes.number.isRequired,
           longitude: PropTypes.number.isRequired,
+          disableSearchLocationMarker: PropTypes.bool,
         }).isRequired,
       }),
     }),

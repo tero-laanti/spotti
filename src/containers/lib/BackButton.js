@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const BackButton = ({ onPress, color }) => (
   <TouchableWithoutFeedback onPress={() => onPress()}>
-    <Icon name="arrow-left" size={30} color={color} />
+    <Icon name="arrow-left" size={30} color={color} style={{ padding: 10 }} />
   </TouchableWithoutFeedback>
 );
 
@@ -15,7 +15,7 @@ BackButton.propTypes = {
 };
 
 BackButton.defaultProps = {
-  color: 'B4B4B4',
+  color: '#B4B4B4',
 };
 
 export default BackButton;

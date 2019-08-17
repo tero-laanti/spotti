@@ -7,7 +7,7 @@ import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../../mock-data
 import routes from '../routes';
 
 const SearchInputPage = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('kupi');
 
   const getAutocompleteSuggestions = () => {
     const searchInputInLowerCase = searchInput.toLowerCase();

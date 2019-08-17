@@ -28,6 +28,7 @@ const OwnSpotsNavigator = createStackNavigator(
 OwnSpotsNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const navigationOptions = {
+    // eslint-disable-next-line react/prop-types
     tabBarIcon: ({ focused }) => (
       <Icon name="location" size={30} color={focused ? colors.primary : '#B4B4B4'} />
     ),

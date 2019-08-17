@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import routes from '../routes';
+import { bottomButton, defaultDatetimeFormat } from '../../../Theme';
+import BackButton from '../../lib/BackButton';
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -38,18 +39,7 @@ const Purchase = ({
   navigation,
 }) => (
   <View style={styles.topContainer}>
-    <View style={styles.arrowContainer}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate(routes.spotInfo, {
-            spot,
-            timeFilters: { time: '18:10-20:15', date: '25/10/2019' },
-          })
-        }
-      >
-        <Icon name="arrow-left" size={30} color="#B4B4B4" />
-      </TouchableOpacity>
-    </View>
+    <BackButton onPress={navigation.goBack} />
 
     <View style={styles.informationContainer}>
       <View style={styles.containerPadding}>
@@ -57,7 +47,7 @@ const Purchase = ({
       </View>
       <View style={styles.containerPadding}>
         <Text>
-          Time: {timeFilters.time} {timeFilters.date}
+          Time: {defaultDatetimeFormat(timeFilters.from)} - {defaultDatetimeFormat(timeFilters.to)}
         </Text>
       </View>
       <View style={styles.containerPadding}>
@@ -70,15 +60,17 @@ const Purchase = ({
         <Button onPress={() => {}} title="Change" />
       </View>
     </View>
-    <Button
-      title="Confirm"
+    <TouchableOpacity
+      style={bottomButton.container}
       onPress={() =>
         navigation.navigate(routes.postReservation, {
           navigation,
           spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
         })
       }
-    />
+    >
+      <Text style={bottomButton.text}>CONFIRM</Text>
+    </TouchableOpacity>
   </View>
 );
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import colors from '../../../../Theme';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
+import colors from '../../../../Theme';
 import SpotsMapCarouselItem from './SpotsMapCarouselItem';
 
 const styles = StyleSheet.create({
   carousel: {
+    height: 75,
     position: 'absolute',
     bottom: 0,
     backgroundColor: `${colors.primary}AA`,
@@ -16,13 +17,9 @@ const styles = StyleSheet.create({
 const { width: viewportWidth } = Dimensions.get('window');
 const itemWidth = viewportWidth * 0.75;
 
-const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => {
+const SpotsMapCarousel = ({ spots, setRef, onActiveSpotChange, showSpotInfoOfActiveSpot }) => {
   const renderItem = ({ item }) => (
-    <SpotsMapCarouselItem
-      navigation={navigation}
-      spot={item}
-      timeFilters={{ time: '18:10-20:15', date: '25/10/2019' }}
-    />
+    <SpotsMapCarouselItem showSpotInfoOfActiveSpot={showSpotInfoOfActiveSpot} spot={item} />
   );
 
   renderItem.propTypes = {
@@ -46,7 +43,6 @@ const SpotsMapCarousel = ({ navigation, spots, setRef, onActiveSpotChange }) => 
 };
 
 SpotsMapCarousel.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
   spots: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -60,6 +56,7 @@ SpotsMapCarousel.propTypes = {
   ).isRequired,
   setRef: PropTypes.func.isRequired,
   onActiveSpotChange: PropTypes.func.isRequired,
+  showSpotInfoOfActiveSpot: PropTypes.func.isRequired,
 };
 
 export default SpotsMapCarousel;

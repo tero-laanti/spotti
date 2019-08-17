@@ -6,7 +6,7 @@ import colors from '../../../../Theme';
 
 const toggleFiltersContainerHeight = 45;
 const toggleFilterIconSize = 30;
-const filtersHeight = 100;
+const filtersHeight = 120;
 
 const styles = StyleSheet.create({
   container: {
