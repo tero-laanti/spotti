@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
@@ -7,10 +7,17 @@ const styles = StyleSheet.create({
   map: {
     height: '90%',
     width: '100%',
+    zIndex: -1,
   },
 });
 
-const SpotsMap = ({ markers, initialCoordinates, setRef, onActiveSpotChange }) => {
+const SpotsMap = ({
+  spots,
+  initialCoordinates,
+  setRef,
+  onActiveSpotChange,
+  currentActiveIndex,
+}) => {
   const [mapReady, setMapReady] = useState(false);
 
   return (
@@ -26,13 +33,28 @@ const SpotsMap = ({ markers, initialCoordinates, setRef, onActiveSpotChange }) =
       ref={c => setRef(c)}
     >
       {mapReady &&
-        markers.map((marker, index) => (
-          <Marker
-            key={marker.id}
-            onPress={() => onActiveSpotChange(index)}
-            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-          />
-        ))}
+        spots
+          .map((marker, index) => {
+            const isActive = index === currentActiveIndex;
+            return (
+              <Marker
+                key={`${marker.id}${isActive}`} // workaround for https://github.com/react-native-community/react-native-maps/issues/1611
+                pinColor="blue"
+                opacity={isActive ? 1 : 0.5}
+                onPress={() => onActiveSpotChange(index)}
+                coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+              />
+            );
+          })
+          .concat(
+            <Marker
+              key={-1}
+              coordinate={{
+                latitude: initialCoordinates.latitude,
+                longitude: initialCoordinates.longitude,
+              }}
+            />
+          )}
     </MapView>
   );
 };
@@ -42,7 +64,7 @@ SpotsMap.propTypes = {
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
   }).isRequired,
-  markers: PropTypes.arrayOf(
+  spots: PropTypes.arrayOf(
     PropTypes.shape({
       latitude: PropTypes.number.isRequired,
       longitude: PropTypes.number.isRequired,
@@ -51,6 +73,7 @@ SpotsMap.propTypes = {
   ).isRequired,
   setRef: PropTypes.func.isRequired,
   onActiveSpotChange: PropTypes.func.isRequired,
+  currentActiveIndex: PropTypes.number.isRequired,
 };
 
 export default SpotsMap;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
@@ -19,6 +19,7 @@ class SpotsMapPage extends React.Component {
     this.state = {
       ToFilterValue: defaultValueForToFilter,
       FromFilterValue: defaultValueForFromFilter,
+      currentActiveIndex: 0,
     };
   }
 
@@ -32,13 +33,17 @@ class SpotsMapPage extends React.Component {
 
   centerMapOnSpotIndex = i => {
     const { spots } = this.props;
+    this.setState({ currentActiveIndex: i });
     const spotToCenter = spots[i];
     this.mapRef.animateCamera({
       center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
     });
   };
 
-  snapCarouselToSpotIndex = i => this.carouselRef.snapToItem(i);
+  snapCarouselToSpotIndex = i => {
+    this.setState({ currentActiveIndex: i });
+    this.carouselRef.snapToItem(i);
+  };
 
   onFilterValueChange = (key, value) => {
     const { ToFilterValue, FromFilterValue } = this.state;
@@ -65,7 +70,8 @@ class SpotsMapPage extends React.Component {
       navigation,
       spots,
     } = this.props;
-    const { ToFilterValue, FromFilterValue } = this.state;
+
+    const { ToFilterValue, FromFilterValue, currentActiveIndex } = this.state;
     return (
       <View>
         <MapFiltersContainer
@@ -75,8 +81,9 @@ class SpotsMapPage extends React.Component {
           goBack={navigation.goBack}
         />
         <SpotsMap
+          currentActiveIndex={currentActiveIndex}
           onActiveSpotChange={this.snapCarouselToSpotIndex}
-          markers={spots}
+          spots={spots}
           initialCoordinates={initialCoordinates}
           setRef={this.setMapRef}
         />
