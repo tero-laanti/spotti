@@ -18,18 +18,21 @@ const renderMarkers = (
   initialCoordinates,
   disableSearchLocationMarker
 ) => {
-  const markers = spots.map((marker, index) => {
-    const isActive = index === currentActiveIndex;
-    return (
-      <Marker
-        key={`${marker.id}${isActive}`} // workaround for https://github.com/react-native-community/react-native-maps/issues/1611
-        pinColor="blue"
-        opacity={isActive ? 1 : 0.5}
-        onPress={() => onActiveSpotChange(index)}
-        coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-      />
-    );
-  });
+  const markers =
+    spots.length > 0
+      ? spots.map((marker, index) => {
+          const isActive = index === currentActiveIndex;
+          return (
+            <Marker
+              key={`${marker.id}${isActive}`} // workaround for https://github.com/react-native-community/react-native-maps/issues/1611
+              pinColor="blue"
+              opacity={isActive ? 1 : 0.5}
+              onPress={() => onActiveSpotChange(index)}
+              coordinate={{ latitude: marker.coordinates.x, longitude: marker.coordinates.y }}
+            />
+          );
+        })
+      : [];
 
   if (!disableSearchLocationMarker)
     markers.push(
@@ -57,10 +60,14 @@ const SpotsMap = ({
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
-    if (mapReady) {
-      setTimeout(() => animateMapTo(spots[0]), 1000);
+    if (mapReady && spots[0]) {
+      setTimeout(
+        () => animateMapTo({ latitude: spots[0].coordinates.x, longitude: spots[0].coordinates.y }),
+        1000
+      );
     }
-  }, [mapReady]);
+  }, [mapReady, spots]);
+
   return (
     <MapView
       showsUserLocation
@@ -94,8 +101,10 @@ SpotsMap.propTypes = {
   disableSearchLocationMarker: PropTypes.bool,
   spots: PropTypes.arrayOf(
     PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
+      coordinates: {
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      },
       id: PropTypes.number.isRequired,
     })
   ).isRequired,

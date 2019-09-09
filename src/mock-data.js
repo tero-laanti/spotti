@@ -44,8 +44,8 @@ export const AUTOCOMPLETE_SUGGESTIONS = {
 };
 
 export const SEARCH_COORDINATES = {
-  latitude: 60.45,
-  longitude: 22.29,
+  latitude: 60.443,
+  longitude: 22.302,
 };
 
 export const SPOTS = [

@@ -6,6 +6,8 @@ import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 import MapFiltersContainer from './map-filters/MapFiltersContainer';
 import routes from '../routes';
+import { addSpots } from '../../../reducers/spotsReducer';
+import { getNearbySpots } from '../../../Api';
 
 const minuteInMilliseconds = 60000;
 const currentDate = new Date();
@@ -21,7 +23,16 @@ class SpotsMapPage extends React.Component {
       ToFilterValue: defaultValueForToFilter,
       FromFilterValue: defaultValueForFromFilter,
       currentActiveIndex: 0,
+      loadingSpots: true,
     };
+  }
+
+  componentDidMount() {
+    const { navigation, addSpots: addSpotsAction } = this.props;
+    const coordinates = navigation.getParam('searchCoordinates');
+    getNearbySpots(coordinates.latitude, coordinates.longitude)
+      .then(res => addSpotsAction(res.data))
+      .then(() => this.setState({ loadingSpots: false }));
   }
 
   setMapRef = c => {
@@ -50,7 +61,10 @@ class SpotsMapPage extends React.Component {
     const { spots } = this.props;
     this.setState({ currentActiveIndex: i });
     const spotToCenter = spots[i];
-    this.animateMapTo(spotToCenter);
+    this.animateMapTo({
+      latitude: spotToCenter.coordinates.x,
+      longitude: spotToCenter.coordinates.y,
+    });
   };
 
   snapCarouselToSpotIndex = i => {
@@ -127,13 +141,18 @@ SpotsMapPage.propTypes = {
     }),
   }).isRequired,
   spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  addSpots: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   spots: state.spots,
 });
 
+const mapDispatchToProps = {
+  addSpots,
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SpotsMapPage);

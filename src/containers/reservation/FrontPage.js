@@ -14,6 +14,7 @@ import SpottiText from '../../static/spotti-logotype-white.png';
 import SpottiLogo from '../../static/spotti-logo-white.png';
 import routes from './routes';
 import colors from '../../Theme';
+import { getNearbySpots } from '../../Api';
 
 const styles = StyleSheet.create({
   searchButton: {

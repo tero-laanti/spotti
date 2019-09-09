@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import routes from '../routes';
 import { bottomButton, defaultDatetimeFormat } from '../../../Theme';
 import BackButton from '../../lib/BackButton';
+import { getPhotosBySpotId } from '../../../Api';
 
 const fakeImageFetchByUrl = imageUrl => (
   <View style={{ backgroundColor: 'blue', height: 150, width: 300, margin: 30 }}>
@@ -32,6 +33,9 @@ const SpotInfo = ({
   },
   navigation,
 }) => {
+  const [photos, setPhotos] = useState([]);
+  useEffect(() => setPhotos(getPhotosBySpotId(spot.id)), []);
+
   const renderImageFromUrl = carouselItem => fakeImageFetchByUrl(carouselItem.item);
 
   return (
@@ -40,9 +44,7 @@ const SpotInfo = ({
         <BackButton onPress={navigation.goBack} />
         <View style={{ flex: 1 }}>
           <Text style={styles.strongText}>{spot.address}</Text>
-          {spot.distance.length > 0 && (
-            <Text style={styles.strongText}>Walking distance: {spot.distance}</Text>
-          )}
+          <Text style={styles.strongText}>Walking distance: x minutes</Text>
           <Text style={styles.strongText}>
             Reserving from {defaultDatetimeFormat(timeFilters.from)} to{' '}
             {defaultDatetimeFormat(timeFilters.to)}
@@ -56,20 +58,26 @@ const SpotInfo = ({
       <ScrollView style={{ paddingHorizontal: 10, borderTopWidth: 1 }}>
         <View style={{ paddingBottom: 10, flex: 1 }}>
           <Text>{spot.description || 'No description available.'}</Text>
-          {spot.imageUrls.length > 0 ? (
-            <View style={{ height: 175 }}>
-              <Carousel
-                activeSlideAlignment="start"
-                data={spot.imageUrls}
-                renderItem={renderImageFromUrl}
-                sliderWidth={450}
-                itemWidth={300}
-                sliderHeight={50}
-              />
-            </View>
+          {photos ? (
+            photos.length > 0 ? (
+              <View style={{ height: 175 }}>
+                <Carousel
+                  activeSlideAlignment="start"
+                  data={spot.imageUrls}
+                  renderItem={renderImageFromUrl}
+                  sliderWidth={450}
+                  itemWidth={300}
+                  sliderHeight={50}
+                />
+              </View>
+            ) : (
+              <View style={{ alignItems: 'center', paddingVertical: 30 }}>
+                <Text>No photos of the spot available!</Text>
+              </View>
+            )
           ) : (
             <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-              <Text>No images available!</Text>
+              <Text>Loading photos</Text>
             </View>
           )}
         </View>
@@ -94,7 +102,6 @@ SpotInfo.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         spot: PropTypes.shape({
-          distance: PropTypes.string.isRequired,
           description: PropTypes.string.isRequired,
           imageUrls: PropTypes.arrayOf(PropTypes.string),
           timeFilters: PropTypes.shape({

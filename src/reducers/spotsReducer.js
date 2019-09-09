@@ -1,9 +1,9 @@
-import { SPOTS } from '../mock-data';
-
-const initialState = SPOTS;
+const initialState = [];
 
 const spots = (state = initialState, action) => {
   switch (action.type) {
+    case 'ADD_SPOTS':
+      return [...state, ...action.spotsArray];
     case 'UPDATE_SPOT':
       return state.map((spot, index) => {
         if (index === action.updatedSpotIndex) return action.updatedSpot;
@@ -15,6 +15,11 @@ const spots = (state = initialState, action) => {
       return state;
   }
 };
+
+export const addSpots = spotsArray => ({
+  type: 'ADD_SPOTS',
+  spotsArray,
+});
 
 export const updateSpot = (updatedSpot, updatedSpotIndex) => ({
   type: 'UPDATE_SPOT',
