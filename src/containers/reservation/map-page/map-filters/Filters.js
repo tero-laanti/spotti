@@ -3,12 +3,7 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
 import BackButton from '../../../lib/BackButton';
-
-const formatDateTime = dateTime => {
-  const dateString = `${dateTime.getDate()}.${dateTime.getMonth() + 1}.`;
-  const timeString = `${dateTime.getHours()}:${dateTime.getMinutes()}`;
-  return `${dateString} ${timeString}`;
-};
+import colors, { defaultDatetimeFormat } from "../../../../Theme";
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -39,7 +34,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
   return (
     <View style={{ height: '100%', width: '100%' }}>
       <View style={styles.headerContainer}>
-        <BackButton onPress={goBack} />
+        <BackButton onPress={goBack} color={colors.dark} />
         <Text style={styles.header}>Set the time range of your parking.</Text>
       </View>
       <View style={styles.filterButtonsTopContainer}>
@@ -49,7 +44,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
             onPress={() => setFromDateTimePickerOpen(true)}
             title="From"
           />
-          <Text>{formatDateTime(from)}</Text>
+          <Text>{defaultDatetimeFormat(from)}</Text>
           <DateTimePicker
             minimumDate={new Date()}
             isVisible={fromDateTimePickerIsOpen}
@@ -66,7 +61,7 @@ const Filters = ({ to, from, onChange, goBack }) => {
             onPress={() => setToDateTimePickerOpen(true)}
             title="To"
           />
-          <Text>{formatDateTime(to)}</Text>
+          <Text>{defaultDatetimeFormat(to)}</Text>
           <DateTimePicker
             minimumDate={from}
             isVisible={toDateTimePickerIsOpen}

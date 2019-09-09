@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableWithoutFeedback, StyleSheet, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, StyleSheet, TextInput } from 'react-native';
+import BackButton from '../../lib/BackButton';
 
 const styles = StyleSheet.create({
   textInput: {
@@ -27,11 +27,7 @@ const SearchInput = ({
   searchInput,
 }) => (
   <View style={styles.textInputBox}>
-    <TouchableWithoutFeedback onPress={handleGoBackClick}>
-      <View style={styles.iconButton}>
-        <Icon name="arrow-left" size={30} color="#B4B4B4" style={styles.icon} />
-      </View>
-    </TouchableWithoutFeedback>
+    <BackButton onPress={handleGoBackClick} />
     <TextInput
       style={styles.textInput}
       autoFocus

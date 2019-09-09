@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Button, Text, Platform, Linking, StyleSheet } from 'react-native';
+import { View, Button, Text, Platform, Linking, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import routes from '../routes';
+import { bottomButton } from '../../../Theme';
 
 const styles = StyleSheet.create({
   mainText: {
@@ -33,16 +34,21 @@ const AfterSpotPurchase = ({
 
   return (
     <View style={{ flex: 1, flexDirection: 'column' }}>
-      <View style={{ flex: 5, justifyContent: 'center' }}>
+      <View style={{ flex: 3, justifyContent: 'center' }}>
         <Text style={styles.mainText}>Thank you for your purchase!</Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
-        <Button color="red" title="Continue" onPress={() => navigation.replace(routes.frontPage)} />
         <Button
-          type="outline"
-          title="Navigate to Spot"
-          onPress={() => openMapsAtCoordinate(spotCoordinates)}
+          color="red"
+          title="Back to front page"
+          onPress={() => navigation.replace(routes.frontPage)}
         />
+        <TouchableOpacity
+          style={bottomButton.container}
+          onPress={() => openMapsAtCoordinate(spotCoordinates)}
+        >
+          <Text style={bottomButton.text}>NAVIGATE TO SPOT</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

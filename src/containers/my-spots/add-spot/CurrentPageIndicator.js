@@ -1,29 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StepIndicator from 'react-native-step-indicator';
+import colors from "../../../Theme";
 
 const customStyles = {
   stepIndicatorSize: 25,
   currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#fe7013',
+  stepStrokeCurrentColor: colors.primary,
   stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#fe7013',
+  stepStrokeFinishedColor: colors.primary,
   stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#fe7013',
+  separatorFinishedColor: colors.primary,
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
+  stepIndicatorFinishedColor: colors.primary,
   stepIndicatorUnFinishedColor: '#ffffff',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 13,
   currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#fe7013',
+  stepIndicatorLabelCurrentColor: colors.primary,
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
   labelColor: '#999999',
   labelSize: 13,
-  currentStepLabelColor: '#fe7013',
+  currentStepLabelColor: colors.primary,
 };
 
 const CurrentPageIndicator = ({ currentIndex, pageLabels, setCurrentPage }) => (

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 import MapFiltersContainer from './map-filters/MapFiltersContainer';
+import routes from '../routes';
+import { addSpots } from '../../../reducers/spotsReducer';
+import { getNearbySpots } from '../../../Api';
 
 const minuteInMilliseconds = 60000;
 const currentDate = new Date();
@@ -19,7 +22,17 @@ class SpotsMapPage extends React.Component {
     this.state = {
       ToFilterValue: defaultValueForToFilter,
       FromFilterValue: defaultValueForFromFilter,
+      currentActiveIndex: 0,
+      loadingSpots: true,
     };
+  }
+
+  componentDidMount() {
+    const { navigation, addSpots: addSpotsAction } = this.props;
+    const coordinates = navigation.getParam('searchCoordinates');
+    getNearbySpots(coordinates.latitude, coordinates.longitude)
+      .then(res => addSpotsAction(res.data))
+      .then(() => this.setState({ loadingSpots: false }));
   }
 
   setMapRef = c => {
@@ -30,15 +43,34 @@ class SpotsMapPage extends React.Component {
     this.carouselRef = c;
   };
 
-  centerMapOnSpotIndex = i => {
-    const { spots } = this.props;
-    const spotToCenter = spots[i];
-    this.mapRef.animateCamera({
-      center: { latitude: spotToCenter.latitude, longitude: spotToCenter.longitude },
+  showSpotInfoOfActiveSpot = () => {
+    const { spots, navigation } = this.props;
+    const { currentActiveIndex, ToFilterValue, FromFilterValue } = this.state;
+    navigation.navigate(routes.spotInfo, {
+      spot: spots[currentActiveIndex],
+      timeFilters: { to: ToFilterValue, from: FromFilterValue },
     });
   };
 
-  snapCarouselToSpotIndex = i => this.carouselRef.snapToItem(i);
+  animateMapTo = coordinates =>
+    this.mapRef.animateCamera({
+      center: { latitude: coordinates.latitude, longitude: coordinates.longitude },
+    });
+
+  centerMapOnSpotIndex = i => {
+    const { spots } = this.props;
+    this.setState({ currentActiveIndex: i });
+    const spotToCenter = spots[i];
+    this.animateMapTo({
+      latitude: spotToCenter.coordinates.x,
+      longitude: spotToCenter.coordinates.y,
+    });
+  };
+
+  snapCarouselToSpotIndex = i => {
+    this.setState({ currentActiveIndex: i });
+    this.carouselRef.snapToItem(i);
+  };
 
   onFilterValueChange = (key, value) => {
     const { ToFilterValue, FromFilterValue } = this.state;
@@ -59,13 +91,14 @@ class SpotsMapPage extends React.Component {
     const {
       navigation: {
         state: {
-          params: { searchCoordinates: initialCoordinates },
+          params: { searchCoordinates: initialCoordinates, disableSearchLocationMarker },
         },
       },
       navigation,
       spots,
     } = this.props;
-    const { ToFilterValue, FromFilterValue } = this.state;
+
+    const { ToFilterValue, FromFilterValue, currentActiveIndex } = this.state;
     return (
       <View>
         <MapFiltersContainer
@@ -75,12 +108,16 @@ class SpotsMapPage extends React.Component {
           goBack={navigation.goBack}
         />
         <SpotsMap
+          currentActiveIndex={currentActiveIndex}
           onActiveSpotChange={this.snapCarouselToSpotIndex}
-          markers={spots}
+          spots={spots}
           initialCoordinates={initialCoordinates}
+          disableSearchLocationMarker={disableSearchLocationMarker}
+          animateMapTo={this.animateMapTo}
           setRef={this.setMapRef}
         />
         <SpotsMapCarousel
+          showSpotInfoOfActiveSpot={this.showSpotInfoOfActiveSpot}
           navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
           spots={spots}
@@ -98,18 +135,24 @@ SpotsMapPage.propTypes = {
         searchCoordinates: PropTypes.shape({
           latitude: PropTypes.number.isRequired,
           longitude: PropTypes.number.isRequired,
+          disableSearchLocationMarker: PropTypes.bool,
         }).isRequired,
       }),
     }),
   }).isRequired,
   spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  addSpots: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   spots: state.spots,
 });
 
+const mapDispatchToProps = {
+  addSpots,
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SpotsMapPage);
