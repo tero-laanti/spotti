@@ -7,21 +7,16 @@ import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../../mock-data
 import routes from '../routes';
 
 const SearchInputPage = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState('kupi');
+  const [searchInput, setSearchInput] = useState('DEMO-APP. Search disabled.');
 
-  const getAutocompleteSuggestions = () => {
-    const searchInputInLowerCase = searchInput.toLowerCase();
-    return AUTOCOMPLETE_SUGGESTIONS[searchInputInLowerCase] || [];
-  };
-
+  const getAutocompleteSuggestions = () => AUTOCOMPLETE_SUGGESTIONS;
   const handleSearchInputChange = text => setSearchInput(text);
-  const handleSuggestionSelect = () =>
-    navigation.navigate(routes.spotsMap, { searchCoordinates: SEARCH_COORDINATES });
+  const handleSuggestionSelect = coordinates =>
+    navigation.navigate(routes.spotsMap, { searchCoordinates: coordinates });
   const handleGoBackClick = () => navigation.goBack();
   const handleSearchClick = () => {
-    if (getAutocompleteSuggestions().length > 0) {
+    if (getAutocompleteSuggestions().length > 0)
       navigation.navigate(routes.spotsMap, { searchCoordinates: SEARCH_COORDINATES });
-    }
   };
 
   return (

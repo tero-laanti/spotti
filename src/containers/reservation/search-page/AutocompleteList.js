@@ -10,7 +10,7 @@ const AutocompleteList = ({ autocompleteSuggestions, handleSuggestionSelect }) =
       {autocompleteSuggestions.length ? (
         autocompleteSuggestions.map((autocompleteSuggestion, index) => (
           <AutocompleteListItem
-            key={autocompleteSuggestion}
+            key={autocompleteSuggestion.label}
             suggestion={autocompleteSuggestion}
             isLastSuggestion={index === indexOfLastSuggestion}
             handleSuggestionSelect={handleSuggestionSelect}
@@ -24,7 +24,7 @@ const AutocompleteList = ({ autocompleteSuggestions, handleSuggestionSelect }) =
 };
 
 AutocompleteList.propTypes = {
-  autocompleteSuggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  autocompleteSuggestions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   handleSuggestionSelect: PropTypes.func.isRequired,
 };
 
