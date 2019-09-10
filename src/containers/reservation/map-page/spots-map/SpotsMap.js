@@ -101,10 +101,10 @@ SpotsMap.propTypes = {
   disableSearchLocationMarker: PropTypes.bool,
   spots: PropTypes.arrayOf(
     PropTypes.shape({
-      coordinates: {
+      coordinates: PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
-      },
+      }),
       id: PropTypes.number.isRequired,
     })
   ).isRequired,

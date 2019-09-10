@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import routes from '../routes';
 import { bottomButton, defaultDatetimeFormat } from '../../../Theme';
 import BackButton from '../../lib/BackButton';
 import { getPhotosBySpotId } from '../../../Api';
 
-const fakeImageFetchByUrl = imageUrl => (
-  <View style={{ backgroundColor: 'blue', height: 150, width: 300, margin: 30 }}>
-    <Text>{imageUrl}</Text>
-  </View>
+const screenWidth = Dimensions.get('window').width;
+
+const imageFetchByUrl = imageUrl => (
+  <Image source={{ uri: imageUrl }} style={{ height: 150, width: 300, margin: 30 }} />
 );
 
 const styles = StyleSheet.create({
@@ -21,7 +29,6 @@ const styles = StyleSheet.create({
   topInfoBarContainer: {
     flex: 1,
     flexDirection: 'row',
-    minHeight: 80,
   },
 });
 
@@ -33,10 +40,19 @@ const SpotInfo = ({
   },
   navigation,
 }) => {
-  const [photos, setPhotos] = useState([]);
-  useEffect(() => setPhotos(getPhotosBySpotId(spot.id)), []);
+  const [photos, setPhotos] = useState(null);
 
-  const renderImageFromUrl = carouselItem => fakeImageFetchByUrl(carouselItem.item);
+  async function fetchPhotosOfCurrentSpot() {
+    await getPhotosBySpotId(spot.id).then(res =>
+      setPhotos(res.data.map(responseObject => responseObject.url))
+    );
+  }
+
+  useEffect(() => {
+    fetchPhotosOfCurrentSpot();
+  }, []);
+
+  const renderImageFromUrl = carouselItem => imageFetchByUrl(carouselItem.item);
 
   return (
     <View style={{ flex: 1 }}>
@@ -60,13 +76,14 @@ const SpotInfo = ({
           <Text>{spot.description || 'No description available.'}</Text>
           {photos ? (
             photos.length > 0 ? (
-              <View style={{ height: 175 }}>
+              <View style={{ height: 175, flex: 1, alignItems: 'center' }}>
                 <Carousel
+                  autoplay
                   activeSlideAlignment="start"
-                  data={spot.imageUrls}
+                  data={photos}
                   renderItem={renderImageFromUrl}
-                  sliderWidth={450}
-                  itemWidth={300}
+                  sliderWidth={screenWidth - 20}
+                  itemWidth={screenWidth - 50}
                   sliderHeight={50}
                 />
               </View>
@@ -103,7 +120,6 @@ SpotInfo.propTypes = {
       params: PropTypes.shape({
         spot: PropTypes.shape({
           description: PropTypes.string.isRequired,
-          imageUrls: PropTypes.arrayOf(PropTypes.string),
           timeFilters: PropTypes.shape({
             to: PropTypes.string.isRequired,
             from: PropTypes.string.isRequired,

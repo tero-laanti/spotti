@@ -51,7 +51,7 @@ const Purchase = ({
         </Text>
       </View>
       <View style={styles.containerPadding}>
-        <Text>Price: {spot.price} € </Text>
+        <Text>Price: {spot.price_per_hour} € </Text>
       </View>
 
       <View style={styles.totalPaymentContainer}>
@@ -82,7 +82,7 @@ Purchase.propTypes = {
       params: PropTypes.shape({
         spot: PropTypes.shape({
           date: PropTypes.string,
-          price: PropTypes.number,
+          price_per_hour: PropTypes.number,
           chosenTime: PropTypes.string,
           address: PropTypes.string,
         }).isRequired,

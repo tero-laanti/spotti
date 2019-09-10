@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
@@ -32,7 +32,7 @@ class SpotsMapPage extends React.Component {
     const coordinates = navigation.getParam('searchCoordinates');
     getNearbySpots(coordinates.latitude, coordinates.longitude)
       .then(res => addSpotsAction(res.data))
-      .then(() => this.setState({ loadingSpots: false }));
+      // .then(() => this.setState({ loadingSpots: false }));
   }
 
   setMapRef = c => {
