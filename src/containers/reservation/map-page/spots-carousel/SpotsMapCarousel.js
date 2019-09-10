@@ -46,12 +46,10 @@ SpotsMapCarousel.propTypes = {
   spots: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      imageUrls: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      coordinates: PropTypes.shape().isRequired,
       description: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
-      distance: PropTypes.string.isRequired,
+      distance: PropTypes.number.isRequired,
     })
   ).isRequired,
   setRef: PropTypes.func.isRequired,

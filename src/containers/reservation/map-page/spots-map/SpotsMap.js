@@ -5,8 +5,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   map: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
     zIndex: -1,
   },
 });
@@ -101,10 +100,10 @@ SpotsMap.propTypes = {
   disableSearchLocationMarker: PropTypes.bool,
   spots: PropTypes.arrayOf(
     PropTypes.shape({
-      coordinates: {
+      coordinates: PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
-      },
+      }),
       id: PropTypes.number.isRequired,
     })
   ).isRequired,
