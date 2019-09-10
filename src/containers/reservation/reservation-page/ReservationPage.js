@@ -65,7 +65,7 @@ const Purchase = ({
       onPress={() =>
         navigation.navigate(routes.postReservation, {
           navigation,
-          spotCoordinates: { latitude: spot.latitude, longitude: spot.longitude },
+          spotCoordinates: { latitude: spot.coordinates.x, longitude: spot.coordinates.y},
         })
       }
     >
@@ -82,7 +82,7 @@ Purchase.propTypes = {
       params: PropTypes.shape({
         spot: PropTypes.shape({
           date: PropTypes.string,
-          price_per_hour: PropTypes.number,
+          price_per_hour: PropTypes.string,
           chosenTime: PropTypes.string,
           address: PropTypes.string,
         }).isRequired,
