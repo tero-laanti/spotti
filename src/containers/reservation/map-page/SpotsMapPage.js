@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
@@ -32,7 +32,7 @@ class SpotsMapPage extends React.Component {
     const coordinates = navigation.getParam('searchCoordinates');
     getNearbySpots(coordinates.latitude, coordinates.longitude)
       .then(res => addSpotsAction(res.data))
-      // .then(() => this.setState({ loadingSpots: false }));
+      .then(() => this.setState({ loadingSpots: false }));
   }
 
   setMapRef = c => {
@@ -98,15 +98,30 @@ class SpotsMapPage extends React.Component {
       spots,
     } = this.props;
 
-    const { ToFilterValue, FromFilterValue, currentActiveIndex } = this.state;
+    const { ToFilterValue, FromFilterValue, currentActiveIndex, loadingSpots } = this.state;
     return (
-      <View>
+      <View style={{ height: '100%', width: '100%' }}>
         <MapFiltersContainer
           to={ToFilterValue}
           from={FromFilterValue}
           onChange={this.onFilterValueChange}
           goBack={navigation.goBack}
         />
+        {loadingSpots && (
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ActivityIndicator size="large" />
+          </View>
+        )}
         <SpotsMap
           currentActiveIndex={currentActiveIndex}
           onActiveSpotChange={this.snapCarouselToSpotIndex}

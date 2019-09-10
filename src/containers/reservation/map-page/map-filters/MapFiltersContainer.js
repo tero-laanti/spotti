@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     zIndex: 1,
-    position: 'absolute',
+    // position: 'absolute',
     alignItems: 'center',
     backgroundColor: 'white',
     left: 0,
     right: 0,
-    top: -filtersHeight,
+    marginTop: -filtersHeight,
     height: filtersHeight + toggleFiltersContainerHeight,
   },
   filters: {
