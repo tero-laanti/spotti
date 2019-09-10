@@ -1,47 +1,40 @@
-export const AUTOCOMPLETE_SUGGESTIONS = {
-  kup: [
-    'Kupari, Croatia',
-    'Kupjak, Croatia',
-    'Kupang, Indonesia',
-    'Kupa',
-    'Kupres, Bosnia and Herzegovina',
-  ],
-  kupi: [
-    'Brod Na Kupi, Croatia',
-    'Kupiskis, Lithuania',
-    'Kupittaa, Turku',
-    'Kupittaankatu, Turku',
-    'Kupinovo, Serbia',
-  ],
-  kupit: [
-    'Kupittaa, Turku',
-    'Kupittaankatu, Turku',
-    'Kupittaanpuisto, Turku',
-    'Kupittaan asema, Turku',
-    'Kupittaan urheiluhalli, Turku',
-  ],
-  kupitt: [
-    'Kupittaa, Turku',
-    'Kupittaankatu, Turku',
-    'Kupittaanpuisto, Turku',
-    'Kupittaan asema, Turku',
-    'Kupittaan urheiluhalli, Turku',
-  ],
-  kupitta: [
-    'Kupittaa, Turku',
-    'Kupittaankatu, Turku',
-    'Kupittaanpuisto, Turku',
-    'Kupittaan asema, Turku',
-    'Kupittaan urheiluhalli, Turku',
-  ],
-  kupittaa: [
-    'Kupittaa, Turku',
-    'Kupittaankatu, Turku',
-    'Kupittaanpuisto, Turku',
-    'Kupittaan asema, Turku',
-    'Kupittaan urheiluhalli, Turku',
-  ],
-};
+export const AUTOCOMPLETE_SUGGESTIONS = [
+  {
+    label: 'Auran Panimo, Turku',
+    coordinates: {
+      latitude: 60.441288,
+      longitude: 22.246677,
+    },
+  },
+  {
+    label: 'Hippoksentie 33, Kupittaa, Turku',
+    coordinates: {
+      latitude: 60.443,
+      longitude: 22.302,
+    },
+  },
+  {
+    label: 'Kupittaanpuisto, Turku',
+    coordinates: {
+      latitude: 60.445886,
+      longitude: 22.288588,
+    },
+  },
+  {
+    label: 'Ravintola Kaskis, Turku',
+    coordinates: {
+      latitude: 60.446574,
+      longitude: 22.272875,
+    },
+  },
+  {
+    label: 'Turun kauppakorkeakoulu, Turku',
+    coordinates: {
+      latitude: 60.454665,
+      longitude: 22.288474,
+    },
+  },
+];
 
 export const SEARCH_COORDINATES = {
   latitude: 60.443,

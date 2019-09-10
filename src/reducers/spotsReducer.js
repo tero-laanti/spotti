@@ -2,8 +2,8 @@ const initialState = [];
 
 const spots = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_SPOTS':
-      return [...state, ...action.spotsArray];
+    case 'CLEAR_AND_ADD_NEW_SPOTS':
+      return [...action.spotsArray];
     case 'UPDATE_SPOT':
       return state.map((spot, index) => {
         if (index === action.updatedSpotIndex) return action.updatedSpot;
@@ -16,8 +16,8 @@ const spots = (state = initialState, action) => {
   }
 };
 
-export const addSpots = spotsArray => ({
-  type: 'ADD_SPOTS',
+export const clearAndAddNewSpots = spotsArray => ({
+  type: 'CLEAR_AND_ADD_NEW_SPOTS',
   spotsArray,
 });
 

@@ -6,7 +6,7 @@ import SpotsMap from './spots-map/SpotsMap';
 import SpotsMapCarousel from './spots-carousel/SpotsMapCarousel';
 import MapFiltersContainer from './map-filters/MapFiltersContainer';
 import routes from '../routes';
-import { addSpots } from '../../../reducers/spotsReducer';
+import { clearAndAddNewSpots } from '../../../reducers/spotsReducer';
 import { getNearbySpots } from '../../../Api';
 
 const minuteInMilliseconds = 60000;
@@ -28,7 +28,7 @@ class SpotsMapPage extends React.Component {
   }
 
   componentDidMount() {
-    const { navigation, addSpots: addSpotsAction } = this.props;
+    const { navigation, clearAndAddNewSpots: addSpotsAction } = this.props;
     const coordinates = navigation.getParam('searchCoordinates');
     getNearbySpots(coordinates.latitude, coordinates.longitude)
       .then(res => addSpotsAction(res.data))
@@ -156,7 +156,7 @@ SpotsMapPage.propTypes = {
     }),
   }).isRequired,
   spots: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  addSpots: PropTypes.func.isRequired,
+  clearAndAddNewSpots: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -164,7 +164,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addSpots,
+  clearAndAddNewSpots,
 };
 
 export default connect(

@@ -16,16 +16,16 @@ const styles = StyleSheet.create({
 
 const AutocompleteListItem = ({ suggestion, isLastSuggestion, handleSuggestionSelect }) => (
   <View style={[!isLastSuggestion && styles.separator]}>
-    <TouchableOpacity onPress={handleSuggestionSelect}>
+    <TouchableOpacity onPress={() => handleSuggestionSelect(suggestion.coordinates)}>
       <View style={styles.suggestionBox}>
-        <Text>{suggestion}</Text>
+        <Text>{suggestion.label}</Text>
       </View>
     </TouchableOpacity>
   </View>
 );
 
 AutocompleteListItem.propTypes = {
-  suggestion: PropTypes.string.isRequired,
+  suggestion: PropTypes.shape().isRequired,
   isLastSuggestion: PropTypes.bool.isRequired,
   handleSuggestionSelect: PropTypes.func.isRequired,
 };
