@@ -67,6 +67,12 @@ class SpotsMapPage extends React.Component {
     });
   };
 
+  markerClick = i => {
+    const { currentActiveIndex } = this.state;
+    if (currentActiveIndex === i) this.showSpotInfoOfActiveSpot();
+    else this.snapCarouselToSpotIndex(i);
+  };
+
   snapCarouselToSpotIndex = i => {
     this.setState({ currentActiveIndex: i });
     this.carouselRef.snapToItem(i);
@@ -124,7 +130,7 @@ class SpotsMapPage extends React.Component {
         )}
         <SpotsMap
           currentActiveIndex={currentActiveIndex}
-          onActiveSpotChange={this.snapCarouselToSpotIndex}
+          onActiveSpotChange={this.markerClick}
           spots={spots}
           initialCoordinates={initialCoordinates}
           disableSearchLocationMarker={disableSearchLocationMarker}
