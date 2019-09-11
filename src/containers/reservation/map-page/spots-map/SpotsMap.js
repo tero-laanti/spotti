@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import spotMarker from '../../../../static/spot-marker.png';
+import { googleMapsStyle } from '../../../../Theme'
 
 const styles = StyleSheet.create({
   map: {
@@ -94,6 +95,7 @@ const SpotsMap = ({
 
   return (
     <MapView
+      customMapStyle={googleMapsStyle}
       showsUserLocation
       style={styles.map}
       onLayout={() => setMapReady(true)}
