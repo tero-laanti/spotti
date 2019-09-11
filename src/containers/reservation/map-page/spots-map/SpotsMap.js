@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image, View, Text } from 'react-native';
+import spotMarker from '../../../../static/spot-marker.png';
 
 const styles = StyleSheet.create({
   map: {
     flex: 1,
     zIndex: -1,
+  },
+  marker: {
+    height: 45,
+    width: 45,
+    resizeMode: 'contain',
+  },
+  markerText: {
+    zIndex: 2,
+    position: 'absolute',
+    color: 'white',
+    left: 2,
+    fontSize: 12,
+  },
+  markerSmallText: {
+    fontSize: 10,
   },
 });
 
@@ -25,10 +41,19 @@ const renderMarkers = (
             <Marker
               key={`${marker.id}${isActive}`} // workaround for https://github.com/react-native-community/react-native-maps/issues/1611
               pinColor="blue"
-              opacity={isActive ? 1 : 0.5}
+              opacity={isActive ? 1 : 0.4}
+              zIndex={isActive ? 2 : 0}
               onPress={() => onActiveSpotChange(index)}
               coordinate={{ latitude: marker.coordinates.x, longitude: marker.coordinates.y }}
-            />
+            >
+              <View>
+                <Text style={styles.markerText}>
+                  {marker.price_per_hour}
+                  <Text style={styles.markerSmallText}>€/h</Text>
+                </Text>
+                <Image source={spotMarker} style={styles.marker} />
+              </View>
+            </Marker>
           );
         })
       : [];

@@ -14,7 +14,6 @@ import SpottiText from '../../static/spotti-logotype-white.png';
 import SpottiLogo from '../../static/spotti-logo-white.png';
 import routes from './routes';
 import colors from '../../Theme';
-import { getPhotosBySpotId } from '../../Api';
 
 const styles = StyleSheet.create({
   searchButton: {
@@ -88,22 +87,30 @@ const styles = StyleSheet.create({
 });
 
 const FrontPage = ({ navigation }) => {
-  const [isFetchingLocation, setIsFetchingLocation] = useState(true);
+  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      location => {
-        setIsFetchingLocation(false);
-        setCurrentLocation(location);
-      },
-      error => {
-        alert(error.message.toString());
-        setIsFetchingLocation(false);
-      },
-      { timeout: 10000, maximumAge: 1000 }
-    );
-  }, []);
+  const [locationError, setError] = useState(null);
+
+  const fetchCurrentLocation = () => {
+    if (!isFetchingLocation) {
+      setIsFetchingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        location => {
+          setIsFetchingLocation(false);
+          setCurrentLocation(location);
+        },
+        error => {
+          alert(error.message.toString());
+          setIsFetchingLocation(false);
+          setError('Error fetching location!');
+        },
+        { timeout: 15000, maximumAge: 10000 }
+      );
+    }
+  };
+
+  useEffect(() => fetchCurrentLocation(), []);
 
   useEffect(() => {
     if (searchButtonClicked && currentLocation) {
@@ -116,7 +123,7 @@ const FrontPage = ({ navigation }) => {
         },
         disableSearchLocationMarker: true,
       });
-    } else setIsFetchingLocation(false);
+    }
   }, [searchButtonClicked, currentLocation]);
 
   return (
@@ -135,7 +142,9 @@ const FrontPage = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {isFetchingLocation ? (
+      {locationError ? (
+        <Text style={{ color: 'white' }}> Error fetching current location.</Text>
+      ) : isFetchingLocation && searchButtonClicked ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <TouchableWithoutFeedback onPress={() => setSearchButtonClicked(true)}>
