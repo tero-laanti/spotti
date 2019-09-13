@@ -11,9 +11,12 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import routes from '../routes';
-import { bottomButton } from '../../../Theme';
+import colors, { bottomButton } from '../../../Theme';
 import BackButton from '../../lib/BackButton';
 import { getPhotosBySpotId } from '../../../Api';
+import SpottiLogo from '../../../static/spotti-logo-blue.png';
+import SpottiText from '../../../static/spotti-logotype-blue.png';
+import BackButtonWithSpottiLogo from '../../lib/BackButtonWithSpottiLogo';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -23,12 +26,33 @@ const imageFetchByUrl = imageUrl => (
 
 const styles = StyleSheet.create({
   strongText: {
-    paddingBottom: 10,
+    paddingBottom: 5,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   topInfoBarContainer: {
-    flex: 1,
     flexDirection: 'row',
+  },
+  topRightInfo: {
+    flex: 1,
+    marginTop: 10,
+    marginRight: 5,
+    textAlign: 'right',
+    fontWeight: 'bold',
+  },
+  textBelowLogoContainer: {
+    paddingLeft: 10,
+    paddingBottom: 10,
+  },
+  scrollableContainer: {
+    marginHorizontal: 10,
+    borderTopWidth: 0.5,
+    borderTopColor: colors.primary,
+  },
+  descriptionContainer: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.primary,
+    paddingBottom: 10,
   },
 });
 
@@ -56,22 +80,22 @@ const SpotInfo = ({
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.topInfoBarContainer}>
-        <BackButton onPress={navigation.goBack} />
-        <View style={{ flex: 1 }}>
-          <Text style={styles.strongText}>{spot.address}</Text>
-          <Text style={styles.strongText}>Walking distance: x minutes</Text>
-          <Text style={styles.strongText}>
-            Reserving from {timeFilters.from} to {timeFilters.to}
-          </Text>
-        </View>
-        <View style={{ flex: 0 }}>
-          <Text>2€/h</Text>
-          <Text style={styles.strongText}>10€</Text>
-        </View>
+        <BackButtonWithSpottiLogo onPress={navigation.goBack} />
+        <Text style={styles.topRightInfo}>{spot.address}</Text>
       </View>
-      <ScrollView style={{ paddingHorizontal: 10, borderTopWidth: 1 }}>
-        <View style={{ paddingBottom: 10, flex: 1 }}>
-          <Text>{spot.description || 'No description available.'}</Text>
+      <View style={styles.textBelowLogoContainer}>
+        <Text style={styles.strongText}>
+          {timeFilters.from} - {timeFilters.to}
+        </Text>
+        <Text style={{ textAlign: 'center' }}>
+          2€/h, yhteensä <Text style={styles.strongText}>10€</Text>
+        </Text>
+      </View>
+      <ScrollView style={styles.scrollableContainer}>
+        <View style={{ paddingVertical: 10, flex: 1 }}>
+          <Text style={styles.descriptionContainer}>
+            {spot.description || 'No description available.'}
+          </Text>
           {photos ? (
             photos.length > 0 ? (
               <View style={{ height: 175, flex: 1, alignItems: 'center' }}>

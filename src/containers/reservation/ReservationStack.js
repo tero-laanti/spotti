@@ -20,7 +20,7 @@ const ReservationNavigator = createStackNavigator(
     PostReservationPage,
   },
   {
-    initialRouteName: routes.frontPage,
+    initialRouteName: routes.reservation,
     defaultNavigationOptions: {
       header: null,
     },
