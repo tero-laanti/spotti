@@ -7,20 +7,22 @@ import colors from '../../../../Theme';
 const styles = StyleSheet.create({
   carouselItem: {
     width: '100%',
-    height: '100%',
+    height: '90%',
     marginVertical: 3,
     backgroundColor: 'snow',
-    borderRadius: 3,
-    elevation: 4,
-    shadowOpacity: 0.75,
-    shadowRadius: 5,
-    shadowOffset: { height: 5, width: 5 },
-  },
-  dragIndicator: {
-    width: '40%',
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: colors.dark,
+    borderRadius: 5,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    borderColor: `${colors.primary}DD`,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12,
   },
   lowerContainer: {
     display: 'flex',
@@ -40,14 +42,13 @@ const SpotsMapCarouselItem = ({ spot, showSpotInfoOfActiveSpot }) => (
   <TouchableOpacity onPress={showSpotInfoOfActiveSpot}>
     <View style={styles.carouselItem}>
       <View style={{ alignItems: 'center' }}>
-        <View style={styles.dragIndicator} />
         <Text style={styles.addressFont}>{spot.address}</Text>
       </View>
       <View style={styles.lowerContainer}>
         <View>
           <Text style={styles.mediumFont}>
             <Icon name="directions-walk" size={styles.mediumFont.fontSize} />
-            {spot.distance || 'N/A'}
+            {`${(spot.distance * 1609).toFixed()}m` || 'N/A'}
           </Text>
         </View>
         <Text style={styles.mediumFont}>3€ / h </Text>

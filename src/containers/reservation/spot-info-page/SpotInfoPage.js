@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import routes from '../routes';
-import { bottomButton, defaultDatetimeFormat } from '../../../Theme';
+import { bottomButton } from '../../../Theme';
 import BackButton from '../../lib/BackButton';
 import { getPhotosBySpotId } from '../../../Api';
 
@@ -53,7 +53,6 @@ const SpotInfo = ({
   }, []);
 
   const renderImageFromUrl = carouselItem => imageFetchByUrl(carouselItem.item);
-
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.topInfoBarContainer}>
@@ -62,8 +61,7 @@ const SpotInfo = ({
           <Text style={styles.strongText}>{spot.address}</Text>
           <Text style={styles.strongText}>Walking distance: x minutes</Text>
           <Text style={styles.strongText}>
-            Reserving from {defaultDatetimeFormat(timeFilters.from)} to{' '}
-            {defaultDatetimeFormat(timeFilters.to)}
+            Reserving from {timeFilters.from} to {timeFilters.to}
           </Text>
         </View>
         <View style={{ flex: 0 }}>

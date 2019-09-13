@@ -5,11 +5,22 @@ export const themeColors = {
   dark: '#27516B',
 };
 
+const weekdays = {
+  1: 'Ma',
+  2: 'Ti',
+  3: 'Ke',
+  4: 'To',
+  5: 'Pe',
+  6: 'La',
+  7: 'Su',
+};
+
 export const defaultDatetimeFormat = dateTime => {
   if (!dateTime) return '';
-  const dateString = `${dateTime.getDate()}.${dateTime.getMonth() + 1}.`;
-  const timeString = `${dateTime.getHours()}:${dateTime.getMinutes()}`;
-  return `${dateString} ${timeString}`;
+  const weekday = weekdays[dateTime.getDay()];
+  const dateString = `${weekday} ${dateTime.getDate()}.${dateTime.getMonth() + 1}.`;
+  const timeString = `${dateTime.getHours()}:${`0${dateTime.getMinutes()}`.slice(-2)}`;
+  return { date: dateString, time: timeString };
 };
 
 export const bottomButton = {

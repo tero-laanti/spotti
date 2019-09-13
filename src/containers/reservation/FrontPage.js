@@ -18,19 +18,23 @@ import colors from '../../Theme';
 const styles = StyleSheet.create({
   searchButton: {
     backgroundColor: 'snow',
-    width: '70%',
+    width: '90%',
     borderColor: 'black',
     borderWidth: 1,
-    height: '10%',
+    height: '12%',
     justifyContent: 'flex-start',
-    padding: 10,
+    paddingHorizontal: '3%',
     flexDirection: 'row',
-    marginBottom: 8,
-    borderRadius: 5,
-    elevation: 4,
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
-    shadowOffset: { height: 15, width: 15 },
+    marginBottom: 15,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
   },
   container: {
     paddingTop: 100,
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   searchText: {
-    fontSize: 22,
+    fontSize: 28,
     color: '#B4B4B4',
   },
   logo: {
@@ -75,14 +79,27 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
   },
   useCurrentLocationContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'snow',
-    paddingVertical: 8,
+    height: '10%',
     flexDirection: 'row',
     paddingHorizontal: 10,
     borderRadius: 5,
     borderColor: 'black',
     borderWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
+  },
+  useCurrentLocationText: {
+    color: '#B4B4B4',
+    fontSize: 18,
   },
 });
 
@@ -103,7 +120,7 @@ const FrontPage = ({ navigation }) => {
         error => {
           alert(error.message.toString());
           setIsFetchingLocation(false);
-          setError('Error fetching location!');
+          setError('Virhe sijaintia hakiessa. Käytä hakua.');
         },
         { timeout: 15000, maximumAge: 10000 }
       );
@@ -114,14 +131,16 @@ const FrontPage = ({ navigation }) => {
 
   useEffect(() => {
     if (searchButtonClicked && currentLocation) {
+      const { latitude, longitude } = currentLocation.coords;
       setIsFetchingLocation(false);
       setSearchButtonClicked(false);
       navigation.navigate(routes.spotsMap, {
         searchCoordinates: {
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
+          latitude,
+          longitude,
         },
         disableSearchLocationMarker: true,
+        searchString: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
       });
     }
   }, [searchButtonClicked, currentLocation]);
@@ -138,19 +157,19 @@ const FrontPage = ({ navigation }) => {
             <AwesomeIcon name="search" size={30} color={colors.dark} />
           </View>
           <View style={styles.searchTextContainer}>
-            <Text style={styles.searchText}>Search for spots</Text>
+            <Text style={styles.searchText}>Hae Spotteja</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
       {locationError ? (
-        <Text style={{ color: 'white' }}> Error fetching current location.</Text>
+        <Text style={{ color: 'white' }}>{locationError}</Text>
       ) : isFetchingLocation && searchButtonClicked ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <TouchableWithoutFeedback onPress={() => setSearchButtonClicked(true)}>
           <View style={styles.useCurrentLocationContainer}>
             <MaterialIcon name="my-location" size={20} color={colors.dark} />
-            <Text style={{ color: '#B4B4B4' }}> Use my current location</Text>
+            <Text> Käytä nykyistä sijaintiasi</Text>
           </View>
         </TouchableWithoutFeedback>
       )}

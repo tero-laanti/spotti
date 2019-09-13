@@ -4,13 +4,14 @@ import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
 import colors from '../../../../Theme';
 import SpotsMapCarouselItem from './SpotsMapCarouselItem';
+import { filtersHeight } from '../map-filters/MapFiltersContainer';
 
 const styles = StyleSheet.create({
   carousel: {
     height: 75,
     position: 'absolute',
-    bottom: 0,
-    backgroundColor: `${colors.primary}AA`,
+    bottom: filtersHeight,
+    backgroundColor: `${colors.primary}00`,
   },
 });
 

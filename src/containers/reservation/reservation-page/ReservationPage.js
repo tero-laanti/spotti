@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import routes from '../routes';
-import { bottomButton, defaultDatetimeFormat } from '../../../Theme';
+import { bottomButton } from '../../../Theme';
 import BackButton from '../../lib/BackButton';
 
 const styles = StyleSheet.create({
@@ -47,7 +47,7 @@ const Purchase = ({
       </View>
       <View style={styles.containerPadding}>
         <Text>
-          Time: {defaultDatetimeFormat(timeFilters.from)} - {defaultDatetimeFormat(timeFilters.to)}
+          Time: {timeFilters.from} - {timeFilters.to}
         </Text>
       </View>
       <View style={styles.containerPadding}>
