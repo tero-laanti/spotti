@@ -8,6 +8,8 @@ import MapFiltersContainer from './map-filters/MapFiltersContainer';
 import routes from '../routes';
 import { clearAndAddNewSpots } from '../../../reducers/spotsReducer';
 import { getNearbySpots } from '../../../Api';
+import MapSearch from './map-search/MapSearch';
+import { defaultDatetimeFormat } from '../../../Theme';
 
 const minuteInMilliseconds = 60000;
 const currentDate = new Date();
@@ -46,9 +48,15 @@ class SpotsMapPage extends React.Component {
   showSpotInfoOfActiveSpot = () => {
     const { spots, navigation } = this.props;
     const { currentActiveIndex, ToFilterValue, FromFilterValue } = this.state;
+    const to = defaultDatetimeFormat(ToFilterValue);
+    const from = defaultDatetimeFormat(FromFilterValue);
+
+    const toString = `${to.date} ${to.time}`;
+    const fromString = `${from.date} ${from.time}`;
+
     navigation.navigate(routes.spotInfo, {
       spot: spots[currentActiveIndex],
-      timeFilters: { to: ToFilterValue, from: FromFilterValue },
+      timeFilters: { to: toString, from: fromString },
     });
   };
 
@@ -93,11 +101,18 @@ class SpotsMapPage extends React.Component {
         this.setState({ ToFilterValue: value });
   };
 
+  newLocationSelectedOnMap = e =>
+    alert(`You clicked at: ${JSON.stringify(e.nativeEvent.coordinate)}`);
+
   render() {
     const {
       navigation: {
         state: {
-          params: { searchCoordinates: initialCoordinates, disableSearchLocationMarker },
+          params: {
+            searchCoordinates: initialCoordinates,
+            disableSearchLocationMarker,
+            searchString,
+          },
         },
       },
       navigation,
@@ -107,12 +122,6 @@ class SpotsMapPage extends React.Component {
     const { ToFilterValue, FromFilterValue, currentActiveIndex, loadingSpots } = this.state;
     return (
       <View style={{ height: '100%', width: '100%' }}>
-        <MapFiltersContainer
-          to={ToFilterValue}
-          from={FromFilterValue}
-          onChange={this.onFilterValueChange}
-          goBack={navigation.goBack}
-        />
         {loadingSpots && (
           <View
             style={{
@@ -129,6 +138,7 @@ class SpotsMapPage extends React.Component {
           </View>
         )}
         <SpotsMap
+          onLongPress={this.newLocationSelectedOnMap}
           currentActiveIndex={currentActiveIndex}
           onActiveSpotChange={this.markerClick}
           spots={spots}
@@ -137,12 +147,23 @@ class SpotsMapPage extends React.Component {
           animateMapTo={this.animateMapTo}
           setRef={this.setMapRef}
         />
+        <MapSearch
+          currentLocation={searchString}
+          returnToMainMenu={navigation.popToTop}
+          navigation={navigation}
+        />
         <SpotsMapCarousel
           showSpotInfoOfActiveSpot={this.showSpotInfoOfActiveSpot}
           navigation={navigation}
           onActiveSpotChange={this.centerMapOnSpotIndex}
           spots={spots}
           setRef={this.setCarouselRef}
+        />
+        <MapFiltersContainer
+          to={ToFilterValue}
+          from={FromFilterValue}
+          onChange={this.onFilterValueChange}
+          goBack={navigation.goBack}
         />
       </View>
     );
@@ -153,6 +174,7 @@ SpotsMapPage.propTypes = {
   navigation: PropTypes.shape({
     state: PropTypes.shape({
       params: PropTypes.shape({
+        searchString: PropTypes.string.isRequired,
         searchCoordinates: PropTypes.shape({
           latitude: PropTypes.number.isRequired,
           longitude: PropTypes.number.isRequired,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import spotMarker from '../../../../static/spot-marker.png';
-import { googleMapsStyle } from '../../../../Theme'
+import { googleMapsStyle } from '../../../../Theme';
 
 const styles = StyleSheet.create({
   map: {
@@ -81,6 +81,7 @@ const SpotsMap = ({
   onActiveSpotChange,
   currentActiveIndex,
   animateMapTo,
+  onLongPress,
 }) => {
   const [mapReady, setMapReady] = useState(false);
 
@@ -96,6 +97,7 @@ const SpotsMap = ({
   return (
     <MapView
       customMapStyle={googleMapsStyle}
+      onLongPress={onLongPress}
       showsUserLocation
       style={styles.map}
       onLayout={() => setMapReady(true)}
@@ -138,6 +140,7 @@ SpotsMap.propTypes = {
   onActiveSpotChange: PropTypes.func.isRequired,
   currentActiveIndex: PropTypes.number.isRequired,
   animateMapTo: PropTypes.func.isRequired,
+  onLongPress: PropTypes.func.isRequired,
 };
 
 SpotsMap.defaultProps = {

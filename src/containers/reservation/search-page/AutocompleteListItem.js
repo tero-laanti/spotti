@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 const AutocompleteListItem = ({ suggestion, isLastSuggestion, handleSuggestionSelect }) => (
   <View style={[!isLastSuggestion && styles.separator]}>
-    <TouchableOpacity onPress={() => handleSuggestionSelect(suggestion.coordinates)}>
+    <TouchableOpacity onPress={() => handleSuggestionSelect(suggestion)}>
       <View style={styles.suggestionBox}>
         <Text>{suggestion.label}</Text>
       </View>

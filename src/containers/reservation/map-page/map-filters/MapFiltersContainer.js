@@ -4,21 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Filters from './Filters';
 import colors from '../../../../Theme';
 
-const toggleFiltersContainerHeight = 45;
-const toggleFilterIconSize = 30;
-const filtersHeight = 120;
+export const filtersHeight = 60;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    zIndex: 1,
-    // position: 'absolute',
+    position: 'relative',
     alignItems: 'center',
     backgroundColor: 'white',
-    left: 0,
-    right: 0,
-    marginTop: -filtersHeight,
-    height: filtersHeight + toggleFiltersContainerHeight,
+    height: filtersHeight,
   },
   filters: {
     flexShrink: 1,
@@ -28,7 +21,6 @@ const styles = StyleSheet.create({
   toggleFiltersContainer: {
     backgroundColor: 'snow',
     width: '100%',
-    height: toggleFiltersContainerHeight,
     justifyContent: 'center',
   },
   toggleIndicator: {
@@ -40,35 +32,16 @@ const styles = StyleSheet.create({
   toggleFiltersIcon: {
     position: 'absolute',
     right: 5,
-    top: -toggleFilterIconSize / 2,
   },
 });
 
 const MapFiltersContainer = props => {
   const [isOpen, setIsOpen] = useState(false);
-  const [translateYValue] = useState(new Animated.Value(0));
-  const toggle = () =>
-    Animated.timing(translateYValue, {
-      toValue: isOpen ? 0 : filtersHeight,
-    }).start(() => setIsOpen(!isOpen));
 
   return (
-    <Animated.View style={[styles.container, { transform: [{ translateY: translateYValue }] }]}>
-      <View style={styles.filters}>
-        <Filters {...props} />
-      </View>
-      <TouchableHighlight style={styles.toggleFiltersContainer} onPress={() => toggle()}>
-        <View>
-          <View style={styles.toggleIndicator} />
-          <Icon
-            style={styles.toggleFiltersIcon}
-            name={isOpen ? 'chevron-up' : 'chevron-down'}
-            size={toggleFilterIconSize}
-            color={colors.dark}
-          />
-        </View>
-      </TouchableHighlight>
-    </Animated.View>
+    <View style={styles.container}>
+      <Filters {...props} />
+    </View>
   );
 };
 

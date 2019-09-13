@@ -11,8 +11,11 @@ const SearchInputPage = ({ navigation }) => {
 
   const getAutocompleteSuggestions = () => AUTOCOMPLETE_SUGGESTIONS;
   const handleSearchInputChange = text => setSearchInput(text);
-  const handleSuggestionSelect = coordinates =>
-    navigation.navigate(routes.spotsMap, { searchCoordinates: coordinates });
+  const handleSuggestionSelect = suggestion =>
+    navigation.navigate(routes.spotsMap, {
+      searchCoordinates: suggestion.coordinates,
+      searchString: suggestion.label,
+    });
   const handleGoBackClick = () => navigation.goBack();
   const handleSearchClick = () => {
     if (getAutocompleteSuggestions().length > 0)
