@@ -6,11 +6,11 @@ import colors from './Theme';
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Reservation: ReservationStack,
-    'My Spots': MySpotsStack,
+    Varaa: ReservationStack,
+    'Omat Spotit': MySpotsStack,
   },
   {
-    initialRouteName: 'Reservation',
+    initialRouteName: 'Varaa',
     tabBarOptions: {
       activeTintColor: colors.primary,
       labelStyle: { fontSize: 16 },

@@ -51,7 +51,7 @@ const SpotsMapCarouselItem = ({ spot, showSpotInfoOfActiveSpot }) => (
             {`${(spot.distance * 1609).toFixed()}m` || 'N/A'}
           </Text>
         </View>
-        <Text style={styles.mediumFont}>3€ / h </Text>
+        <Text style={styles.mediumFont}>{spot.price_per_hour}€ / h </Text>
       </View>
     </View>
   </TouchableOpacity>
@@ -64,6 +64,7 @@ SpotsMapCarouselItem.propTypes = {
     description: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
+    price_per_hour: PropTypes.string.isRequired,
   }).isRequired,
   showSpotInfoOfActiveSpot: PropTypes.func.isRequired,
 };

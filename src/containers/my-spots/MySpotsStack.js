@@ -7,7 +7,7 @@ import SpotAddedPage from './add-spot/SpotAddedPage';
 import EditSpotPage from './edit-spot/EditSpotPage';
 import EditAvailableTimesPage from './edit-spot/edit-available-times-page/EditAvailableTimesPage';
 import routes from './routes';
-import colors from "../../Theme";
+import colors from '../../Theme';
 
 const OwnSpotsNavigator = createStackNavigator(
   {

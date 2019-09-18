@@ -62,7 +62,7 @@ const ReservationSummary = ({ pricePerHour, durationInHours, discountPercentage 
 ReservationSummary.propTypes = {
   pricePerHour: PropTypes.number.isRequired,
   durationInHours: PropTypes.number.isRequired,
-  discountPercentage: PropTypes.number,
+  discountPercentage: PropTypes.string,
 };
 
 export default ReservationSummary;

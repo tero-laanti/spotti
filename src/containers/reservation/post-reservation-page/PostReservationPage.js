@@ -35,19 +35,19 @@ const AfterSpotPurchase = ({
   return (
     <View style={{ flex: 1, flexDirection: 'column' }}>
       <View style={{ flex: 3, justifyContent: 'center' }}>
-        <Text style={styles.mainText}>Thank you for your purchase!</Text>
+        <Text style={styles.mainText}>Kiitos ostoksestanne!</Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'space-between' }}>
         <Button
           color="red"
-          title="Back to front page"
+          title="Palaa etusivulle"
           onPress={() => navigation.replace(routes.frontPage)}
         />
         <TouchableOpacity
           style={bottomButton.container}
           onPress={() => openMapsAtCoordinate(spotCoordinates)}
         >
-          <Text style={bottomButton.text}>NAVIGATE TO SPOT</Text>
+          <Text style={bottomButton.text}>NAVIGOI SPOTTIIN</Text>
         </TouchableOpacity>
       </View>
     </View>

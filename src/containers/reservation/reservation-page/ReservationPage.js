@@ -4,7 +4,7 @@ import { View, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import routes from '../routes';
 import { bottomButton } from '../../../Theme';
 import BackButtonWithSpottiLogo from '../../lib/BackButtonWithSpottiLogo';
-import ReservationSummary from "./ReservationSummary";
+import ReservationSummary from './ReservationSummary';
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -41,26 +41,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const spot = {
-  address: 'address',
-  price_per_hour: '5e',
-  coordinates: {
-    x: '12.12',
-    y: '13.13',
-  },
-};
-
-const timeFilters = {
-  to: 'pe 12..12 klo 12',
-  from: 'pe 12.1..12. klo 13',
-};
-
 const Purchase = ({
-  // navigation: {
-  //   state: {
-  //     params: { spot, timeFilters },
-  //   },
-  // },
+  navigation: {
+    state: {
+      params: { spot, timeFilters, durationOfParkingInHours },
+    },
+  },
   navigation,
 }) => (
   <View style={styles.topContainer}>
@@ -82,11 +68,14 @@ const Purchase = ({
           Maksutapa:
           <Text style={styles.strongText}> Luottokortti</Text>
         </Text>
-        <Button onPress={() => {}} title="Change" />
+        <Button onPress={() => {}} title="Vaihda maksutapaa" />
       </View>
 
       <View style={styles.singleContainer}>
-        <ReservationSummary durationInHours={2} pricePerHour={1.5} />
+        <ReservationSummary
+          durationInHours={parseFloat(durationOfParkingInHours)}
+          pricePerHour={parseFloat(spot.price_per_hour)}
+        />
       </View>
     </View>
 
@@ -99,7 +88,7 @@ const Purchase = ({
         })
       }
     >
-      <Text style={bottomButton.text}>CONFIRM</Text>
+      <Text style={bottomButton.text}>VAHVISTA</Text>
     </TouchableOpacity>
   </View>
 );
@@ -108,19 +97,20 @@ export default Purchase;
 
 Purchase.propTypes = {
   navigation: PropTypes.shape({
-    //     state: PropTypes.shape({
-    //       params: PropTypes.shape({
-    //         spot: PropTypes.shape({
-    //           date: PropTypes.string,
-    //           price_per_hour: PropTypes.string,
-    //           chosenTime: PropTypes.string,
-    //           address: PropTypes.string,
-    //         }).isRequired,
-    //         timeFilters: PropTypes.shape({
-    //           time: PropTypes.string,
-    //           date: PropTypes.string,
-    //         }).isRequired,
-    //       }),
-    //     }),
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        spot: PropTypes.shape({
+          date: PropTypes.string,
+          price_per_hour: PropTypes.string,
+          chosenTime: PropTypes.string,
+          address: PropTypes.string,
+        }).isRequired,
+        timeFilters: PropTypes.shape({
+          time: PropTypes.string,
+          date: PropTypes.string,
+        }).isRequired,
+        durationOfParkingInHours: PropTypes.number.isRequired,
+      }),
+    }),
   }).isRequired,
 };

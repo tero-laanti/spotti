@@ -9,6 +9,7 @@ import { updateSpot } from '../../../../reducers/spotsReducer';
 
 const styles = StyleSheet.create({
   container: {
+    maxHeight: '100%',
     alignItems: 'center',
   },
   button: {
@@ -16,8 +17,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     justifyContent: 'center',
-    padding: 10,
-    margin: 10,
+    padding: 8,
+    margin: 5,
   },
 });
 
@@ -25,20 +26,19 @@ const EditAvailableTimesPage = ({
   navigation,
   navigation: {
     state: {
-      params: { spot, index },
+      params: { spot },
     },
   },
-  // eslint-disable-next-line no-shadow
-  updateSpot,
 }) => {
   const currentDateAsISOString = new Date().toISOString();
   const [activeDate, setActiveDate] = useState(currentDateAsISOString.split('T')[0]);
-  const [availableTimes, setAvailableTimes] = useState({});
-
-  useEffect(() => setAvailableTimes(R.clone(spot.availableTimes)), [spot]);
-
-  const updateAvailableTimes = updatedTimes =>
-    setAvailableTimes({ ...availableTimes, [activeDate]: updatedTimes });
+  const availableTimes = {};
+  // const [availableTimes, setAvailableTimes] = useState({});
+  //
+  // useEffect(() => setAvailableTimes(R.clone(spot.availableTimes)), [spot]);
+  //
+  // const updateAvailableTimes = updatedTimes =>
+  //   setAvailableTimes({ ...availableTimes, [activeDate]: updatedTimes });
 
   const getDatesWithAvailableTimesInMonth = (month = 7) =>
     Object.keys(availableTimes)
@@ -46,22 +46,21 @@ const EditAvailableTimesPage = ({
       .map(date => parseInt(date.split('-')[2], 10));
 
   const clearTimeIntervalOfActiveDate = () => {
-    if (!availableTimes[activeDate]) return;
-    const entries = Object.entries(availableTimes);
-    const filteredTimes = entries.reduce((acc, current) => {
-      if (current[0] !== activeDate)
-        acc[current[0]] = { start: { ...current[1].start }, end: { ...current[1].end } };
-      return acc;
-    }, {});
-    setAvailableTimes(filteredTimes);
+  //   if (!availableTimes[activeDate]) return;
+  //   const entries = Object.entries(availableTimes);
+  //   const filteredTimes = entries.reduce((acc, current) => {
+  //     if (current[0] !== activeDate)
+  //       acc[current[0]] = { start: { ...current[1].start }, end: { ...current[1].end } };
+  //     return acc;
+  //   }, {});
+  //   setAvailableTimes(filteredTimes);
   };
 
   const finishAvailableTimesEditing = () => {
-    updateSpot({ ...spot, availableTimes }, index);
     navigation.goBack();
   };
 
-  const handleCalendarDateClick = date => setActiveDate(`2019-07-${date}`);
+  const handleCalendarDateClick = date => setActiveDate(`2019-09-${date}`);
 
   return (
     <View style={styles.container}>
@@ -72,7 +71,7 @@ const EditAvailableTimesPage = ({
       />
       <TimeIntervalPicker
         timeInterval={availableTimes[activeDate] || { start: {}, end: {} }}
-        setInterval={updateAvailableTimes}
+        setInterval={/*updateAvailableTimes*/() => {}}
       />
       <TouchableOpacity onPress={clearTimeIntervalOfActiveDate}>
         <View style={styles.button}>

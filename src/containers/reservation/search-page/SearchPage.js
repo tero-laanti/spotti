@@ -7,7 +7,7 @@ import { SEARCH_COORDINATES, AUTOCOMPLETE_SUGGESTIONS } from '../../../mock-data
 import routes from '../routes';
 
 const SearchInputPage = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState('DEMO-APP. Search disabled.');
+  const [searchInput, setSearchInput] = useState('DEMO-APP. Hakutoiminto pois käytöstä.');
 
   const getAutocompleteSuggestions = () => AUTOCOMPLETE_SUGGESTIONS;
   const handleSearchInputChange = text => setSearchInput(text);

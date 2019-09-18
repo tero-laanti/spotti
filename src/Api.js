@@ -8,3 +8,5 @@ export const getNearbySpots = (longitude, latitude) =>
   axios.get(`${testApiUrl}spots/nearby?longitude=${longitude}&latitude=${latitude}`);
 
 export const getPhotosBySpotId = id => axios.get(`${testApiUrl}spots/${id}/photos`);
+
+export const getSpotsByOwnerId = id => axios.get(`${testApiUrl}users/${id}/spots`);

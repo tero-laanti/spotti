@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 const SpotInfo = ({
   navigation: {
     state: {
-      params: { spot, timeFilters },
+      params: { spot, timeFilters, durationOfParkingInHours },
     },
   },
   navigation,
@@ -88,13 +88,16 @@ const SpotInfo = ({
           {timeFilters.from} - {timeFilters.to}
         </Text>
         <Text style={{ textAlign: 'center' }}>
-          2€/h, yhteensä <Text style={styles.strongText}>10€</Text>
+          {spot.price_per_hour}€/h, yhteensä{' '}
+          <Text style={styles.strongText}>
+            {(spot.price_per_hour * durationOfParkingInHours).toFixed(2)}€
+          </Text>
         </Text>
       </View>
       <ScrollView style={styles.scrollableContainer}>
         <View style={{ paddingVertical: 10, flex: 1 }}>
           <Text style={styles.descriptionContainer}>
-            {spot.description || 'No description available.'}
+            {spot.description || 'Spotilla ei ole kuvausta.'}
           </Text>
           {photos ? (
             photos.length > 0 ? (
@@ -111,12 +114,12 @@ const SpotInfo = ({
               </View>
             ) : (
               <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-                <Text>No photos of the spot available!</Text>
+                <Text>Spotista ei ole kuvia.</Text>
               </View>
             )
           ) : (
             <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-              <Text>Loading photos</Text>
+              <Text>Ladataan kuvia</Text>
             </View>
           )}
         </View>
@@ -127,10 +130,11 @@ const SpotInfo = ({
           navigation.navigate(routes.reservation, {
             spot,
             timeFilters: { to: timeFilters.to, from: timeFilters.from },
+            durationOfParkingInHours,
           })
         }
       >
-        <Text style={bottomButton.text}>SPOT THIS</Text>
+        <Text style={bottomButton.text}>SPOTTAA</Text>
       </TouchableOpacity>
     </View>
   );
@@ -142,11 +146,12 @@ SpotInfo.propTypes = {
       params: PropTypes.shape({
         spot: PropTypes.shape({
           description: PropTypes.string.isRequired,
-          timeFilters: PropTypes.shape({
-            to: PropTypes.string.isRequired,
-            from: PropTypes.string.isRequired,
-          }),
         }).isRequired,
+        durationOfParkingInHours: PropTypes.number.isRequired,
+        timeFilters: PropTypes.shape({
+          to: PropTypes.string.isRequired,
+          from: PropTypes.string.isRequired,
+        }),
       }),
     }),
   }).isRequired,

@@ -48,6 +48,8 @@ class SpotsMapPage extends React.Component {
   showSpotInfoOfActiveSpot = () => {
     const { spots, navigation } = this.props;
     const { currentActiveIndex, ToFilterValue, FromFilterValue } = this.state;
+
+    const durationOfParkingInHours = (ToFilterValue - FromFilterValue) / 1000 / 60 / 60;
     const to = defaultDatetimeFormat(ToFilterValue);
     const from = defaultDatetimeFormat(FromFilterValue);
 
@@ -57,6 +59,7 @@ class SpotsMapPage extends React.Component {
     navigation.navigate(routes.spotInfo, {
       spot: spots[currentActiveIndex],
       timeFilters: { to: toString, from: fromString },
+      durationOfParkingInHours,
     });
   };
 

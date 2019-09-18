@@ -72,7 +72,7 @@ const EditSpotPage = ({
             onChangeText={text => setAddress(text)}
             style={styles.textInput}
           />
-          <Text style={{ textAlignVertical: 'center' }}>{`${spot.price}€/h`}</Text>
+          <Text style={{ textAlignVertical: 'center' }}>{`${spot.price_per_hour}€/h`}</Text>
         </View>
         <View style={styles.spotInfoSection}>
           <Text>Available times:</Text>
